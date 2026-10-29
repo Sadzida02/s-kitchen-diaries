@@ -2,14 +2,15 @@ import type { Metadata } from "next";
 import "@fontsource-variable/fraunces/wght.css";
 import "@fontsource-variable/fraunces/wght-italic.css";
 import "@fontsource-variable/dm-sans/index.css";
+import "@fontsource-variable/playfair-display/index.css";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import "./globals.css";
 
 export const metadata: Metadata = {
   title: {
-    default: "S Kitchen Diaries",
-    template: "%s · S Kitchen Diaries",
+    default: "Sweet & Salty Diaries",
+    template: "%s · Sweet & Salty Diaries",
   },
   description:
     "A home kitchen full of sweet and salty experiments, shared around the table with the people I love.",

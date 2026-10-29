@@ -8,23 +8,23 @@ type LogoProps = {
 export default function Logo({ variant = "compact" }: LogoProps) {
   if (variant === "stacked") {
     return (
-      <Link href="/" className={styles.stacked} aria-label="S Kitchen Diaries home">
+      <Link href="/" className={styles.stacked} aria-label="Sweet & Salty Diaries home">
         <span className={styles.badgeLarge} aria-hidden="true">
           S
         </span>
-        <span className={styles.stackedName}>S Kitchen</span>
+        <span className={styles.stackedName}>Sweet & Salty</span>
         <span className={styles.stackedSub}>DIARIES</span>
       </Link>
     );
   }
 
   return (
-    <Link href="/" className={styles.compact} aria-label="S Kitchen Diaries home">
+    <Link href="/" className={styles.compact} aria-label="Sweet & Salty Diaries home">
       <span className={styles.badge} aria-hidden="true">
         S
       </span>
       <span className={styles.name}>
-        S Kitchen <em>Diaries</em>
+        Sweet & Salty <em>Diaries</em>
       </span>
     </Link>
   );

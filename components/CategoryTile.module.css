@@ -1,4 +1,6 @@
 .tile {
+  width: 100%;
+  max-width: 364px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -15,18 +17,18 @@
 .ring {
   display: block;
   width: 100%;
-  max-width: 340px;
+  max-width: 364px;
   aspect-ratio: 1;
   border-radius: 50%;
   padding: 12px;
 }
 
 .sweet .ring {
-  background: var(--petal);
+  background: var(--lavender);
 }
 
 .salty .ring {
-  background: var(--pistachio);
+  background: var(--gold);
 }
 
 .photoWrap {
@@ -46,7 +48,7 @@
 .title {
   font-family: var(--font-heading);
   font-size: clamp(1.5rem, 3vw, 2rem);
-  color: var(--plum);
+  color: var(--ink);
   margin-top: 8px;
 }
 
@@ -54,4 +56,26 @@
   color: var(--muted);
   font-size: 0.95rem;
   max-width: 280px;
+}
+
+.tile.small {
+  max-width: 200px;
+  gap: 6px;
+}
+
+.small .ring {
+  padding: 8px;
+}
+
+.small .photoWrap {
+  border-width: 4px;
+}
+
+.small .title {
+  font-size: 1.2rem;
+  margin-top: 4px;
+}
+
+.small .line {
+  display: none;
 }

@@ -1,0 +1,77 @@
+.collage {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: var(--mat);
+}
+
+.track {
+  display: flex;
+  height: 100%;
+  transform: translateX(calc(var(--index) * -100% / var(--visible)));
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.still {
+  transition: none;
+}
+
+.cell {
+  flex: 0 0 calc(100% / var(--visible));
+  height: 100%;
+  padding: 0 3px;
+}
+
+.tile {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+  transition: transform 0.55s cubic-bezier(0.3, 0.9, 0.3, 1);
+  transition-delay: calc(var(--n) * 70ms);
+}
+
+.photo {
+  object-fit: cover;
+}
+
+/* On hover the photos lift and sink one after another, showing the dark
+   purple behind them. */
+.collage:hover .tile {
+  transform: translateY(-5%);
+}
+
+.collage:hover .cell:nth-child(even) .tile {
+  transform: translateY(5%);
+}
+
+.arrow {
+  position: absolute;
+  top: 50%;
+  z-index: 3;
+  width: 52px;
+  height: 52px;
+  margin-top: -26px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(4px);
+  color: var(--white);
+  font-size: 1.9rem;
+  line-height: 1;
+  padding-bottom: 4px;
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.arrow:hover {
+  background: rgba(255, 255, 255, 0.4);
+  transform: scale(1.08);
+}
+
+.prev {
+  left: 16px;
+}
+
+.next {
+  right: 16px;
+}

@@ -1,8 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import CategoryTile from "@/components/CategoryTile";
+import HeroCollage from "@/components/HeroCollage";
 import RecipeCard from "@/components/RecipeCard";
-import { featuredRecipes } from "@/lib/recipes";
+import { categories, featuredRecipes } from "@/lib/recipes";
 import styles from "./page.module.css";
 
 export default function HomePage() {
@@ -11,9 +12,12 @@ export default function HomePage() {
   return (
     <>
       <section className={styles.hero}>
+        <HeroCollage />
+        <div className={styles.heroShade} aria-hidden="true" />
+
         <div className={`container ${styles.heroInner}`}>
           <div className={styles.heroText}>
-            <p className="kicker">S Kitchen Diaries</p>
+            <p className="kicker">Sweet & Salty Diaries</p>
             <h1>Come to the table.</h1>
             <p className={styles.lead}>
               Bosnian roots, a Turkish spoon, an Arabic spice, and a few of my own experiments.
@@ -23,31 +27,9 @@ export default function HomePage() {
               <Link href="/#sweet-or-salty" className="btn btn-primary">
                 Come to the table
               </Link>
-              <Link href="/about" className="btn btn-outline">
+              <Link href="/about" className={`btn btn-outline ${styles.ghost}`}>
                 My story
               </Link>
-            </div>
-          </div>
-
-          <div className={styles.heroMedia}>
-            <div className={`arch ${styles.heroArch}`}>
-              <Image
-                src="/images/hero-table.jpg"
-                alt="A table set with many dishes, bowls, and cutlery, shared by family"
-                fill
-                priority
-                sizes="(max-width: 900px) 100vw, 560px"
-                className={styles.heroPhoto}
-              />
-            </div>
-            <div className={styles.heroDot}>
-              <Image
-                src="/images/sweet-dates.jpg"
-                alt="Chocolate dates with pistachio"
-                fill
-                sizes="180px"
-                className={styles.heroPhoto}
-              />
             </div>
           </div>
         </div>
@@ -77,13 +59,42 @@ export default function HomePage() {
               tone="salty"
             />
           </div>
+
+          <div className={styles.moreHead}>
+            <h3>More ways to browse</h3>
+          </div>
+          <div className={styles.moreGrid}>
+            {categories.slice(2).map((category, index) => (
+              <CategoryTile
+                key={category.slug}
+                href={`/recipes?category=${category.slug}`}
+                title={category.title}
+                line={category.line}
+                image={category.image}
+                alt={category.alt}
+                tone={index % 2 === 0 ? "sweet" : "salty"}
+                size="small"
+              />
+            ))}
+          </div>
+          <div className={styles.browseAll}>
+            <Link href="/recipes" className="btn btn-outline">
+              Browse all recipes
+            </Link>
+          </div>
         </div>
       </section>
 
       <section className={styles.quoteBand}>
         <div className={`container ${styles.quoteInner}`}>
-          <p className={styles.quote}>
-            Food tastes better when it is made with someone in mind.
+          <span className={`${styles.mark} ${styles.markOpen}`} aria-hidden="true">
+            &ldquo;
+          </span>
+          <span className={`${styles.mark} ${styles.markClose}`} aria-hidden="true">
+            &rdquo;
+          </span>
+          <p className={styles.motto}>Motto</p>
+          <p className={styles.quote}>Bringing positivity to the world thrugh delicious bites.
           </p>
         </div>
       </section>
@@ -116,11 +127,11 @@ export default function HomePage() {
             />
           </div>
           <div className={styles.aboutText}>
-            <p className="kicker">Hi, I am the one cooking</p>
-            <h2>I love cooking, I just do not do it professionally.</h2>
+            <p className="kicker">Hi, I am Sadzida</p>
+            <h2>I love cooking, in free and busy times.</h2>
             <p>
-              This is a hobby, a creative outlet, and my favourite way to make people around me happy.
-              Read my story, and the honest note I keep at the top of it.
+              This is my hobby, a creative outlet, and my favourite way to make people around me happy.
+              I am far from a professional, but someone who has an eye for tastes and pretty plates. Hope you like my ideas...
             </p>
             <div>
               <Link href="/about" className="btn btn-outline">

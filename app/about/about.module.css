@@ -22,7 +22,7 @@
 
 .introArch {
   aspect-ratio: 4 / 5;
-  background: var(--petal);
+  background: var(--lavender);
 }
 
 .photo {
@@ -31,7 +31,7 @@
 
 .disclaimer {
   max-width: 720px;
-  background: var(--lilac-soft);
+  background: var(--gold-soft);
   border-radius: 24px;
   padding: 40px 32px;
   display: flex;
@@ -46,7 +46,7 @@
 .bosnian {
   color: var(--muted);
   font-style: italic;
-  border-top: 1px solid var(--lilac);
+  border-top: 1px solid var(--gold-light);
   padding-top: 16px;
 }
 

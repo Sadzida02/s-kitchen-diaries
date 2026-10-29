@@ -7,9 +7,9 @@ export default function SiteFooter() {
       <div className={`container ${styles.inner}`}>
         <Logo />
         <p className={styles.note}>
-          Made with butter, patience, and a lot of tasting along the way.
+          Made with trials, worries, patience, and a lot of love along the way.
         </p>
-        <p className={styles.copy}>© S Kitchen Diaries</p>
+        <p className={styles.copy}>©2026 Sweet & Salty Diaries by Sadžida Valjevac</p>
       </div>
     </footer>
   );

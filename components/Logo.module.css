@@ -3,7 +3,7 @@
   align-items: center;
   gap: 10px;
   text-decoration: none;
-  color: var(--plum);
+  color: var(--ink);
 }
 
 .badge {
@@ -12,7 +12,7 @@
   width: 42px;
   height: 42px;
   border-radius: 50%;
-  background: var(--lilac);
+  background: var(--gold);
   color: var(--white);
   font-family: var(--font-heading);
   font-size: 1.5rem;
@@ -27,7 +27,7 @@
 }
 
 .name em {
-  color: var(--rose);
+  color: var(--purple);
 }
 
 .stacked {
@@ -36,7 +36,7 @@
   align-items: center;
   gap: 4px;
   text-decoration: none;
-  color: var(--plum);
+  color: var(--ink);
 }
 
 .badgeLarge {
@@ -45,7 +45,7 @@
   width: 84px;
   height: 84px;
   border-radius: 50%;
-  background: var(--lilac);
+  background: var(--gold);
   color: var(--white);
   font-family: var(--font-heading);
   font-size: 3rem;
