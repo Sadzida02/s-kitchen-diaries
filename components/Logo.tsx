@@ -10,7 +10,7 @@ export default function Logo({ variant = "compact" }: LogoProps) {
     return (
       <Link href="/" className={styles.stacked} aria-label="Sweet & Salty Diaries home">
         <span className={styles.badgeLarge} aria-hidden="true">
-          S
+          SS
         </span>
         <span className={styles.stackedName}>Sweet & Salty</span>
         <span className={styles.stackedSub}>DIARIES</span>
@@ -21,10 +21,11 @@ export default function Logo({ variant = "compact" }: LogoProps) {
   return (
     <Link href="/" className={styles.compact} aria-label="Sweet & Salty Diaries home">
       <span className={styles.badge} aria-hidden="true">
-        S
+        SS
       </span>
       <span className={styles.name}>
-        Sweet & Salty <em>Diaries</em>
+        Sweet &amp; Salty
+        <em>Diaries</em>
       </span>
     </Link>
   );

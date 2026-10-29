@@ -15,7 +15,8 @@
   background: var(--gold);
   color: var(--white);
   font-family: var(--font-heading);
-  font-size: 1.5rem;
+  font-size: 1.15rem;
+  letter-spacing: -0.04em;
   line-height: 1;
   padding-bottom: 2px;
 }
@@ -27,6 +28,7 @@
 }
 
 .name em {
+  display: block;
   color: var(--purple);
 }
 
@@ -48,7 +50,8 @@
   background: var(--gold);
   color: var(--white);
   font-family: var(--font-heading);
-  font-size: 3rem;
+  font-size: 2.3rem;
+  letter-spacing: -0.04em;
   line-height: 1;
   padding-bottom: 4px;
 }

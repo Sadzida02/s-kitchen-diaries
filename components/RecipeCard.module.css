@@ -28,9 +28,9 @@
     gap: 32px;
     padding: 16px;
     border-radius: 20px;
-    background: linear-gradient(135deg, var(--purple-deep) 0%, #3a2452 100%);
+    background: linear-gradient(135deg, #8c6f97 0%, #6f5479 100%);
     border: 2px solid var(--gold);
-    box-shadow: 0 18px 40px rgba(58, 36, 82, 0.35);
+    box-shadow: 0 16px 34px rgba(90, 64, 100, 0.28);
   }
   .large .media {
     flex: 1 1 55%;

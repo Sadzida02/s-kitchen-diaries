@@ -27,41 +27,54 @@
 
 .photo {
   object-fit: cover;
+  transform: scale(1.35);
+}
+
+.band {
+  background: var(--gold-light);
+  padding: 96px 0;
 }
 
 .disclaimer {
   max-width: 720px;
-  background: var(--gold-soft);
-  border-radius: 24px;
-  padding: 40px 32px;
   display: flex;
   flex-direction: column;
   gap: 16px;
+  text-align: center;
+  align-items: center;
 }
 
 .disclaimer p:not(.kicker) {
   line-height: 1.8;
 }
 
-.bosnian {
-  color: var(--muted);
-  font-style: italic;
-  border-top: 1px solid var(--gold-light);
-  padding-top: 16px;
+.started {
+  padding: 96px 0;
 }
 
-.story {
-  max-width: 720px;
+.startedInner {
+  display: grid;
+  gap: 40px;
+  align-items: center;
 }
 
-.storyText {
+.startedText {
   display: flex;
   flex-direction: column;
   gap: 16px;
-  text-align: left;
+  max-width: 30em;
+}
+
+.startedText p:not(.kicker) {
+  color: var(--muted);
+  line-height: 1.8;
 }
 
 @media (min-width: 900px) {
+  .startedInner {
+    grid-template-columns: 1fr 1fr;
+    gap: 72px;
+  }
   .intro {
     padding: 72px 0 40px;
   }

@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import styles from "./HeroCollage.module.css";
 
-// Add more photos here. Four show at once on wide screens (two on phones),
+// Add more photos here. Five show at once on wide screens (four on tablets, two on phones),
 // and the arrows scroll through the rest, looping forever.
 const photos = [
   { src: "/images/sweet-dates.jpg", alt: "Dark chocolate dates topped with chopped pistachios" },
@@ -23,7 +23,7 @@ const COPIES = [0, 1, 2];
 
 export default function HeroCollage() {
   const total = photos.length;
-  const [visible, setVisible] = useState(4);
+  const [visible, setVisible] = useState(5);
   // The strip holds three copies of the photos and starts in the middle one,
   // so it can keep sliding either way; after each slide it quietly jumps back
   // into the middle copy.
@@ -31,11 +31,16 @@ export default function HeroCollage() {
   const [animate, setAnimate] = useState(true);
 
   useEffect(() => {
-    const query = window.matchMedia("(min-width: 700px)");
-    const update = () => setVisible(query.matches ? 4 : 2);
+    const wide = window.matchMedia("(min-width: 1000px)");
+    const medium = window.matchMedia("(min-width: 700px)");
+    const update = () => setVisible(wide.matches ? 5 : medium.matches ? 4 : 2);
     update();
-    query.addEventListener("change", update);
-    return () => query.removeEventListener("change", update);
+    wide.addEventListener("change", update);
+    medium.addEventListener("change", update);
+    return () => {
+      wide.removeEventListener("change", update);
+      medium.removeEventListener("change", update);
+    };
   }, []);
 
   useEffect(() => {
@@ -68,13 +73,13 @@ export default function HeroCollage() {
           {COPIES.map((copy) =>
             photos.map((photo, i) => (
               <div key={`${copy}-${photo.src}`} className={styles.cell} aria-hidden={copy !== 1}>
-                <div className={styles.tile} style={{ ["--n" as string]: i % 4 }}>
+                <div className={styles.tile} style={{ ["--n" as string]: i % 5 }}>
                   <Image
                     src={photo.src}
                     alt={copy === 1 ? photo.alt : ""}
                     fill
-                    priority={copy === 1 && i < 4}
-                    sizes="(max-width: 700px) 50vw, 25vw"
+                    priority={copy === 1 && i < 5}
+                    sizes="(max-width: 700px) 50vw, 20vw"
                     className={styles.photo}
                   />
                 </div>

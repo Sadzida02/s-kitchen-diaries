@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import BookPreview from "@/components/BookPreview";
 import styles from "./about.module.css";
 
 export const metadata: Metadata = {
@@ -16,8 +17,7 @@ export default function AboutPage() {
             <p className="kicker">About me</p>
             <h1>A love for cooking, shared around the table.</h1>
             <p className={styles.lead}>
-              I like to mix things up. Bosnian recipes sit next to Turkish sweets, Arabic spices
-              meet my own strange ideas, and healthy bowls share a plate with very indulgent cakes.
+              I like to mix things up. Bosnian recipes sit next to Turkish sweets, Arabic spices, Asian cuisine and healthy bowls share a plate with very indulgent cakes.
               This is where I keep it all.
             </p>
           </div>
@@ -34,7 +34,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="section">
+      <section className={styles.band}>
         <div className={`container ${styles.disclaimer}`}>
           <p className="kicker">A quick, honest note</p>
           <h2>I am not a professional cook.</h2>
@@ -44,28 +44,21 @@ export default function AboutPage() {
             ingredients, tasting everything along the way, and making people around me happy with what
             I make.
           </p>
-          <p lang="bs" className={styles.bosnian}>
-            Nisam profesionalna kuharica i nemam formalno kuharsko obrazovanje. Kuhanje je moj hobi i
-            moj omiljeni način da se igram. Ja sam samo djevojka koja voli da eksperimentiše sa
-            namirnicama, proba sve usput i gleda kako se ljudi osmijehuju kad jedu ono što sam
-            pripremila.
-          </p>
         </div>
       </section>
 
-      <section className="section">
-        <div className={`container ${styles.story}`}>
-          <div className="section-head">
-            <p className="kicker">My story</p>
-            <h2>Why I started writing it down</h2>
-          </div>
-          <div className={styles.storyText}>
+      <section className={`section ${styles.started}`}>
+        <div className={`container ${styles.startedInner}`}>
+          <div className={styles.startedText}>
+            <p className="kicker">How it started</p>
+            <h2>A little notebook, one recipe at a time</h2>
             <p>
-              This blog started as a way to keep track of what I cooked, what worked, and what
-              went a little sideways. It turned into a diary of the table: sweet plates, savoury
-              plates, and the people who sat around them.
+              Before this blog there was a small spiral notebook, filled by hand with the dishes I
+              cook, the little drawings that go with them, and the notes I never want to forget.
             </p>
+            <p>Turn the pages and have a look.</p>
           </div>
+          <BookPreview />
         </div>
       </section>
     </>
