@@ -1,0 +1,67 @@
+.compact {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: var(--plum);
+}
+
+.badge {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--lilac);
+  color: var(--white);
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  line-height: 1;
+  padding-bottom: 2px;
+}
+
+.name {
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  line-height: 1.1;
+}
+
+.name em {
+  color: var(--rose);
+}
+
+.stacked {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  text-decoration: none;
+  color: var(--plum);
+}
+
+.badgeLarge {
+  display: grid;
+  place-items: center;
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  background: var(--lilac);
+  color: var(--white);
+  font-family: var(--font-heading);
+  font-size: 3rem;
+  line-height: 1;
+  padding-bottom: 4px;
+}
+
+.stackedName {
+  font-family: var(--font-heading);
+  font-style: italic;
+  font-size: 1.5rem;
+  margin-top: 6px;
+}
+
+.stackedSub {
+  font-size: 0.75rem;
+  letter-spacing: 0.35em;
+  color: var(--muted);
+}

@@ -1,0 +1,57 @@
+.tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  text-align: center;
+  transition: transform 0.25s ease;
+}
+
+.tile:hover {
+  transform: translateY(-4px);
+}
+
+.ring {
+  display: block;
+  width: 100%;
+  max-width: 340px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  padding: 12px;
+}
+
+.sweet .ring {
+  background: var(--petal);
+}
+
+.salty .ring {
+  background: var(--pistachio);
+}
+
+.photoWrap {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 6px solid var(--white);
+}
+
+.photo {
+  object-fit: cover;
+}
+
+.title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  color: var(--plum);
+  margin-top: 8px;
+}
+
+.line {
+  color: var(--muted);
+  font-size: 0.95rem;
+  max-width: 280px;
+}

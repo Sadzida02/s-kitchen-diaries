@@ -1,0 +1,42 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(251, 244, 241, 0.92);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--lilac-soft);
+}
+
+.inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 72px;
+}
+
+.nav {
+  display: flex;
+  gap: 18px;
+  font-size: 0.95rem;
+}
+
+.nav a {
+  white-space: nowrap;
+  text-decoration: none;
+  padding: 6px 2px;
+  border-bottom: 1.5px solid transparent;
+}
+
+.nav a:hover {
+  border-bottom-color: var(--rose);
+}
+
+@media (max-width: 560px) {
+  .nav a:first-child {
+    display: none;
+  }
+  .nav {
+    gap: 14px;
+  }
+}

@@ -1,0 +1,82 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  background: var(--white);
+  border-radius: 12px;
+  padding: 12px 12px 20px;
+  box-shadow: 0 1px 0 var(--lilac-soft);
+  transition: transform 0.25s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+}
+
+.media {
+  aspect-ratio: 4 / 5;
+}
+
+.large .media {
+  aspect-ratio: 4 / 5;
+}
+
+@media (min-width: 700px) {
+  .large {
+    flex-direction: row;
+    align-items: center;
+    gap: 28px;
+    padding: 16px 16px 16px 16px;
+  }
+  .large .media {
+    flex: 1 1 55%;
+    aspect-ratio: 4 / 4.2;
+  }
+  .large .body {
+    flex: 1 1 45%;
+    padding: 0 20px 0 0;
+    gap: 12px;
+  }
+  .large h3 {
+    font-size: 1.9rem;
+  }
+}
+
+.photo {
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.card:hover .photo {
+  transform: scale(1.04);
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 0 8px;
+}
+
+.tag {
+  align-self: flex-start;
+  font-size: 0.78rem;
+  font-weight: 500;
+  padding: 3px 12px;
+  border-radius: var(--radius-pill);
+}
+
+.sweet {
+  background: var(--petal);
+  color: var(--rose-deep);
+}
+
+.salty {
+  background: var(--pistachio);
+  color: var(--pistachio-deep);
+}
+
+.note {
+  color: var(--muted);
+  font-size: 0.95rem;
+}
