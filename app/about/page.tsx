@@ -8,6 +8,45 @@ export const metadata: Metadata = {
   description: "Why this kitchen exists, and an honest note about what I am and am not.",
 };
 
+type Source = {
+  name: string;
+  platform: "Instagram" | "YouTube";
+  // Paste the page's link here to make the card clickable.
+  href?: string;
+};
+
+const people = [
+  { name: "My mom", line: "Recipes from home that I keep coming back to." },
+  { name: "My aunt", line: "Family dishes I love to recreate in my own way." },
+  { name: "My cousin", line: "Always something good to try and cook together." },
+  { name: "My friends", line: "The ones who share the same passion for the kitchen." },
+];
+
+const sources: Source[] = [
+  { name: "delicious by arduana", platform: "Instagram" },
+  { name: "ulusalrarasi-mutfagi", platform: "Instagram" },
+  { name: "minicakes", platform: "Instagram" },
+  { name: "traceoats", platform: "Instagram" },
+  { name: "tinamakan", platform: "Instagram" },
+  { name: "golden balance", platform: "Instagram" },
+  { name: "kuhaj i peci", platform: "YouTube" },
+];
+
+function PlatformIcon({ platform }: { platform: Source["platform"] }) {
+  return platform === "Instagram" ? (
+    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
+      <rect x="3.5" y="3.5" width="17" height="17" rx="5" />
+      <circle cx="12" cy="12" r="4" />
+      <circle cx="17.2" cy="6.8" r="0.9" fill="currentColor" stroke="none" />
+    </svg>
+  ) : (
+    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
+      <rect x="2.5" y="5.5" width="19" height="13" rx="4" />
+      <path d="M10 9.5v5l4.5-2.5z" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
+
 export default function AboutPage() {
   return (
     <>
@@ -53,12 +92,72 @@ export default function AboutPage() {
             <p className="kicker">How it started</p>
             <h2>A little notebook, one recipe at a time</h2>
             <p>
-              Before this blog there was a small spiral notebook, filled by hand with the dishes I
-              cook, the little drawings that go with them, and the notes I never want to forget.
-            </p>
-            <p>Turn the pages and have a look.</p>
+              Before this blog, it all started with a small spiral notebook, filled by hand with all the tried and best dishes that I kept on repeat. These og recipes are the ones I always go back to.
+              <br /> <br />
+              You have a chance to take a glance in that precious treasure of mine. 
+            </p>              
           </div>
           <BookPreview />
+        </div>
+      </section>
+
+      <section className={`section ${styles.inspired}`}>
+        <div className="container">
+          <div className="section-head">
+            <p className="kicker">Inspired by</p>
+            <h2>Where my ideas come from</h2>
+            <p>
+              The people and pages I learn from, experiment with, and recreate recipes from.
+            </p>
+          </div>
+
+          <h3 className={styles.groupTitle}>At the table with me</h3>
+          <div className={styles.peopleGrid}>
+            {people.map((person, index) => (
+              <div key={person.name} className={styles.personCard}>
+                <span className={`${styles.badge} ${index % 2 ? styles.badgeGold : ""}`} aria-hidden="true">
+                  {person.name.replace("My ", "").charAt(0).toUpperCase()}
+                </span>
+                <h4>{person.name}</h4>
+                <p>{person.line}</p>
+              </div>
+            ))}
+          </div>
+
+          <h3 className={styles.groupTitle}>Pages I love to learn from</h3>
+          <div className={styles.sourceGrid}>
+            {sources.map((source, index) => {
+              const inner = (
+                <>
+                  <span className={`${styles.badge} ${index % 2 ? "" : styles.badgeGold}`} aria-hidden="true">
+                    {source.name.charAt(0).toUpperCase()}
+                  </span>
+                  <span className={styles.sourceText}>
+                    <span className={styles.sourceName}>{source.name}</span>
+                    <span className={styles.platform}>
+                      <PlatformIcon platform={source.platform} />
+                      {source.platform}
+                    </span>
+                  </span>
+                </>
+              );
+              return source.href ? (
+                <a
+                  key={source.name}
+                  href={source.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`${styles.sourceCard} ${styles.link}`}
+                >
+                  {inner}
+                </a>
+              ) : (
+                <div key={source.name} className={styles.sourceCard}>
+                  {inner}
+                </div>
+              );
+            })}
+          </div>
         </div>
       </section>
     </>

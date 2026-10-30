@@ -1,7 +1,8 @@
 .footer {
+  position: relative;
+  overflow: hidden;
   margin-top: 64px;
   background: var(--gold-soft);
-  padding: 40px 0;
 }
 
 .inner {
