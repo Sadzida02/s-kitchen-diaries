@@ -10,7 +10,7 @@ export default function Logo({ variant = "compact" }: LogoProps) {
   if (variant === "stacked") {
     return (
       <Link href="/" className={styles.stacked} aria-label="Sweet & Salty Diaries home">
-        <Image src="/images/chef/chef-head.webp" alt="" width={84} height={84} className={styles.headLarge} />
+        <Image src="/images/chef/chef-head.png" alt="" width={84} height={84} className={styles.headLarge} />
         <span className={styles.stackedName}>Sweet &amp; Salty</span>
         <span className={styles.stackedSub}>DIARIES</span>
       </Link>

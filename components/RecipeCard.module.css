@@ -50,7 +50,7 @@
   padding: 5px 14px;
   border-radius: var(--radius-pill);
   font-size: 0.82rem;
-  font-weight: 600;
+  font-weight: 400;
   letter-spacing: 0.02em;
   box-shadow: 0 4px 12px rgba(61, 44, 30, 0.3);
 }
@@ -135,4 +135,43 @@
 
 .champion.minimal h3 {
   font-size: 1.4rem;
+}
+
+/* capsule version: the photo is a pill with a round white border and the name
+   sits below it, on the page background */
+.capsule,
+.capsule.champion {
+  gap: 14px;
+  padding: 0;
+  background: none;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.capsule .media,
+.capsule.champion .media {
+  border: 8px solid var(--white);
+  border-radius: 999px;
+  box-shadow: 0 12px 26px rgba(61, 44, 30, 0.2);
+}
+
+.capsule.champion .media {
+  border-width: 10px;
+  border-color: #8c6f97;
+}
+
+.capsule .badge {
+  left: 50%;
+  top: 18px;
+  transform: translateX(-50%);
+  white-space: nowrap;
+}
+
+.capsule .body {
+  padding: 0;
+}
+
+.capsule h3,
+.capsule.champion h3 {
+  color: var(--ink);
 }

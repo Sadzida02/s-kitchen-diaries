@@ -48,6 +48,7 @@ export default function Podium({ recipes }: { recipes: Recipe[] }) {
                 recipe={recipe}
                 size={index === 0 ? "champion" : "regular"}
                 minimal
+                capsule
                 badge={{ label: place.label, tone: place.tone }}
               />
             </div>

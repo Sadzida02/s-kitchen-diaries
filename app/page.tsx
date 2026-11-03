@@ -1,7 +1,6 @@
 import Link from "next/link";
 import CategoryRing from "@/components/CategoryRing";
 import DishViewer from "@/components/DishViewer";
-import HeroCollage from "@/components/HeroCollage";
 import RecipeCard from "@/components/RecipeCard";
 import Podium from "@/components/Podium";
 import TypedQuote from "@/components/TypedQuote";
@@ -27,29 +26,27 @@ export default function HomePage() {
   return (
     <>
       <section id="home" className={styles.hero}>
-        <HeroCollage>
-        <div className={styles.heroText}>
-          <p className="kicker">Sweet & Salty Diaries</p>
-          <h1>Come to get inspired.</h1>
-          <p className={styles.lead}>
-            Lots of experimenting, inventing and playing with ingredients in my kitchen.
-            Sweet, salty, light, and  indulgent, all made to be shared...
-          </p>
-          <div className={styles.actions}>
-            <Link href="/#sweet-or-salty" className="btn btn-primary">
-              Come to the table
-            </Link>
-            <Link href="/about" className={`btn btn-outline ${styles.ghost}`}>
-              My story
-            </Link>
+        <div className={`container ${styles.heroGrid}`}>
+          <div id="sweet-or-salty" className={styles.heroRing}>
+            <CategoryRing />
           </div>
-        </div>
-        </HeroCollage>
-      </section>
 
-      <section id="sweet-or-salty" className={`section ${styles.categories}`}>
-        <div className="container">
-          <CategoryRing />
+          <div className={styles.heroText}>
+            <p className="kicker">Hi, I am Sadzida </p>
+            <h1>and I Love Cooking.</h1>
+            <p className={styles.lead}>
+              Lots of experimenting, inventing and playing with ingredients in my kitchen.
+              Sweet, salty, light, and  indulgent, all made to be shared...
+            </p>
+            <div className={styles.actions}>
+              <Link href="/recipes" className="btn btn-outline">
+                Browse all recipes
+              </Link>
+              <Link href="/about" className={`btn btn-outline ${styles.ghost}`}>
+                My story
+              </Link>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -64,7 +61,7 @@ export default function HomePage() {
           <p className={styles.motto}>Motivation</p>
           <TypedQuote
             className={styles.quote}
-            text="Bringing positivity to the world thrugh delicious bites."
+            text="Bringing positivity to the world through delicious bites."
           />
         </div>
       </section>

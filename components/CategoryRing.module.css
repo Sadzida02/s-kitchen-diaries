@@ -1,7 +1,7 @@
 .stage {
-  --size: min(calc(100vw - 72px), 860px);
-  --d: calc(var(--size) * 0.225);
-  --radius: calc(var(--size) * 0.35);
+  --size: var(--ring-size, min(calc(100vw - 72px), 860px));
+  --d: calc(var(--size) * 0.25);
+  --radius: calc(var(--size) * 0.375);
   position: relative;
   width: var(--size);
   height: calc(var(--size) + 40px);
@@ -12,13 +12,19 @@
   position: absolute;
   left: 50%;
   top: calc(var(--size) / 2);
-  width: calc(var(--size) * 0.4);
+  width: calc(var(--size) * 0.34);
   transform: translate(-50%, -50%);
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 10px;
   text-align: center;
+}
+
+.centre h2 {
+  font-size: calc(var(--size) * 0.052);
+  font-weight: 700;
+  line-height: 1.1;
 }
 
 .centre p {
@@ -58,7 +64,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 6px;
   text-decoration: none;
   text-align: center;
   transform: rotate(calc(var(--angle) * -1));
@@ -103,11 +108,30 @@
   object-fit: cover;
 }
 
-.title {
+/* square box holding the photo and the curved name around it */
+.badge {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+}
+
+.label {
+  position: absolute;
+  left: -20%;
+  top: -20%;
+  width: 140%;
+  height: 140%;
+  overflow: visible;
+  pointer-events: none;
   font-family: var(--font-heading);
-  font-size: 1.05rem;
-  color: var(--ink);
-  line-height: 1.2;
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  fill: var(--ink);
+  stroke: var(--white);
+  stroke-width: 2.4px;
+  paint-order: stroke;
 }
 
 @keyframes orbit {
@@ -137,12 +161,15 @@
     transform: none;
     margin-bottom: 28px;
   }
+  .centre h2 {
+    font-size: 1.9rem;
+  }
   .ring {
     position: static;
     animation: none;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 20px 10px;
+    gap: 36px 10px;
     padding: 0 8px;
   }
   .slot {
@@ -162,8 +189,5 @@
   }
   .photoWrap {
     border-width: 3px;
-  }
-  .title {
-    font-size: 0.9rem;
   }
 }

@@ -7,6 +7,8 @@ type RecipeCardProps = {
   size?: "regular" | "champion";
   // only the photo, the name and the badge
   minimal?: boolean;
+  // pill-shaped photo
+  capsule?: boolean;
   badge?: { label: string; tone?: "gold" | "silver" | "bronze" | "plain" | "new" };
 };
 
@@ -15,9 +17,9 @@ const categoryLabel = {
   salty: "Salty",
 } as const;
 
-export default function RecipeCard({ recipe, size = "regular", minimal = false, badge }: RecipeCardProps) {
+export default function RecipeCard({ recipe, size = "regular", minimal = false, capsule = false, badge }: RecipeCardProps) {
   return (
-    <article className={`${styles.card} ${size === "champion" ? styles.champion : ""} ${minimal ? styles.minimal : ""}`}>
+    <article className={`${styles.card} ${size === "champion" ? styles.champion : ""} ${minimal ? styles.minimal : ""} ${capsule ? styles.capsule : ""}`}>
       <div className={`arch ${styles.media}`}>
         <Image
           src={recipe.image}

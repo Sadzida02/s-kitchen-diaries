@@ -13,9 +13,6 @@ export default function CategoryRing() {
       <div className={styles.centre}>
         <h2>Sweet or salty?</h2>
         <p>Pick a circle and see what is cooking.</p>
-        <Link href="/recipes" className="btn btn-outline">
-          Browse all recipes
-        </Link>
       </div>
 
       <div className={styles.ring}>
@@ -27,20 +24,33 @@ export default function CategoryRing() {
           >
             <Link
               href={`/recipes?category=${category.slug}`}
+              aria-label={category.title}
               className={`${styles.tile} ${index % 2 ? styles.gold : styles.lilac}`}
             >
-              <span className={styles.circle}>
-                <span className={styles.photoWrap}>
-                  <Image
-                    src={category.image}
-                    alt={category.alt}
-                    fill
-                    sizes="170px"
-                    className={styles.photo}
-                  />
+              <span className={styles.badge}>
+                <span className={styles.circle}>
+                  <span className={styles.photoWrap}>
+                    <Image
+                      src={category.image}
+                      alt={category.alt}
+                      fill
+                      sizes="200px"
+                      className={styles.photo}
+                    />
+                  </span>
                 </span>
+                {/* the name curves around the bottom of the photo */}
+                <svg className={styles.label} viewBox="0 0 140 140" aria-hidden="true">
+                  <defs>
+                    <path id={`arc-${category.slug}`} d="M 9 70 A 61 61 0 0 0 131 70" />
+                  </defs>
+                  <text>
+                    <textPath href={`#arc-${category.slug}`} startOffset="50%" textAnchor="middle">
+                      {category.title}
+                    </textPath>
+                  </text>
+                </svg>
               </span>
-              <span className={styles.title}>{category.title}</span>
             </Link>
           </div>
         ))}
