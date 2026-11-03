@@ -15,7 +15,7 @@
 
 .note {
   color: var(--muted);
-  font-family: var(--font-heading);
+  font-family: var(--font-accent);
   font-style: italic;
   font-size: 1.1rem;
 }
@@ -23,4 +23,18 @@
 .copy {
   font-size: 0.85rem;
   color: var(--muted);
+}
+
+/* a strip of kitchen tools sitting on the bottom edge, in the footer's brown */
+.footer::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 200px;
+  background: url("/images/doodles/tools-brown.webp") repeat-x center bottom;
+  background-size: auto 100%;
+  opacity: 0.22;
+  pointer-events: none;
 }

@@ -4,9 +4,12 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import styles from "./BookPreview.module.css";
 
-// Pages of the handwritten recipe book, in the order they turn. After the last
-// page the book starts again from the first one.
-const pages = [
+// Pages of the handwritten recipe book, in the order they turn: the cover
+// first, then the recipes. After the last page the book starts again.
+type BookPage = { src?: string; title: string; cover?: boolean };
+
+const pages: BookPage[] = [
+  { title: "Sadžida's OG Trusted Recipe Collection", cover: true },
   { src: "/images/book/page-02.jpg", title: "Orange cake" },
   { src: "/images/book/page-03.jpg", title: "Mamin rolat sa jabukama" },
   { src: "/images/book/page-04.jpg", title: "Tetkine štrudle s bestiljem" },
@@ -141,7 +144,7 @@ export default function BookPreview() {
           const cast = d === 1 ? lift * 0.75 : 0;
           return (
             <div
-              key={page.src}
+              key={page.src ?? "cover"}
               className={styles.page}
               style={{
                 zIndex: COUNT - d,
@@ -151,14 +154,36 @@ export default function BookPreview() {
               }}
             >
               <div className={styles.front}>
-                <Image
-                  src={page.src}
-                  alt={`Handwritten recipe page: ${page.title}`}
-                  fill
-                  draggable={false}
-                  sizes="(max-width: 700px) 88vw, 460px"
-                  className={styles.photo}
-                />
+                {page.cover || !page.src ? (
+                  <div className={styles.cover}>
+                    <span className={styles.rings} aria-hidden="true">
+                      {Array.from({ length: 8 }, (_, ring) => (
+                        <i key={ring} />
+                      ))}
+                    </span>
+                    {["b1", "b2", "b3", "b4", "b5", "b6"].map((bubble) => (
+                      <span key={bubble} className={`${styles.bubble} ${styles[bubble]}`} aria-hidden="true" />
+                    ))}
+                    <div className={styles.coverBody}>
+                      <p className={styles.coverName}>Sadžida&rsquo;s</p>
+                      <p className={styles.coverBadge}>OG Trusted</p>
+                      <p className={styles.coverTitle}>
+                        Recipe
+                        <br />
+                        Collection
+                      </p>
+                    </div>
+                  </div>
+                ) : (
+                  <Image
+                    src={page.src}
+                    alt={`Handwritten recipe page: ${page.title}`}
+                    fill
+                    draggable={false}
+                    sizes="(max-width: 700px) 70vw, 360px"
+                    className={styles.photo}
+                  />
+                )}
                 <span className={styles.cast} style={{ opacity: cast }} />
                 <span className={styles.sheen} style={{ opacity: lift * 0.9 }} />
               </div>
@@ -170,7 +195,7 @@ export default function BookPreview() {
 
       <p className={styles.caption}>
         <span className={styles.count}>
-          {shown + 1} / {COUNT}
+          {shown === 0 ? "Cover" : `${shown} / ${COUNT - 1}`}
         </span>
         {pages[shown].title}
       </p>

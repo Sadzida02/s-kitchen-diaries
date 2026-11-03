@@ -13,10 +13,14 @@
   --mat: #fbf8fd;
 
  
-  --font-body: "DM Sans Variable", system-ui, sans-serif;
-  --font-heading: "Playfair Display Variable", Georgia, serif;
+  --font-body: "Sniglet", "Nunito Variable", system-ui, sans-serif;
+  --font-bubble: "Fredoka Variable", "Trebuchet MS", system-ui, sans-serif;
+  /* Fredoka for headings, Sniglet for text, Schoolbell for the handwritten
+     touches. Swap these lines to try other fonts. */
+  --font-heading: "Fredoka Variable", "Trebuchet MS", system-ui, sans-serif;
+  --font-accent: "Schoolbell", "Comic Sans MS", "Nunito Variable", cursive;
 
-  --header-h: 79px;
+  --header-h: 96px;
   --radius: 8px;
   --radius-pill: 999px;
   --gutter: 16px;
@@ -30,6 +34,8 @@
 
 html {
   scroll-behavior: smooth;
+  /* 18px base: all text that is sized in rem grows with it */
+  font-size: 112.5%;
 }
 
 body {
@@ -37,32 +43,36 @@ body {
   background: var(--cream);
   color: var(--ink);
   font-family: var(--font-body);
-  font-size: 16px;
+  position: relative;
+  isolation: isolate;
+  font-size: 1rem;
   font-weight: 400;
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
+  /* the round fonts have no italic: allow a synthetic bold, never a fake slant */
+  font-synthesis: weight;
 }
 
 h1,
 h2,
 h3 {
   font-family: var(--font-heading);
-  font-weight: 500;
+  font-weight: 400;
   line-height: 1.15;
   margin: 0;
   color: var(--ink);
 }
 
 h1 {
-  font-size: clamp(2.4rem, 5.5vw, 3.9rem);
+  font-size: clamp(2.7rem, 6vw, 4.3rem);
 }
 
 h2 {
-  font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+  font-size: clamp(2.1rem, 4.2vw, 3rem);
 }
 
 h3 {
-  font-size: 1.35rem;
+  font-size: 1.55rem;
 }
 
 p {
@@ -102,10 +112,9 @@ img {
 }
 
 .kicker {
-  font-family: var(--font-heading);
-  font-style: italic;
+  font-family: var(--font-accent);
   color: var(--purple);
-  font-size: 1.05rem;
+  font-size: 1.3rem;
 }
 
 .btn {
@@ -179,4 +188,18 @@ img {
     transition: none !important;
     animation: none !important;
   }
+}
+
+/* Very light purple bread doodles over the whole lilac page background.
+   Sections that have their own solid colour (the gold band, the quote band,
+   the footer) simply cover it. */
+body::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: url("/images/doodles/bread-purple.webp") repeat;
+  background-size: 728px;
+  opacity: 0.1;
+  pointer-events: none;
 }

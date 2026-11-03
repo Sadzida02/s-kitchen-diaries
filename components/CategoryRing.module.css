@@ -1,7 +1,7 @@
 .stage {
   --size: min(calc(100vw - 72px), 860px);
-  --d: calc(var(--size) * 0.19);
-  --radius: calc(var(--size) * 0.36);
+  --d: calc(var(--size) * 0.225);
+  --radius: calc(var(--size) * 0.35);
   position: relative;
   width: var(--size);
   height: calc(var(--size) + 40px);

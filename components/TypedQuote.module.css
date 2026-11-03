@@ -1,0 +1,56 @@
+.word {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+.shown {
+  visibility: visible;
+}
+
+/* the blinking cursor sits in front of the next letter to be typed */
+.caret {
+  position: relative;
+  display: inline-block;
+  width: 0;
+  height: 1em;
+  vertical-align: text-bottom;
+}
+
+.caret::after,
+.endCaret::after {
+  content: "";
+  position: absolute;
+  left: 1px;
+  top: 0.1em;
+  width: 2px;
+  height: 1em;
+  background: currentColor;
+  animation: blink 0.9s steps(1) infinite;
+}
+
+.endCaret {
+  position: relative;
+  display: inline-block;
+  width: 0;
+  animation: fade 2.5s ease forwards;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes fade {
+  0%,
+  70% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}

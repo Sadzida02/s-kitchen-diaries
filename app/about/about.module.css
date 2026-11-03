@@ -2,32 +2,10 @@
   padding: 40px 0 24px;
 }
 
-.introInner {
-  display: grid;
-  gap: 32px;
-  align-items: center;
-}
-
-.introText {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
 .lead {
   font-size: 1.1rem;
   color: var(--muted);
   max-width: 34em;
-}
-
-.introArch {
-  aspect-ratio: 4 / 5;
-  background: var(--lavender);
-}
-
-.photo {
-  object-fit: cover;
-  transform: scale(1.35);
 }
 
 .band {
@@ -42,6 +20,11 @@
   gap: 16px;
   text-align: center;
   align-items: center;
+}
+
+.strong {
+  font-weight: 700;
+  color: #2b1c10;
 }
 
 .disclaimer p:not(.kicker) {
@@ -80,39 +63,53 @@
   margin: 8px 0 24px;
 }
 
-.peopleGrid {
-  display: grid;
-  gap: 20px;
-  grid-template-columns: repeat(2, 1fr);
-  margin-bottom: 64px;
-}
-
-.personCard {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  gap: 8px;
-  padding: 28px 20px;
-  border-radius: 24px;
-  background: var(--white);
-  box-shadow: 0 8px 24px rgba(61, 44, 30, 0.1);
-}
-
-.personCard h4 {
+/* the note about who the ideas come from, beside the notebook */
+.peopleSide {
+  max-width: 30em;
+  text-align: left;
   font-family: var(--font-heading);
-  font-weight: 500;
-  font-size: 1.25rem;
-  margin: 4px 0 0;
+  font-size: clamp(1.05rem, 1.6vw, 1.25rem);
+  line-height: 1.8;
+  color: var(--ink);
 }
 
-.personCard p {
-  color: var(--muted);
-  font-size: 0.95rem;
-  line-height: 1.6;
+.peopleSide em {
+  display: inline-block;
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(2rem, 3.4vw, 2.7rem);
+  line-height: 1.1;
+  margin: 0 0.08em;
+}
+
+/* the four people words, a little bigger than the text around them */
+.mom,
+.aunt,
+.cousin,
+.friends {
+  font-size: 1.4em;
+  line-height: 1.2;
+}
+
+.mom {
+  color: var(--purple);
+}
+
+.aunt {
+  color: #b9743a;
+}
+
+.cousin {
+  color: var(--purple-deep);
+}
+
+.friends {
+  color: #c08a2f;
 }
 
 .badge {
+  position: relative;
+  overflow: hidden;
   display: grid;
   place-items: center;
   flex: none;
@@ -192,13 +189,33 @@
 @media (min-width: 900px) {
   .startedInner {
     grid-template-columns: 1fr 1fr;
-    gap: 72px;
+    gap: 56px 72px;
+  }
+  .peopleSide {
+    grid-column: 1 / -1;
+    max-width: 880px;
+    margin: 0 auto;
+    text-align: center;
   }
   .intro {
     padding: 72px 0 40px;
   }
-  .introInner {
-    grid-template-columns: 1fr 1fr;
-    gap: 72px;
+}
+
+/* wide screens: text, notebook, and the note about my people side by side */
+@media (min-width: 1180px) {
+  .startedInner {
+    grid-template-columns: 1fr auto 1fr;
+    gap: 56px;
   }
+  .peopleSide {
+    grid-column: auto;
+    max-width: 30em;
+    margin: 0;
+    text-align: left;
+  }
+}
+
+.badgePhoto {
+  object-fit: cover;
 }

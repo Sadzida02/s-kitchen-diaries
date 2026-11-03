@@ -21,6 +21,8 @@ export type Recipe = {
   alt: string;
   note: string;
   featured?: boolean;
+  // ISO date the recipe went online; the newest ones feed "Latest additions".
+  added?: string;
 };
 
 // Draft copy: edit the notes and titles freely. The `tags` are my best guess
@@ -143,6 +145,7 @@ export const recipes: Recipe[] = [
     slug: "grilled-meat-platter",
     title: "Grilled meat platter",
     category: "salty",
+    added: "2026-10-15",
     tags: ["lunch", "bosnian", "traditional"],
     image: "/images/salty-grilled-meat.jpg",
     alt: "A platter of grilled meat, roasted vegetables, and salads",
@@ -152,6 +155,7 @@ export const recipes: Recipe[] = [
     slug: "steak-plate",
     title: "Steak plate",
     category: "salty",
+    added: "2026-10-20",
     tags: ["lunch"],
     image: "/images/salty-steak.jpg",
     alt: "Seared steak on a white plate with golden rice and a fork and knife",
@@ -170,6 +174,7 @@ export const recipes: Recipe[] = [
     slug: "kiflice-in-tepsija",
     title: "Kiflice in tepsija",
     category: "salty",
+    added: "2026-10-28",
     tags: ["breakfast", "bosnian", "traditional"],
     image: "/images/salty-kiflice-tepsija.jpg",
     alt: "A tray of baked kiflice topped with sesame seeds",
@@ -179,6 +184,7 @@ export const recipes: Recipe[] = [
     slug: "iftar-table",
     title: "Iftar table",
     category: "salty",
+    added: "2026-10-24",
     tags: ["bosnian", "traditional"],
     image: "/images/salty-iftar.jpg",
     alt: "A colourful iftar table with dishes, bread, and drinks",
@@ -199,7 +205,6 @@ export const categories: CategoryInfo[] = [
   { slug: "sweet", title: "Sweet", line: "Something sweet for the end of the table.", image: "/images/sweet-cinnamon-rolls.jpg", alt: "A tray of cinnamon rolls with white icing" },
   { slug: "salty", title: "Savory", line: "Something savoury for the middle of it.", image: "/images/salty-pizza.jpg", alt: "Homemade pizza with fresh toppings" },
   { slug: "traditional", title: "Traditional", line: "Dishes from home and from the old recipe notebook.", image: "/images/salty-kiflice-tepsija.jpg", alt: "A tray of baked kiflice" },
-  { slug: "lunch", title: "Lunch", line: "Plates worth sitting down for.", image: "/images/salty-steak.jpg", alt: "Seared steak with golden rice" },
   { slug: "healthy", title: "Healthy", line: "Fresh, light, and colourful.", image: "/images/sweet-strawberry-glass.jpg", alt: "Strawberry dessert in glasses with tulips" },
   { slug: "desserts", title: "Desserts", line: "Cakes, creams, and every little sweet bite.", image: "/images/sweet-mini-pavlova.jpg", alt: "Mini pavlovas topped with cream and berries" },
   { slug: "turkish", title: "Turkish", line: "A Turkish spoon in my kitchen.", image: "/images/sweet-halva.jpg", alt: "Halva in a small dish" },
@@ -215,3 +220,8 @@ export function recipesFor(slug: string | undefined): Recipe[] {
 }
 
 export const featuredRecipes = recipes.filter((recipe) => recipe.featured);
+
+export const latestRecipes = recipes
+  .filter((recipe) => recipe.added)
+  .sort((a, b) => (b.added ?? "").localeCompare(a.added ?? ""))
+  .slice(0, 4);

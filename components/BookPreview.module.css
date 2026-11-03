@@ -7,7 +7,7 @@
 
 .book {
   position: relative;
-  width: min(86vw, 440px);
+  width: min(70vw, 352px);
   aspect-ratio: 0.63;
   perspective: 1700px;
   perspective-origin: 50% 0%;
@@ -79,7 +79,7 @@
   display: flex;
   align-items: baseline;
   gap: 12px;
-  font-family: var(--font-heading);
+  font-family: var(--font-accent);
   font-size: 1.15rem;
   text-align: center;
 }
@@ -100,4 +100,122 @@
   font-size: 0.85rem;
   line-height: 1.5;
   text-align: center;
+}
+
+/* the cover: flat brown with bubbly round lettering and floating bubbles */
+.cover {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: #8a5a2b;
+}
+
+.rings {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 24px 0;
+}
+
+.rings i {
+  width: 10px;
+  height: 26px;
+  border-radius: 6px;
+  background: #f6f2ec;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.35);
+}
+
+.bubble {
+  position: absolute;
+  border-radius: 50%;
+}
+
+.b1 {
+  width: 110px;
+  height: 110px;
+  left: -34px;
+  bottom: 70px;
+  background: #a8703a;
+}
+.b2 {
+  width: 70px;
+  height: 70px;
+  right: -14px;
+  top: 90px;
+  background: #d9a45a;
+  opacity: 0.55;
+}
+.b3 {
+  width: 150px;
+  height: 150px;
+  right: -50px;
+  bottom: -40px;
+  background: #6e4520;
+}
+.b4 {
+  width: 26px;
+  height: 26px;
+  left: 30px;
+  top: 100px;
+  background: #f0d6a2;
+  opacity: 0.6;
+}
+.b5 {
+  width: 18px;
+  height: 18px;
+  right: 60px;
+  bottom: 120px;
+  background: #f0d6a2;
+  opacity: 0.55;
+}
+.b6 {
+  width: 40px;
+  height: 40px;
+  left: 70px;
+  bottom: 34px;
+  background: #d9a45a;
+  opacity: 0.5;
+}
+
+.coverBody {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 0 16px 24px;
+  text-align: center;
+  color: var(--white);
+  font-family: var(--font-bubble);
+}
+
+.coverName {
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 1;
+  transform: rotate(-3deg);
+  text-shadow: 3px 3px 0 #5e3a1c;
+}
+
+.coverBadge {
+  padding: 6px 22px;
+  border-radius: var(--radius-pill);
+  background: #5e3a1c;
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  transform: rotate(2deg);
+}
+
+.coverTitle {
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.05;
+  text-shadow: 3px 3px 0 #5e3a1c;
 }

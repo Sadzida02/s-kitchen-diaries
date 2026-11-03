@@ -1,0 +1,142 @@
+.podium {
+  display: grid;
+  gap: 24px;
+  grid-template-columns: 1fr;
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+}
+
+/* the numbered steps only appear when the cards stand side by side */
+.step {
+  display: none;
+}
+
+/* each card fades up, the winner last */
+.card {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.7s ease var(--delay), transform 0.9s cubic-bezier(0.2, 0.9, 0.25, 1) var(--delay);
+}
+
+.seen .card {
+  opacity: 1;
+  transform: none;
+}
+
+.place1 {
+  --h: 150px;
+  --delay: 0.9s;
+}
+.place2 {
+  --h: 108px;
+  --delay: 0.6s;
+}
+.place3 {
+  --h: 76px;
+  --delay: 0.35s;
+}
+.place4 {
+  --h: 50px;
+  --delay: 0.15s;
+}
+.place5 {
+  --h: 34px;
+  --delay: 0s;
+}
+
+@media (min-width: 700px) {
+  .podium {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .place1 {
+    grid-column: span 2;
+    max-width: 440px;
+    margin: 0 auto;
+    width: 100%;
+  }
+}
+
+/* Trophy podium: 4th, 2nd, 1st, 3rd, 5th with the winner in the middle and
+   the steps getting lower towards the edges. The steps start flat and rise
+   once the podium is on screen. */
+@media (min-width: 1040px) {
+  .podium {
+    grid-template-columns: 1fr 1fr 1.3fr 1fr 1fr;
+    gap: 20px;
+    align-items: end;
+  }
+  .place1 {
+    grid-column: auto;
+    order: 3;
+    max-width: none;
+    margin: 0;
+  }
+  .place2 {
+    order: 2;
+  }
+  .place3 {
+    order: 4;
+  }
+  .place4 {
+    order: 1;
+  }
+  .place5 {
+    order: 5;
+  }
+
+  .step {
+    display: grid;
+    place-items: center;
+    height: 0;
+    margin-top: 14px;
+    overflow: hidden;
+    border-radius: 14px 14px 0 0;
+    font-family: var(--font-heading);
+    font-size: 2.6rem;
+    line-height: 1;
+    box-shadow: inset 0 3px 0 rgba(255, 255, 255, 0.45), 0 10px 22px rgba(61, 44, 30, 0.14);
+    transition: height 1.4s cubic-bezier(0.2, 0.85, 0.25, 1) var(--delay);
+  }
+
+  .seen .step {
+    height: var(--h);
+  }
+
+  .step span {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease calc(var(--delay) + 0.5s), transform 0.8s cubic-bezier(0.2, 0.9, 0.25, 1) calc(var(--delay) + 0.5s);
+  }
+
+  .seen .step span {
+    opacity: 1;
+    transform: none;
+  }
+
+  .place4 .step {
+    font-size: 2rem;
+  }
+  .place5 .step {
+    font-size: 1.6rem;
+  }
+
+  .step.gold {
+    background: linear-gradient(180deg, #e8bc77, var(--gold));
+    color: var(--brown);
+  }
+  .step.silver {
+    background: linear-gradient(180deg, #e2dcea, #c9c1d6);
+    color: #4a4358;
+  }
+  .step.bronze {
+    background: linear-gradient(180deg, #cf9d73, #b9845a);
+    color: var(--white);
+  }
+  .step.plain {
+    background: linear-gradient(180deg, var(--lavender), #cdb9e6);
+    color: var(--purple-deep);
+  }
+}
