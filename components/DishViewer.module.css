@@ -4,8 +4,7 @@
   grid-template-columns: 1fr;
   grid-template-areas:
     "text"
-    "frame"
-    "list";
+    "frame";
 }
 
 .text {
@@ -18,26 +17,21 @@
 @media (min-width: 900px) {
   .layout {
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto 1fr;
     column-gap: 72px;
-    row-gap: 28px;
-    grid-template-areas:
-      "text frame"
-      "list frame";
-    align-items: start;
+    grid-template-areas: "text frame";
+    align-items: center;
   }
   .reverse {
-    grid-template-areas:
-      "frame text"
-      "frame list";
-  }
-  .text {
-    align-self: end;
+    grid-template-areas: "frame text";
   }
 }
 
-.frame {
+.stage {
   grid-area: frame;
+  position: relative;
+}
+
+.frame {
   position: relative;
   aspect-ratio: 3 / 4;
   border-radius: 20px;
@@ -52,22 +46,6 @@
 .photo {
   object-fit: cover;
   pointer-events: none;
-}
-
-/* soft outline around a dish when its name is active */
-.spot {
-  position: absolute;
-  border: 2px solid transparent;
-  border-radius: 26px;
-  background: transparent;
-  pointer-events: none;
-  transition: border-color 0.25s ease, background-color 0.25s ease, box-shadow 0.25s ease;
-}
-
-.spotOn {
-  border-color: var(--white);
-  background: rgba(125, 85, 176, 0.14);
-  box-shadow: 0 0 0 3px rgba(125, 85, 176, 0.55);
 }
 
 .lens {
@@ -96,63 +74,178 @@
   box-shadow: 0 6px 14px rgba(30, 20, 40, 0.3);
 }
 
+/* the menu sits under the paragraph: a closed pill that rolls down when it is
+   pressed */
 .list {
-  grid-area: list;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+  width: min(100%, 280px);
+  border-radius: 22px;
+  background: var(--white);
+  box-shadow: 0 8px 22px rgba(61, 44, 30, 0.22), inset 0 0 0 2px var(--gold-light);
+  overflow: hidden;
 }
 
 .listTitle {
-  font-family: var(--font-accent);
-  font-style: italic;
-  color: var(--purple);
-  font-size: 1.05rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  width: 100%;
+  padding: 12px 18px;
+  border: 0;
+  background: none;
+  font-family: var(--font-bubble);
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--brown);
+  cursor: pointer;
+}
+
+.chevron {
+  flex: none;
+  transition: transform 0.35s ease;
+}
+
+.listOpen .chevron {
+  transform: rotate(180deg);
+}
+
+/* rolls down: the row grows from nothing to the height of the content */
+.panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.4s ease;
+}
+
+.listOpen .panel {
+  grid-template-rows: 1fr;
+}
+
+.panelInner {
+  min-height: 0;
+  overflow: hidden;
+  padding: 0 18px;
+}
+
+.listOpen .panelInner {
+  padding-bottom: 14px;
 }
 
 .list ul {
   display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
+  flex-direction: column;
+  gap: 2px;
   margin: 0;
-  padding: 0;
+  padding: 4px 0 0;
+  border-top: 2px solid var(--gold-light);
   list-style: none;
 }
 
-.list button {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 16px;
+.list ul button {
+  display: flex;
+  align-items: baseline;
+  gap: 7px;
+  width: 100%;
+  padding: 6px 3px;
   border: 0;
-  border-radius: var(--radius-pill);
-  background: var(--white);
+  background: none;
   color: var(--ink);
   font: inherit;
-  font-size: 0.95rem;
+  font-family: var(--font-heading);
+  font-size: 0.8rem;
+  text-align: left;
   cursor: pointer;
-  box-shadow: 0 3px 10px rgba(61, 44, 30, 0.1);
-  transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+  transform-origin: 0 50%;
+  transition: color 0.2s ease, transform 0.25s ease, font-weight 0.2s ease;
 }
 
-.list button.on {
-  background: var(--purple);
-  color: var(--white);
-  transform: translateY(-2px);
+.dish {
+  flex: none;
 }
 
-.dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--gold);
+.leader {
+  flex: 1;
+  min-width: 12px;
+  border-bottom: 1.5px dotted var(--gold);
+  transition: border-color 0.2s ease;
 }
 
-.on .dot {
-  background: var(--white);
+.number {
+  flex: none;
+  font-size: 0.67rem;
+  color: var(--gold);
+  transition: color 0.2s ease;
 }
+
+/* the line under the cursor, or the dish the magnifier is over, comes forward */
+.list ul button:hover,
+.list ul button:focus-visible,
+.list ul button.on {
+  color: var(--brown);
+  font-weight: 700;
+  transform: scale(1.07);
+}
+
+.list ul button:hover .leader,
+.list ul button:focus-visible .leader,
+.list ul button.on .leader {
+  border-color: var(--brown);
+}
+
+.list ul button:hover .number,
+.list ul button:focus-visible .number,
+.list ul button.on .number {
+  color: var(--brown);
+}
+
 
 .hint {
   color: var(--muted);
-  font-size: 0.85rem;
+  font-size: 0.75rem;
+  text-align: center;
+}
+
+/* the big version: a pill-shaped photo with a white edge, on a tilted brown
+   backdrop with brown doodles */
+.bubble .stage::before,
+.bubble .stage::after {
+  content: "";
+  position: absolute;
+  inset: -16px;
+  border-radius: 999px;
+  transform: rotate(-6deg);
+  pointer-events: none;
+}
+
+.bubble .stage::before {
+  background: var(--gold);
+}
+
+.bubble .stage::after {
+  background: url("/images/doodles/bread-brown.webp") repeat;
+  background-size: 520px;
+  opacity: 0.28;
+}
+
+.bubble .frame {
+  z-index: 1;
+  aspect-ratio: 4 / 5;
+  border-radius: 999px;
+  box-shadow: 0 0 0 10px var(--white), 0 18px 36px rgba(61, 44, 30, 0.25);
+}
+
+@media (min-width: 900px) {
+  .bubble .stage::before,
+  .bubble .stage::after {
+    inset: -44px -40px -36px -30px;
+  }
+
+  .bubble.reverse {
+    grid-template-columns: 1.2fr 1fr;
+  }
+
+  .bubble:not(.reverse) {
+    grid-template-columns: 1fr 1.2fr;
+  }
 }

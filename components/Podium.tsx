@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import RecipeCard from "./RecipeCard";
 import { fireConfetti } from "@/lib/confetti";
-import type { Recipe } from "@/lib/recipes";
+import type { Recipe } from "@/lib/recipe-types";
 import styles from "./Podium.module.css";
 
 const places = [
@@ -49,7 +49,7 @@ export default function Podium({ recipes }: { recipes: Recipe[] }) {
                 size={index === 0 ? "champion" : "regular"}
                 minimal
                 capsule
-                badge={{ label: place.label, tone: place.tone }}
+                stars
               />
             </div>
             <div className={`${styles.step} ${styles[place.tone]}`} aria-hidden="true">

@@ -1,227 +1,176 @@
-export type Category = "sweet" | "salty";
-export type Tag =
-  | "breakfast"
-  | "lunch"
-  | "healthy"
-  | "bosnian"
-  | "turkish"
-  | "arabic"
-  | "traditional"
-  | "desserts"
-  | "asian"
-  | "guilty";
-export type FilterSlug = Category | Tag;
+// Reads the recipes from content/recipes/*.md (one file per recipe) at build
+// time. Server code only: it uses the file system, so browser components must
+// import types from ./recipe-types and the filters from ./filters instead.
+import fs from "node:fs";
+import path from "node:path";
+import { DIFFICULTIES, TAGS, TASTES } from "./recipe-types";
+import type { Difficulty, Recipe, Tag } from "./recipe-types";
 
-export type Recipe = {
-  slug: string;
-  title: string;
-  category: Category;
-  tags?: Tag[];
-  image: string;
-  alt: string;
-  note: string;
-  featured?: boolean;
-  // ISO date the recipe went online; the newest ones feed "Latest additions".
-  added?: string;
-};
+export type { Recipe } from "./recipe-types";
 
-// Draft copy: edit the notes and titles freely. The `tags` are my best guess
-// from the dish names, so correct them as you like (a recipe can have several).
-export const recipes: Recipe[] = [
-  {
-    slug: "chocolate-dates",
-    title: "Chocolate dates with pistachio",
-    category: "sweet",
-    tags: ["arabic", "desserts", "guilty"],
-    image: "/images/sweet-dates.jpg",
-    alt: "Dark chocolate dates topped with chopped pistachios and dried petals",
-    note: "Dark chocolate, a crunch of pistachio, and a little romance on the plate.",
-    featured: true,
-  },
-  {
-    slug: "mini-pavlovas",
-    title: "Mini pavlovas",
-    category: "sweet",
-    tags: ["desserts"],
-    image: "/images/sweet-mini-pavlova.jpg",
-    alt: "Mini pavlovas piped with cream and decorated with red and dark berries",
-    note: "Crisp outside, soft inside, and dressed up with berries.",
-    featured: true,
-  },
-  {
-    slug: "cinnamon-rolls",
-    title: "Cinnamon rolls",
-    category: "sweet",
-    tags: ["breakfast", "guilty"],
-    image: "/images/sweet-cinnamon-rolls.jpg",
-    alt: "A tray of cinnamon rolls with white icing and sea salt",
-    note: "Soft, spiced, and gone before the coffee cools.",
-    featured: true,
-  },
-  {
-    slug: "umm-ali",
-    title: "Umm Ali",
-    category: "sweet",
-    tags: ["arabic", "desserts", "traditional"],
-    image: "/images/sweet-umm-ali.jpg",
-    alt: "Baked Umm Ali with golden top and dark berries",
-    note: "A warm, comforting bake with a golden, crispy top.",
-  },
-  {
-    slug: "strawberry-glass",
-    title: "Strawberry dessert in glass",
-    category: "sweet",
-    tags: ["desserts"],
-    image: "/images/sweet-strawberry-glass.jpg",
-    alt: "Strawberry dessert served in glasses on a yellow table with tulips",
-    note: "Layers of cream and strawberry, served the way I like to share them.",
-  },
-  {
-    slug: "muffins",
-    title: "Muffins",
-    category: "sweet",
-    tags: ["breakfast", "guilty"],
-    image: "/images/sweet-muffins.jpg",
-    alt: "Cupcakes topped with cream and sugar flowers on a white plate",
-    note: "Easy to make, easy to share, and always a little colourful.",
-  },
-  {
-    slug: "fruit-pastries",
-    title: "Fruit pastries",
-    category: "sweet",
-    tags: ["breakfast", "healthy", "desserts"],
-    image: "/images/sweet-fruit-pastries.jpg",
-    alt: "Fruit pastries arranged on a plate beside a decorative bottle",
-    note: "Light, fruity, and made for an afternoon table.",
-  },
-  {
-    slug: "medenjak",
-    title: "Medenjak",
-    category: "sweet",
-    tags: ["bosnian", "traditional", "desserts"],
-    image: "/images/sweet-medenjak.jpg",
-    alt: "Chocolate cake sliced into wedges and topped with chopped nuts",
-    note: "A rich, nutty treat for family gatherings.",
-  },
-  {
-    slug: "halva",
-    title: "Halva",
-    category: "sweet",
-    tags: ["turkish", "traditional", "desserts"],
-    image: "/images/sweet-halva.jpg",
-    alt: "A dark chocolate treat in a small dish beside pastel flowers",
-    note: "Nutty, sweet, and a classic at the end of the table.",
-  },
-  {
-    slug: "cookies",
-    title: "Cookies",
-    category: "sweet",
-    tags: ["guilty", "desserts"],
-    image: "/images/sweet-cookies.jpg",
-    alt: "Round cookies with sesame and seeds on a patterned tablecloth",
-    note: "Small batches, big smiles.",
-  },
-  {
-    slug: "homemade-pizza",
-    title: "Homemade pizza",
-    category: "salty",
-    tags: ["lunch", "guilty"],
-    image: "/images/salty-pizza.jpg",
-    alt: "Homemade pizza with melted cheese, tomato, and fresh toppings",
-    note: "Thin, bubbly, and loaded with whatever is in the fridge.",
-    featured: true,
-  },
-  {
-    slug: "poke-bowl",
-    title: "Poke bowl",
-    category: "salty",
-    tags: ["lunch", "healthy", "asian"],
-    image: "/images/salty-poke-bowl.jpg",
-    alt: "Two poke bowls with fresh vegetables, seasoning, and sauce",
-    note: "Fresh, colourful, and easy to make at home.",
-    featured: true,
-  },
-  {
-    slug: "grilled-meat-platter",
-    title: "Grilled meat platter",
-    category: "salty",
-    added: "2026-10-15",
-    tags: ["lunch", "bosnian", "traditional"],
-    image: "/images/salty-grilled-meat.jpg",
-    alt: "A platter of grilled meat, roasted vegetables, and salads",
-    note: "A table full of grilled meat, salads, and sauces.",
-  },
-  {
-    slug: "steak-plate",
-    title: "Steak plate",
-    category: "salty",
-    added: "2026-10-20",
-    tags: ["lunch"],
-    image: "/images/salty-steak.jpg",
-    alt: "Seared steak on a white plate with golden rice and a fork and knife",
-    note: "A simple, hearty plate with a golden side.",
-  },
-  {
-    slug: "kiflice",
-    title: "Kiflice",
-    category: "salty",
-    tags: ["breakfast", "bosnian", "traditional"],
-    image: "/images/salty-kiflice.jpg",
-    alt: "Golden kiflice rolls on a plate with a crumb-soft texture",
-    note: "Soft, golden rolls from my own kitchen.",
-  },
-  {
-    slug: "kiflice-in-tepsija",
-    title: "Kiflice in tepsija",
-    category: "salty",
-    added: "2026-10-28",
-    tags: ["breakfast", "bosnian", "traditional"],
-    image: "/images/salty-kiflice-tepsija.jpg",
-    alt: "A tray of baked kiflice topped with sesame seeds",
-    note: "Baked in one big tray, shared by everyone.",
-  },
-  {
-    slug: "iftar-table",
-    title: "Iftar table",
-    category: "salty",
-    added: "2026-10-24",
-    tags: ["bosnian", "traditional"],
-    image: "/images/salty-iftar.jpg",
-    alt: "A colourful iftar table with dishes, bread, and drinks",
-    note: "A full table of food, made for breaking the fast together.",
-  },
-];
+const RECIPES_DIR = path.join(process.cwd(), "content", "recipes");
+const PHOTOS_DIR = path.join(process.cwd(), "public", "recipes");
+const IMAGE_FILE = /\.(jpe?g|png|webp|avif)$/i;
 
-export type CategoryInfo = {
-  slug: FilterSlug;
-  title: string;
-  line: string;
-  image: string;
-  alt: string;
-};
-
-// Used for the circles on the home page and the filter bar on /recipes.
-export const categories: CategoryInfo[] = [
-  { slug: "sweet", title: "Sweet", line: "Something sweet for the end of the table.", image: "/images/sweet-cinnamon-rolls.jpg", alt: "A tray of cinnamon rolls with white icing" },
-  { slug: "salty", title: "Savory", line: "Something savoury for the middle of it.", image: "/images/salty-pizza.jpg", alt: "Homemade pizza with fresh toppings" },
-  { slug: "traditional", title: "Traditional", line: "Dishes from home and from the old recipe notebook.", image: "/images/salty-kiflice-tepsija.jpg", alt: "A tray of baked kiflice" },
-  { slug: "healthy", title: "Healthy", line: "Fresh, light, and colourful.", image: "/images/sweet-strawberry-glass.jpg", alt: "Strawberry dessert in glasses with tulips" },
-  { slug: "desserts", title: "Desserts", line: "Cakes, creams, and every little sweet bite.", image: "/images/sweet-mini-pavlova.jpg", alt: "Mini pavlovas topped with cream and berries" },
-  { slug: "turkish", title: "Turkish", line: "A Turkish spoon in my kitchen.", image: "/images/sweet-halva.jpg", alt: "Halva in a small dish" },
-  { slug: "asian", title: "Asian", line: "Fresh bowls and bold flavours.", image: "/images/salty-poke-bowl.jpg", alt: "Poke bowls with fresh vegetables" },
-  { slug: "guilty", title: "Guilty pleasures", line: "Worth every single bite.", image: "/images/sweet-cookies.jpg", alt: "Round cookies with sesame and seeds" },
-];
-
-export function recipesFor(slug: string | undefined): Recipe[] {
-  if (!slug) return recipes;
-  return recipes.filter(
-    (recipe) => recipe.category === slug || (recipe.tags as string[] | undefined)?.includes(slug),
-  );
+// "key: value" lines between two --- lines; a value like [a, b] is a list
+function parseFrontMatter(text: string): { data: Record<string, string | string[]>; body: string } {
+  const match = text.replace(/^﻿/, "").match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n?([\s\S]*)$/);
+  if (!match) return { data: {}, body: text };
+  const data: Record<string, string | string[]> = {};
+  for (const line of match[1].split(/\r?\n/)) {
+    const found = line.match(/^([A-Za-z][\w-]*)\s*:\s*(.*)$/);
+    if (!found) continue;
+    const value = found[2].trim();
+    if (value.startsWith("[") && value.endsWith("]")) {
+      data[found[1]] = value
+        .slice(1, -1)
+        .split(",")
+        .map((item) => item.trim().replace(/^["']|["']$/g, ""))
+        .filter(Boolean);
+    } else {
+      data[found[1]] = value.replace(/^["']|["']$/g, "");
+    }
+  }
+  return { data, body: match[2] };
 }
 
-export const featuredRecipes = recipes.filter((recipe) => recipe.featured);
+// the text before the first "## " heading, then the "## Ingredients" and "## Steps" lists
+function parseBody(body: string) {
+  const sections: Record<string, string[]> = { intro: [] };
+  let current = "intro";
+  for (const line of body.replace(/<!--[\s\S]*?-->/g, "").split(/\r?\n/)) {
+    const heading = line.match(/^##\s+(.+?)\s*$/);
+    if (heading) {
+      current = heading[1].toLowerCase();
+      sections[current] = [];
+    } else {
+      sections[current].push(line);
+    }
+  }
+  const items = (lines: string[] = []) =>
+    lines.map((line) => line.replace(/^\s*(?:[-*]|\d+[.)])\s+/, "").trim()).filter(Boolean);
+  return {
+    note: sections.intro.join(" ").replace(/\s+/g, " ").trim(),
+    ingredients: items(sections.ingredients),
+    steps: items(sections.steps),
+  };
+}
 
-export const latestRecipes = recipes
-  .filter((recipe) => recipe.added)
-  .sort((a, b) => (b.added ?? "").localeCompare(a.added ?? ""))
-  .slice(0, 4);
+function asString(value: string | string[] | undefined): string {
+  return Array.isArray(value) ? value.join(", ") : (value ?? "");
+}
+
+function loadRecipe(file: string): Recipe {
+  const slug = file.replace(/\.md$/, "");
+  const fail = (message: string): never => {
+    throw new Error(`content/recipes/${file}: ${message}`);
+  };
+
+  const { data, body } = parseFrontMatter(fs.readFileSync(path.join(RECIPES_DIR, file), "utf8"));
+  const title = asString(data.title);
+  if (!title) fail('missing "title:" in the front matter');
+
+  const taste = asString(data.taste);
+  if (!(TASTES as readonly string[]).includes(taste)) {
+    fail(`taste must be one of: ${TASTES.join(", ")} (found "${taste}")`);
+  }
+
+  const rawTags = Array.isArray(data.tags) ? data.tags : data.tags ? [data.tags] : [];
+  for (const tag of rawTags) {
+    if (!(TAGS as readonly string[]).includes(tag)) {
+      fail(`unknown tag "${tag}". Allowed tags: ${TAGS.join(", ")}`);
+    }
+  }
+
+  const difficulty = asString(data.difficulty);
+  if (difficulty && !(DIFFICULTIES as readonly string[]).includes(difficulty)) {
+    fail(`difficulty must be one of: ${DIFFICULTIES.join(", ")} (found "${difficulty}")`);
+  }
+
+  // an image name lives in public/recipes/<slug>/; a path starting with / is used as it is
+  const imageName = asString(data.image);
+  if (!imageName) fail('missing "image:" in the front matter');
+  const image = imageName.startsWith("/") ? imageName : `/recipes/${slug}/${imageName}`;
+  if (!fs.existsSync(path.join(process.cwd(), "public", image))) {
+    fail(`the photo "${image}" was not found in the public folder`);
+  }
+
+  // every other photo in the recipe's folder is part of its gallery
+  const folder = path.join(PHOTOS_DIR, slug);
+  const gallery = fs.existsSync(folder)
+    ? fs
+        .readdirSync(folder)
+        .filter((name) => IMAGE_FILE.test(name) && `/recipes/${slug}/${name}` !== image)
+        .sort()
+        .map((name) => `/recipes/${slug}/${name}`)
+    : [];
+
+  const podium = data.podium ? Number(data.podium) : undefined;
+  if (podium !== undefined && !(podium >= 1 && podium <= 5)) fail("podium must be a number from 1 to 5");
+
+  const parsed = parseBody(body);
+  return {
+    slug,
+    title,
+    category: taste as Recipe["category"],
+    tags: rawTags as Tag[],
+    difficulty: (difficulty || undefined) as Difficulty | undefined,
+    image,
+    alt: asString(data.alt) || title,
+    note: parsed.note,
+    ingredients: parsed.ingredients,
+    steps: parsed.steps,
+    gallery,
+    podium,
+    added: asString(data.added) || undefined,
+  };
+}
+
+let cached: Recipe[] | undefined;
+
+// Newest first, then the ones without a date by name. While developing the files
+// are read again every time, so a new recipe shows up without restarting.
+export function getRecipes(): Recipe[] {
+  if (cached) return cached;
+  const list = fs
+    .readdirSync(RECIPES_DIR)
+    .filter((file) => file.endsWith(".md") && !file.startsWith("_"))
+    .map(loadRecipe)
+    .sort((a, b) => (b.added ?? "").localeCompare(a.added ?? "") || a.title.localeCompare(b.title));
+  if (process.env.NODE_ENV === "production") cached = list;
+  return list;
+}
+
+export function getRecipe(slug: string): Recipe | undefined {
+  return getRecipes().find((recipe) => recipe.slug === slug);
+}
+
+// the five podium places, in order
+export function getFeatured(): Recipe[] {
+  return getRecipes()
+    .filter((recipe) => recipe.podium)
+    .sort((a, b) => (a.podium ?? 0) - (b.podium ?? 0))
+    .slice(0, 5);
+}
+
+export function getLatest(count = 4): Recipe[] {
+  return getRecipes()
+    .filter((recipe) => recipe.added)
+    .slice(0, count);
+}
+
+// recipes that share the most tags (and the same taste), best match first
+export function getRelated(recipe: Recipe, count = 4): Recipe[] {
+  return getRecipes()
+    .filter((other) => other.slug !== recipe.slug)
+    .map((other) => ({
+      other,
+      score:
+        other.tags.filter((tag) => recipe.tags.includes(tag)).length * 2 +
+        (other.category === recipe.category ? 1 : 0),
+    }))
+    .filter((item) => item.score > 0)
+    .sort((a, b) => b.score - a.score)
+    .slice(0, count)
+    .map((item) => item.other);
+}

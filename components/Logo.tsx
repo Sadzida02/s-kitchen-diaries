@@ -4,9 +4,13 @@ import styles from "./Logo.module.css";
 
 type LogoProps = {
   variant?: "compact" | "stacked";
+  // white lettering, for dark backgrounds
+  light?: boolean;
+  // the chef head next to the name
+  head?: boolean;
 };
 
-export default function Logo({ variant = "compact" }: LogoProps) {
+export default function Logo({ variant = "compact", light = false, head = true }: LogoProps) {
   if (variant === "stacked") {
     return (
       <Link href="/" className={styles.stacked} aria-label="Sweet & Salty Diaries home">
@@ -18,8 +22,14 @@ export default function Logo({ variant = "compact" }: LogoProps) {
   }
 
   return (
-    <Link href="/" className={styles.compact} aria-label="Sweet & Salty Diaries home">
-      <Image src="/images/chef/chef-head.png" alt="" width={60} height={60} className={styles.head} />
+    <Link
+      href="/"
+      className={`${styles.compact} ${light ? styles.light : ""}`}
+      aria-label="Sweet & Salty Diaries home"
+    >
+      {head && (
+        <Image src="/images/chef/chef-head.png" alt="" width={60} height={60} className={styles.head} />
+      )}
       <span className={styles.name}>
         Sweet &amp; Salty
         <em>Diaries</em>

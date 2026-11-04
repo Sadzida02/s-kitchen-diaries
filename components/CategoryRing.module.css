@@ -1,73 +1,109 @@
+/* The wheel is centred on the left edge of this box, so its right half shows.
+   Slot i sits i steps (45deg) round from the right-hand side; the wheel turns
+   by --turn steps so the chosen circle lands on the right. The lower part of
+   the wheel reaches out of the hero, over the next section. */
 .stage {
-  --size: var(--ring-size, min(calc(100vw - 72px), 860px));
-  --d: calc(var(--size) * 0.25);
-  --radius: calc(var(--size) * 0.375);
+  --d: var(--ring-d, clamp(220px, 30vw, 480px));
+  --r: calc(var(--d) * 1.35);
+  --cy: calc(var(--d) * 0.8);
+  --spin: 0deg;
   position: relative;
-  width: var(--size);
-  height: calc(var(--size) + 40px);
-  margin: 0 auto;
+  width: 100%;
+  height: calc(var(--d) * 2.1);
 }
 
 .centre {
   position: absolute;
-  left: 50%;
-  top: calc(var(--size) / 2);
-  width: calc(var(--size) * 0.34);
-  transform: translate(-50%, -50%);
+  /* the open space inside the wheel runs from the edge to 0.85 diameters; the
+   button fills it */
+  left: clamp(8px, 1.4vw, 20px);
+  top: var(--cy);
+  transform: translateY(-50%);
+  width: auto;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   gap: 10px;
   text-align: center;
 }
 
 .centre h2 {
-  font-size: calc(var(--size) * 0.052);
+  font-family: var(--font-bubble);
+  font-size: calc(var(--d) * 0.25);
   font-weight: 700;
-  line-height: 1.1;
+  line-height: 1;
+  /* tighter gap between the stacked letters */
+  letter-spacing: -0.34em;
+  text-transform: uppercase;
+  color: var(--brown);
+  /* letters stay upright and stack one under another, in two columns that read
+     left to right: SWEET OR, then SALTY? */
+  writing-mode: vertical-lr;
+  text-orientation: upright;
+  word-spacing: -0.5em;
+  white-space: nowrap;
+}
+
+.centre h2 span {
+  display: block;
+}
+
+/* the button is only for phones; on the wheel the middle circle opens its recipes */
+.cta {
+  display: none;
 }
 
 .centre p {
+  display: none;
   color: var(--muted);
-  font-size: 0.95rem;
+  font-size: 1.045rem;
 }
 
-/* the whole ring turns slowly; every slot turns back so the photos stay
-   upright */
-.ring {
+.wheel {
   position: absolute;
-  inset: 0 0 40px 0;
-  animation: orbit 90s linear infinite;
+  left: 0;
+  top: var(--cy);
+  width: 0;
+  height: 0;
+  transform: rotate(calc(45deg * var(--turn)));
+  transition: transform 0.9s cubic-bezier(0.3, 0.8, 0.2, 1);
 }
 
-.stage:hover .ring,
-.stage:hover .tile,
-.stage:focus-within .ring,
-.stage:focus-within .tile {
-  animation-play-state: paused;
+/* turns with the page scroll; no transition so it follows the scrollbar */
+.spin {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 0;
+  height: 0;
+  transform: rotate(var(--spin));
+}
+
+.upright {
+  display: block;
+  transform: rotate(calc(var(--spin) * -1));
 }
 
 .slot {
   position: absolute;
-  left: 50%;
-  top: 50%;
+  left: 0;
+  top: 0;
   width: 0;
   height: 0;
-  transform: rotate(var(--angle)) translateY(calc(var(--radius) * -1));
+  transform: rotate(calc(-45deg * var(--i))) translateX(var(--r));
 }
 
+/* turns back by exactly what the wheel and the slot turn, so it stays upright
+   while it moves */
 .tile {
   position: absolute;
   left: calc(var(--d) / -2);
   top: calc(var(--d) / -2);
   width: var(--d);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  display: block;
   text-decoration: none;
-  text-align: center;
-  transform: rotate(calc(var(--angle) * -1));
-  animation: counter 90s linear infinite;
+  transform: rotate(calc(45deg * (var(--i) - var(--turn))));
+  transition: transform 0.9s cubic-bezier(0.3, 0.8, 0.2, 1);
 }
 
 .circle {
@@ -125,52 +161,81 @@
   overflow: visible;
   pointer-events: none;
   font-family: var(--font-heading);
-  font-size: 10.5px;
-  font-weight: 500;
-  letter-spacing: 0.3px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.4px;
   fill: var(--ink);
   stroke: var(--white);
   stroke-width: 2.4px;
   paint-order: stroke;
 }
 
-@keyframes orbit {
-  to {
-    transform: rotate(360deg);
-  }
+.active .circle {
+  transform: scale(1.1);
 }
 
-@keyframes counter {
-  from {
-    transform: rotate(calc(var(--angle) * -1));
-  }
-  to {
-    transform: rotate(calc(var(--angle) * -1 - 360deg));
-  }
+.active .label {
+  font-weight: 700;
 }
 
-/* Small screens: no orbit, just a tidy grid of the same circles. */
+/* the name follows the right side of the photo; on phones it sits underneath */
+.labelBottom {
+  display: none;
+}
+
+/* Small screens: no wheel, just a tidy grid of the same circles. */
 @media (max-width: 720px) {
   .stage {
     width: 100%;
     height: auto;
   }
+  .labelRight {
+    display: none;
+  }
+  .labelBottom {
+    display: inline;
+  }
   .centre {
     position: static;
     width: 100%;
-    transform: none;
+    align-items: center;
+    text-align: center;
     margin-bottom: 28px;
   }
   .centre h2 {
-    font-size: 1.9rem;
+    font-size: 2rem;
+    letter-spacing: 0.04em;
+    writing-mode: horizontal-tb;
+    text-orientation: mixed;
+    word-spacing: normal;
+    white-space: normal;
   }
-  .ring {
+  .centre h2 span {
+    display: inline;
+  }
+  .cta {
+    display: inline-flex;
+  }
+  .centre p {
+    display: block;
+  }
+  .wheel {
     position: static;
-    animation: none;
+    transform: none;
+    transition: none;
+    padding: 0 8px;
+  }
+  .spin {
+    position: static;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 36px 10px;
-    padding: 0 8px;
+    transform: none;
+    width: auto;
+    height: auto;
+  }
+  .upright {
+    transform: none;
   }
   .slot {
     position: static;
@@ -182,7 +247,10 @@
     position: static;
     width: 100%;
     transform: none;
-    animation: none;
+    transition: none;
+  }
+  .active .circle {
+    transform: none;
   }
   .circle {
     padding: 5px;

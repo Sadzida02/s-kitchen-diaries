@@ -1,0 +1,68 @@
+.bar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.toolbar {
+  flex: 1;
+  min-width: 0;
+}
+
+/* the row-size buttons only matter when there is room for more than two columns */
+.switch {
+  display: none;
+  align-items: center;
+  gap: 8px;
+  color: var(--brown);
+  font-size: 0.9rem;
+}
+
+.option {
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--white);
+  color: var(--ink);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: inset 0 0 0 2px var(--gold-light);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.option:hover {
+  background: var(--gold-light);
+}
+
+.on,
+.on:hover {
+  background: var(--purple);
+  color: var(--white);
+  box-shadow: none;
+}
+
+.grid {
+  display: grid;
+  gap: 24px;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 700px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* wide screens: the number of cards per row is up to you */
+@media (min-width: 1000px) {
+  .switch {
+    display: flex;
+  }
+  .grid {
+    grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+    gap: 18px;
+  }
+}

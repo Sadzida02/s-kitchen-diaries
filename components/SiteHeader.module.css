@@ -5,7 +5,8 @@
   top: 14px;
   z-index: 50;
   margin: 14px auto 0;
-  width: min(100% - 24px, 1180px);
+  /* 80% of the page, but never narrower than fits comfortably */
+  width: max(80%, min(100% - 24px, 900px));
 }
 
 .bar {
@@ -21,7 +22,7 @@
   box-shadow: 0 10px 26px rgba(58, 32, 88, 0.16);
   /* same typeface as the logo */
   font-family: var(--font-heading);
-  font-size: 1.05rem;
+  font-size: 1.3125rem;
   font-weight: 500;
 }
 
@@ -47,7 +48,7 @@
   gap: 8px;
   white-space: nowrap;
   text-decoration: none;
-  padding: 8px 26px;
+  padding: 8px clamp(10px, 2vw, 26px);
   border-radius: var(--radius-pill);
   transition: background-color 0.2s ease, color 0.2s ease;
 }
@@ -60,7 +61,9 @@
 /* mini brownish icons; on the purple pill they turn light gold to stay visible */
 .icon {
   flex: none;
-  color: var(--brown);
+  width: 25px;
+  height: 25px;
+  color: var(--ink);
 }
 
 .right a:last-child .icon {
@@ -75,6 +78,17 @@
 
 .right a:last-child:hover {
   background: var(--purple-deep);
+}
+
+/* the 25% bigger text only fits on wide screens */
+@media (max-width: 1100px) {
+  .bar {
+    font-size: 1.05rem;
+  }
+  .icon {
+    width: 20px;
+    height: 20px;
+  }
 }
 
 @media (max-width: 700px) {

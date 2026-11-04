@@ -80,27 +80,32 @@ export default function AboutPage() {
           src="/images/table-spread.jpg"
           alt="A table spread with kimbap, baked veggies and chicken, kalcone and carrot salad"
           dishes={dishes}
+          bubble
         >
-          <p className="kicker">About me</p>
-          <h1>A love for cooking, shared around the table.</h1>
+          <p className="kicker">Why do I care?</p>
+          <h1>Gathered around one table</h1>
           <p className={styles.lead}>
-            I like to mix things up. Bosnian recipes sit next to Turkish sweets, Arabic spices, Asian cuisine and healthy bowls share a plate with very indulgent cakes.
-            This is where I keep it all.
+            In this fast-paced world, taking a moment and sharing a meal with others is a sincere act of care and politeness. It was always like a ritual in my family, and I want to keep it alive... And what better way to treat someone than with a warm home-cooked meal.
           </p>
         </DishViewer>
       </section>
 
       <section className={styles.band}>
         <div className={`container ${styles.disclaimer}`}>
+          <span className={styles.alert} aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round">
+              <path d="M12 5v9" />
+              <path d="M12 19h.01" />
+            </svg>
+          </span>
           <p className="kicker">An honest disclaimer</p>
           <h2>I am not a professional cook.</h2>
-          <p>
-            <strong className={styles.strong}>
-              I have no formal cooking training and no real cooking experience outside my own kitchen.
-            </strong>{" "}
+          <p>          
+            I have no formal cooking training and no real cooking experience outside my own kitchen.
             Cooking is my hobby, and my favourite way to play. I am just a girl who loves messing with
             ingredients, tasting everything along the way, and making people around me happy with what
-            I make.
+            I make. <br /><br />
+            *The purpose of this blog is to have a unique place to store my ideas and countless photos, additionally maybe inspiring others to try something new.
           </p>
         </div>
       </section>
@@ -108,23 +113,22 @@ export default function AboutPage() {
       <section className={`section ${styles.started}`}>
         <div className={`container ${styles.startedInner}`}>
           <div className={styles.startedText}>
-            <p className="kicker">How it started</p>
-            <h2>A little notebook, one recipe at a time</h2>
+            <p className="kicker">How it started?</p>
+            <h2>Starting point</h2>
             <p>
-              Before this blog, it all started with a small spiral notebook, filled by hand with all the tried and best dishes that I kept on repeat. These og recipes are the ones I always go back to.
+              Since I like handmade things, it started with a small spiral notebook, with all the tried and best dishes that I kept on repeat. These og recipes are the ones I always go back to.
               <br /> <br />
               You have a chance to take a glance in that precious treasure of mine. 
             </p>              
           </div>
           <BookPreview />
           <div>
-          <p className="kicker">Inspired by</p>
+          <p className="kicker">Inspired by?</p>
           <h2>People around me</h2>
           <br /><br />
             <p>
-              Most of my ideas come from the dear people I share my everday life with: my <strong className={styles.mom}>mom</strong>,
-                <strong className={styles.aunt}> aunt</strong>, <strong className={styles.cousin}>relatives</strong> and
-              my <strong className={styles.friends}>friends</strong>. I recreate
+              Most of my ideas come from the dear people I share my everday life with: my <strong className={styles.aunt}>mom, family </strong> and 
+               <strong className={styles.aunt}> friends</strong>. I recreate
               their recipes, experiment with them, and make them my own.
             </p>
           </div>
@@ -142,45 +146,61 @@ export default function AboutPage() {
             </p>
           </div>
 
-          <h3 className={styles.groupTitle}>Pages I love to learn from</h3>
-          <div className={styles.sourceGrid}>
-            {sources.map((source, index) => {
-              const inner = (
-                <>
-                  <span className={`${styles.badge} ${index % 2 ? "" : styles.badgeGold}`} aria-hidden="true">
-                    {source.image ? (
-                      <Image src={source.image} alt="" fill sizes="56px" className={styles.badgePhoto} />
+        </div>
+
+        {/* two rows that slide across the whole width of the screen, outside the page column */}
+        <div className={styles.ribbon}>
+          {[sources.slice(0, Math.ceil(sources.length / 2)), sources.slice(Math.ceil(sources.length / 2))].map(
+            (row, rowIndex) => (
+              <div key={rowIndex} className={styles.ribbonRow}>
+                {[0, 1].map((copy) =>
+                  row.map((source, index) => {
+                    const hidden = copy === 1;
+                    const inner = (
+                      <>
+                        <span className={`${styles.badge} ${index % 2 ? "" : styles.badgeGold}`} aria-hidden="true">
+                          {source.image ? (
+                            <Image src={source.image} alt="" fill sizes="56px" className={styles.badgePhoto} />
+                          ) : (
+                            source.name.charAt(0).toUpperCase()
+                          )}
+                        </span>
+                        <span className={styles.sourceText}>
+                          <span className={styles.sourceName}>{source.name}</span>
+                          <span className={styles.platform}>
+                            <PlatformIcon platform={source.platform} />
+                            {source.platform}
+                          </span>
+                        </span>
+                      </>
+                    );
+                    const link = linkFor(source);
+                    return link ? (
+                      <a
+                        key={`${copy}-${source.name}`}
+                        href={link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={`${styles.sourceCard} ${styles.link}`}
+                        aria-hidden={hidden || undefined}
+                        tabIndex={hidden ? -1 : undefined}
+                      >
+                        {inner}
+                      </a>
                     ) : (
-                      source.name.charAt(0).toUpperCase()
-                    )}
-                  </span>
-                  <span className={styles.sourceText}>
-                    <span className={styles.sourceName}>{source.name}</span>
-                    <span className={styles.platform}>
-                      <PlatformIcon platform={source.platform} />
-                      {source.platform}
-                    </span>
-                  </span>
-                </>
-              );
-              const link = linkFor(source);
-              return link ? (
-                <a
-                  key={source.name}
-                  href={link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`${styles.sourceCard} ${styles.link}`}
-                >
-                  {inner}
-                </a>
-              ) : (
-                <div key={source.name} className={styles.sourceCard}>
-                  {inner}
-                </div>
-              );
-            })}
-          </div>
+                      <div
+                        key={`${copy}-${source.name}`}
+                        className={styles.sourceCard}
+                        aria-hidden={hidden || undefined}
+                      >
+                        {inner}
+                      </div>
+                    );
+                  }),
+                )}
+              </div>
+            ),
+          )}
         </div>
       </section>
     </>

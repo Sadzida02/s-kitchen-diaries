@@ -1,5 +1,6 @@
 import Image from "next/image";
-import type { Recipe } from "@/lib/recipes";
+import Link from "next/link";
+import type { Recipe } from "@/lib/recipe-types";
 import styles from "./RecipeCard.module.css";
 
 type RecipeCardProps = {
@@ -9,6 +10,8 @@ type RecipeCardProps = {
   minimal?: boolean;
   // pill-shaped photo
   capsule?: boolean;
+  // five little stars under the name, like a rating
+  stars?: boolean;
   badge?: { label: string; tone?: "gold" | "silver" | "bronze" | "plain" | "new" };
 };
 
@@ -17,10 +20,11 @@ const categoryLabel = {
   salty: "Salty",
 } as const;
 
-export default function RecipeCard({ recipe, size = "regular", minimal = false, capsule = false, badge }: RecipeCardProps) {
+export default function RecipeCard({ recipe, size = "regular", minimal = false, capsule = false, stars = false, badge }: RecipeCardProps) {
+  const href = `/recipes/${recipe.slug}`;
   return (
     <article className={`${styles.card} ${size === "champion" ? styles.champion : ""} ${minimal ? styles.minimal : ""} ${capsule ? styles.capsule : ""}`}>
-      <div className={`arch ${styles.media}`}>
+      <Link href={href} className={`arch ${styles.media}`} aria-label={recipe.title}>
         <Image
           src={recipe.image}
           alt={recipe.alt}
@@ -31,15 +35,36 @@ export default function RecipeCard({ recipe, size = "regular", minimal = false, 
         {badge && (
           <span className={`${styles.badge} ${styles[badge.tone ?? "plain"]}`}>{badge.label}</span>
         )}
-      </div>
+      </Link>
       <div className={styles.body}>
         {!minimal && (
           <span className={`${styles.tag} ${styles[recipe.category]}`}>
             {categoryLabel[recipe.category]}
           </span>
         )}
-        <h3>{recipe.title}</h3>
+        <h3>
+          <Link href={href} className={styles.titleLink}>
+            {recipe.title}
+          </Link>
+        </h3>
+        {stars && (
+          <span className={styles.stars} role="img" aria-label="5 out of 5 stars">
+            {[0, 1, 2, 3, 4].map((n) => (
+              <svg key={n} viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
+                <path d="m12 2.6 2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4l-5.8 3.1 1.1-6.5L2.6 9.4l6.5-.9z" />
+              </svg>
+            ))}
+          </span>
+        )}
         {!minimal && <p className={styles.note}>{recipe.note}</p>}
+        {!minimal && (
+          <Link href={href} className={styles.tryIt}>
+            Try it
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M5 12h14M13 6l6 6-6 6" />
+            </svg>
+          </Link>
+        )}
       </div>
     </article>
   );

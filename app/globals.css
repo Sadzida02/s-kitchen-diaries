@@ -17,6 +17,8 @@
   --font-bubble: "Fredoka Variable", "Trebuchet MS", system-ui, sans-serif;
   /* Fredoka for headings, Sniglet for text, Schoolbell for the handwritten
      touches. Swap these lines to try other fonts. */
+  /* height the floating navbar takes: its top margin plus the bar */
+  --nav-space: 106px;
   --font-heading: "Fredoka Variable", "Trebuchet MS", system-ui, sans-serif;
   --font-accent: "Schoolbell", "Comic Sans MS", "Nunito Variable", cursive;
 
@@ -45,6 +47,8 @@ body {
   font-family: var(--font-body);
   position: relative;
   isolation: isolate;
+  /* tilted backdrops may stick out sideways; never let that scroll the page */
+  overflow-x: clip;
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.7;
@@ -77,6 +81,7 @@ h3 {
 
 p {
   margin: 0;
+  font-size: 1.1rem;
 }
 
 a {
@@ -190,16 +195,8 @@ img {
   }
 }
 
-/* Very light purple bread doodles over the whole lilac page background.
-   Sections that have their own solid colour (the gold band, the quote band,
-   the footer) simply cover it. */
-body::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background: url("/images/doodles/bread-purple.webp") repeat;
-  background-size: 728px;
-  opacity: 0.1;
-  pointer-events: none;
+@media (max-width: 700px) {
+  :root {
+    --nav-space: 86px;
+  }
 }

@@ -1,0 +1,264 @@
+.back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 28px;
+  color: var(--brown);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.back:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* title and short description beside the photo */
+.top {
+  display: grid;
+  gap: 40px;
+  align-items: center;
+}
+
+.intro {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 16px;
+  border-radius: var(--radius-pill);
+  background: var(--white);
+  color: var(--brown);
+  font-weight: 500;
+  text-transform: capitalize;
+  box-shadow: inset 0 0 0 2px var(--gold-light);
+}
+
+.sweet {
+  background: var(--lavender);
+  color: var(--purple-deep);
+  box-shadow: none;
+}
+
+.salty {
+  background: var(--gold);
+  color: var(--ink);
+  box-shadow: none;
+}
+
+.hats {
+  display: inline-flex;
+  gap: 2px;
+}
+
+.lead {
+  font-size: 1.21rem;
+  color: var(--muted);
+  max-width: 32em;
+}
+
+/* the photo: a pill with a white edge on a tilted brown backdrop, like on the home page */
+.stage {
+  position: relative;
+  width: min(100%, 520px);
+  margin: 0 auto;
+}
+
+.stage::before,
+.stage::after {
+  content: "";
+  position: absolute;
+  inset: -22px;
+  border-radius: 999px;
+  transform: rotate(-6deg);
+  pointer-events: none;
+}
+
+.stage::before {
+  background: var(--gold);
+}
+
+.stage::after {
+  background: url("/images/doodles/bread-brown.webp") repeat;
+  background-size: 520px;
+  opacity: 0.28;
+}
+
+.photo {
+  position: relative;
+  z-index: 1;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border-radius: 999px;
+  box-shadow: 0 0 0 10px var(--white), 0 18px 36px rgba(61, 44, 30, 0.25);
+}
+
+.cover {
+  object-fit: cover;
+}
+
+@media (min-width: 900px) {
+  .top {
+    grid-template-columns: 1fr 1fr;
+    gap: 72px;
+  }
+  .stage::before,
+  .stage::after {
+    inset: -34px -38px -28px -26px;
+  }
+}
+
+/* ingredients on the left, the numbered steps on the right */
+.details {
+  display: grid;
+  gap: 28px;
+  margin-top: 80px;
+  align-items: start;
+}
+
+.ingredients,
+.steps {
+  padding: 28px 30px 30px;
+  border-radius: 32px;
+  background: var(--white);
+  box-shadow: 0 10px 28px rgba(61, 44, 30, 0.1), inset 0 0 0 2px var(--gold-light);
+}
+
+.ingredients h2,
+.steps h2,
+.gallerySection h2,
+.related h2 {
+  margin-bottom: 18px;
+  font-size: 1.7rem;
+  color: var(--brown);
+}
+
+.ingredients ul {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ingredients li {
+  position: relative;
+  padding-left: 24px;
+}
+
+.ingredients li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.7em;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--gold);
+}
+
+.steps ol {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: step;
+}
+
+.steps li {
+  position: relative;
+  min-height: 40px;
+  padding-left: 56px;
+  counter-increment: step;
+}
+
+.steps li::before {
+  content: counter(step);
+  position: absolute;
+  left: 0;
+  top: -2px;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--purple);
+  color: var(--white);
+  font-family: var(--font-bubble);
+  font-weight: 700;
+}
+
+.soon {
+  margin-top: 64px;
+  text-align: center;
+  color: var(--muted);
+}
+
+@media (min-width: 900px) {
+  .details {
+    grid-template-columns: 1fr 1.5fr;
+    gap: 36px;
+  }
+  .ingredients {
+    position: sticky;
+    top: 130px;
+  }
+}
+
+/* more photos of the dish */
+.gallerySection,
+.related {
+  margin-top: 80px;
+}
+
+.gallery {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.galleryItem {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border-radius: 28px;
+  box-shadow: 0 8px 22px rgba(61, 44, 30, 0.16);
+}
+
+@media (min-width: 700px) {
+  .gallery {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.relatedGrid {
+  display: grid;
+  gap: 24px;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 700px) {
+  .relatedGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1000px) {
+  .relatedGrid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}

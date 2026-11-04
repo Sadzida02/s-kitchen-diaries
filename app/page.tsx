@@ -4,7 +4,7 @@ import DishViewer from "@/components/DishViewer";
 import RecipeCard from "@/components/RecipeCard";
 import Podium from "@/components/Podium";
 import TypedQuote from "@/components/TypedQuote";
-import { featuredRecipes, latestRecipes } from "@/lib/recipes";
+import { getFeatured, getLatest } from "@/lib/recipes";
 import styles from "./page.module.css";
 
 const iftarDishes = [
@@ -33,7 +33,7 @@ export default function HomePage() {
 
           <div className={styles.heroText}>
             <p className="kicker">Hi, I am Sadzida </p>
-            <h1>and I Love Cooking.</h1>
+            <h1>and I love cooking.</h1>
             <p className={styles.lead}>
               Lots of experimenting, inventing and playing with ingredients in my kitchen.
               Sweet, salty, light, and  indulgent, all made to be shared...
@@ -47,6 +47,17 @@ export default function HomePage() {
               </Link>
             </div>
           </div>
+        </div>
+      </section>
+
+      <section id="favourites" className="section">
+        <div className="container">
+          <div className="section-head">
+            <p className="kicker">From the kitchen</p>
+            <h2>Favourites</h2>
+            <p>The bakes and dishes I make again and again.</p>
+          </div>
+          <Podium recipes={getFeatured()} />
         </div>
       </section>
 
@@ -66,17 +77,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section id="favourites" className="section">
-        <div className="container">
-          <div className="section-head">
-            <p className="kicker">From the kitchen</p>
-            <h2>Favourites</h2>
-            <p>The bakes and dishes I make again and again.</p>
-          </div>
-          <Podium recipes={featuredRecipes} />
-        </div>
-      </section>
-
       <section id="latest" className="section">
         <div className="container">
           <div className="section-head">
@@ -85,7 +85,7 @@ export default function HomePage() {
             <p>The newest recipes on the table.</p>
           </div>
           <div className={styles.latestGrid}>
-            {latestRecipes.map((recipe) => (
+            {getLatest().map((recipe) => (
               <RecipeCard key={recipe.slug} recipe={recipe} badge={{ label: "New", tone: "new" }} />
             ))}
           </div>
@@ -98,18 +98,14 @@ export default function HomePage() {
           alt="An iftar table with sultan kebab, a pink salad, falafel with potatoes and chicken veggie soup"
           dishes={iftarDishes}
           reverse
+          bubble
         >
-          <p className="kicker">Hi, I am Sadzida</p>
-          <h2>I love cooking, in free and busy times.</h2>
+          <p className="kicker">Whether it is gathering or just me</p>
+          <h2>I enjoy in preparation.</h2>
           <p className={styles.aboutCopy}>
             This is my hobby, a creative outlet, and my favourite way to make people around me happy.
             I am far from a professional, but someone who has an eye for tastes and pretty plates. Hope you like my ideas...
           </p>
-          <div>
-            <Link href="/about" className="btn btn-outline">
-              About me
-            </Link>
-          </div>
         </DishViewer>
       </section>
     </>

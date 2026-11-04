@@ -1,12 +1,19 @@
+/* The hero starts at the very top of the page, behind the floating navbar. */
 .hero {
+  --ring-d: clamp(220px, 30vw, 480px);
   position: relative;
-  overflow: hidden;
-  padding: 32px 0 72px;
+  z-index: 2;
+  margin-top: calc(var(--nav-space) * -1);
+  padding: var(--nav-space) 0 72px;
+  /* stacked layout: brown behind the navbar too */
+  background: linear-gradient(var(--gold), var(--gold)) top / 100% var(--nav-space) no-repeat;
 }
 
 /* text first on phones; on wide screens the ring sits on the left and the text
    on the right */
 .heroGrid {
+  position: relative;
+  z-index: 1;
   display: grid;
   grid-template-columns: 1fr;
   gap: 40px;
@@ -15,11 +22,18 @@
 
 .heroRing {
   order: 2;
-  --ring-size: min(calc(100vw - 72px), 860px);
+  /* the wheel starts flush with the left edge of the screen */
+  margin: 0 calc(var(--gutter) * -1);
 }
 
 .heroText {
   order: 1;
+  position: relative;
+  isolation: isolate;
+  /* brown band like the quote section, with brown doodles */
+  margin: 0 calc(var(--gutter) * -1);
+  padding: 44px var(--gutter);
+  background: var(--gold);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -27,6 +41,17 @@
   text-align: center;
   gap: 16px;
   animation: rise 0.9s cubic-bezier(0.2, 0.9, 0.3, 1) 0.5s both;
+}
+
+.heroText::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: url("/images/doodles/bread-brown.webp") repeat;
+  background-size: 728px;
+  opacity: 0.28;
+  pointer-events: none;
 }
 
 @keyframes rise {
@@ -46,31 +71,80 @@
   font-weight: 700;
   font-size: clamp(2.6rem, 5.6vw, 4.8rem);
   line-height: 1.05;
-  color: var(--);
+  color: var(--white);
   text-wrap: balance;
 }
 
 .heroText :global(.kicker) {
-  color: var(--purple);
+  color: var(--white);
+  font-size: 1.7rem;
+}
+
+@media (min-width: 721px) {
+  .hero {
+    padding-bottom: 0;
+  }
 }
 
 @media (min-width: 1100px) {
+  /* the right half of the hero is brown, from the top of the page down, with
+     brown doodles over it */
+  .hero {
+    background: none;
+  }
+
+  /* the brown panel, with its lower-left corner rounded */
+  .hero::before,
+  .hero::after {
+    content: "";
+    position: absolute;
+    inset: 0 0 0 55%;
+    border-bottom-left-radius: 90px;
+    pointer-events: none;
+  }
+
+  .hero::before {
+    background: var(--gold);
+  }
+
+  .hero::after {
+    background: url("/images/doodles/bread-brown.webp") repeat;
+    background-size: 728px;
+    opacity: 0.28;
+  }
+
   .heroGrid {
-    grid-template-columns: 1.35fr 1fr;
-    gap: 24px;
-    width: min(100% - 28px, 1440px);
+    grid-template-columns: 11fr 9fr;
+    gap: 0;
+    width: 100%;
     max-width: none;
+    margin: 0;
+    padding: 0;
   }
 
   .heroRing {
     order: 1;
-    --ring-size: min(calc(58vw - 30px), 820px);
+    position: relative;
+    z-index: 1;
+    margin: 0;
   }
+
 
   .heroText {
     order: 2;
+    /* centred on the same height as the middle circle of the wheel (0.8 diameters below the navbar) */
+    align-self: start;
+    height: calc(var(--ring-d) * 1.6);
+    margin: 0;
+    /* the wheel reaches a little into this half, so leave room for it */
+    padding: 0 clamp(32px, 4vw, 72px) 0 calc(2vw + 40px);
+    background: none;
     align-items: flex-start;
     text-align: left;
+  }
+
+  .heroText::before {
+    display: none;
   }
 
   .heroText .actions {
@@ -79,8 +153,8 @@
 }
 
 .lead {
-  font-size: 1.1rem;
-  color: var(--ink);
+  font-size: 1.21rem;
+  color: var(--white);
   max-width: 28em;
 }
 
@@ -92,14 +166,21 @@
   margin-top: 6px;
 }
 
-.ghost {
-  border-color: #3a2058;
-  color: #3a2058;
-  background: transparent;
+/* white buttons so they stand out on the brown */
+.heroText .actions :global(.btn) {
+  background: var(--white);
+  border-color: var(--white);
+  color: var(--purple-deep);
+  box-shadow: 0 6px 16px rgba(61, 44, 30, 0.22);
 }
 
-.ghost:hover {
-  background: var(--white);
+.heroText .actions :global(.btn):hover {
+  background: var(--gold-soft);
+  border-color: var(--gold-soft);
+}
+
+.ghost {
+  border-color: var(--white);
 }
 
 .categories {
@@ -145,7 +226,7 @@
   overflow: hidden;
   background: var(--gold);
   padding: 140px 0;
-  margin-top: 32px;
+  margin-top: 0;
 }
 
 .quoteInner {
