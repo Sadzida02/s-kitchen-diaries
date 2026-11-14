@@ -44,6 +44,20 @@
   color: var(--white);
 }
 
+.disclaimerRow {
+  display: grid;
+  gap: 24px;
+  align-items: center;
+  justify-items: center;
+}
+
+/* the chef stands to the left of the text, large */
+.chef {
+  width: auto;
+  height: 280px;
+  filter: drop-shadow(0 14px 18px rgba(61, 44, 30, 0.3));
+}
+
 .disclaimer {
   max-width: 720px;
   display: flex;
@@ -53,12 +67,29 @@
   align-items: center;
 }
 
+@media (min-width: 900px) {
+  .disclaimerRow {
+    grid-template-columns: auto 1fr;
+    gap: 72px;
+    justify-items: start;
+  }
+
+  .chef {
+    height: 460px;
+  }
+
+  .disclaimer {
+    text-align: left;
+    align-items: flex-start;
+  }
+}
+
 .strong {
   font-weight: 700;
   color: var(--white);
 }
 
-.disclaimer p:not(.kicker) {
+.disclaimer p:not(:global(.kicker)) {
   line-height: 1.8;
 }
 
@@ -79,13 +110,19 @@
   max-width: 30em;
 }
 
-.startedText p:not(.kicker) {
+.startedText p:not(:global(.kicker)) {
   color: var(--muted);
   line-height: 1.8;
 }
 
 .inspired {
   padding-bottom: 112px;
+}
+
+/* the small handwritten headings are purple everywhere */
+.inspired :global(.kicker),
+.started :global(.kicker) {
+  color: var(--purple);
 }
 
 .groupTitle {

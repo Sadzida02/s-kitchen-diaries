@@ -1,7 +1,8 @@
 import Link from "next/link";
 import CategoryRing from "@/components/CategoryRing";
 import DishViewer from "@/components/DishViewer";
-import RecipeCard from "@/components/RecipeCard";
+import SpoonCard from "@/components/SpoonCard";
+import SharedMeals from "@/components/SharedMeals";
 import Podium from "@/components/Podium";
 import TypedQuote from "@/components/TypedQuote";
 import { getFeatured, getLatest } from "@/lib/recipes";
@@ -21,6 +22,11 @@ const iftarDishes = [
     ],
   },
 ];
+
+// "2026-10-28" -> "28 Oct"
+function shortDate(iso: string) {
+  return new Date(`${iso}T00:00:00Z`).toLocaleDateString("en-GB", { day: "numeric", month: "short", timeZone: "UTC" });
+}
 
 export default function HomePage() {
   return (
@@ -85,14 +91,30 @@ export default function HomePage() {
             <p>The newest recipes on the table.</p>
           </div>
           <div className={styles.latestGrid}>
-            {getLatest().map((recipe) => (
-              <RecipeCard key={recipe.slug} recipe={recipe} badge={{ label: "New", tone: "new" }} />
+            {getLatest(3).map((recipe, index) => (
+              <SpoonCard
+                key={recipe.slug}
+                recipe={recipe}
+                side={index % 2 === 0 ? "left" : "right"}
+                label={recipe.added ? `Added ${shortDate(recipe.added)}` : undefined}
+              />
             ))}
           </div>
         </div>
       </section>
 
-      <section className="section">
+      <section id="shared-meals" className={`section ${styles.factsBand}`}>
+        <div className="container">
+          <div className="section-head">
+            <p className="kicker">Food tastes better together</p>
+            <h2>Shared meals by the numbers</h2>
+            <p>Hover over a card to see what eating together does for us.</p>
+          </div>
+          <SharedMeals />
+        </div>
+      </section>
+
+      <section className={`section ${styles.afterFacts}`}>
         <DishViewer
           src="/images/salty-iftar.jpg"
           alt="An iftar table with sultan kebab, a pink salad, falafel with potatoes and chicken veggie soup"

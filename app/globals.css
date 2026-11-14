@@ -13,9 +13,9 @@
   --mat: #fbf8fd;
 
  
-  --font-body: "Sniglet", "Nunito Variable", system-ui, sans-serif;
+  --font-body: "Fredoka Variable", "Trebuchet MS", system-ui, sans-serif;
   --font-bubble: "Fredoka Variable", "Trebuchet MS", system-ui, sans-serif;
-  /* Fredoka for headings, Sniglet for text, Schoolbell for the handwritten
+  /* Fredoka for headings and text, Schoolbell for the handwritten
      touches. Swap these lines to try other fonts. */
   /* height the floating navbar takes: its top margin plus the bar */
   --nav-space: 106px;

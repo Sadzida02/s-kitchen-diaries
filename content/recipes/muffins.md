@@ -1,7 +1,7 @@
 ---
 title: Muffins
 taste: sweet
-tags: [breakfast, guilty]
+tags: [desserts, guilty]
 image: /images/sweet-muffins.jpg
 alt: Cupcakes topped with cream and sugar flowers on a white plate
 ---

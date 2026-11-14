@@ -24,6 +24,8 @@ export type Difficulty = (typeof DIFFICULTIES)[number];
 
 export type FilterSlug = Category | Tag;
 
+export type RecipeSection = { title: string; items: string[] };
+
 export type Recipe = {
   slug: string;
   title: string;
@@ -38,6 +40,9 @@ export type Recipe = {
   note: string;
   ingredients: string[];
   steps: string[];
+  // the same lists split by their headings, e.g. "Ingredients for the cake" and "Ingredients for the cream"
+  ingredientGroups: RecipeSection[];
+  stepGroups: RecipeSection[];
   // the other photos of the dish
   gallery: string[];
   // place on the Favourites podium, 1 to 5

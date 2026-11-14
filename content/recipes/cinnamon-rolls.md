@@ -1,12 +1,13 @@
 ---
 title: Cinnamon rolls
 taste: sweet
-tags: [breakfast, guilty]
+tags: [desserts, guilty]
 image: /images/sweet-cinnamon-rolls.jpg
 alt: A tray of cinnamon rolls with white icing and sea salt
 ---
-Soft, spiced, and gone before the coffee cools.
+To indulge in the fall flavors during cozy times.
 
 ## Ingredients
+
 
 ## Steps

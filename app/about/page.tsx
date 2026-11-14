@@ -91,22 +91,33 @@ export default function AboutPage() {
       </section>
 
       <section className={styles.band}>
-        <div className={`container ${styles.disclaimer}`}>
+        <div className={`container ${styles.disclaimerRow}`}>
+          <Image
+            src="/images/chef/chef-whisk.webp"
+            alt="The little chef figurine holding a whisk"
+            width={530}
+            height={720}
+            sizes="(max-width: 900px) 240px, 360px"
+            quality={90}
+            className={styles.chef}
+          />
+          <div className={styles.disclaimer}>
           <span className={styles.alert} aria-hidden="true">
-            <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round">
-              <path d="M12 5v9" />
-              <path d="M12 19h.01" />
-            </svg>
-          </span>
-          <p className="kicker">An honest disclaimer</p>
-          <h2>I am not a professional cook.</h2>
-          <p>          
-            I have no formal cooking training and no real cooking experience outside my own kitchen.
-            Cooking is my hobby, and my favourite way to play. I am just a girl who loves messing with
-            ingredients, tasting everything along the way, and making people around me happy with what
-            I make. <br /><br />
-            *The purpose of this blog is to have a unique place to store my ideas and countless photos, additionally maybe inspiring others to try something new.
-          </p>
+              <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round">
+                <path d="M12 5v9" />
+                <path d="M12 19h.01" />
+              </svg>
+            </span>
+            <p className="kicker">An honest disclaimer</p>
+            <h2>I am not a professional cook.</h2>
+            <p>          
+              I have no formal cooking training and no real cooking experience outside my own kitchen.
+              Cooking is my hobby, and my favourite way to play. I am just a girl who loves messing with
+              ingredients, tasting everything along the way, and making people around me happy with what
+              I make. <br /><br />
+              *The purpose of this blog is to have a unique place to store my ideas and countless photos, additionally maybe inspiring others to try something new.
+            </p>
+          </div>
         </div>
       </section>
 

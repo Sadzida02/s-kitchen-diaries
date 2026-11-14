@@ -87,7 +87,8 @@ export default function CategoryRing() {
                       src={category.image}
                       alt={category.alt}
                       fill
-                      sizes="280px"
+                      sizes="(max-width: 720px) 34vw, min(30vw, 480px)"
+                      quality={90}
                       className={styles.photo}
                     />
                   </span>

@@ -1,8 +1,11 @@
 // Shrinks the photos of a recipe and puts them where the site looks for them.
 //
-//   npm run images -- <folder with the photos> <recipe-slug> [--cover file.jpg]
+//   npm run images -- <folder with the photos, or one photo> <recipe-slug> [--cover file.jpg]
 //
-// Example: npm run images -- C:/Users/me/Desktop/soup pumpkin-soup
+// The photos can be anywhere on your computer (Desktop, Downloads...); the
+// shrunk copies are written into the project for you.
+// Examples: npm run images -- C:/Users/me/Desktop/soup pumpkin-soup
+//           npm run images -- C:/Users/me/Desktop/IMG_1234.JPG pumpkin-soup
 //
 // Every photo in the folder is resized to at most 1800 px, saved as a light
 // JPEG and written to public/recipes/<recipe-slug>/. The first photo (or the one
@@ -22,18 +25,23 @@ const positional = args.filter((arg, i) => !arg.startsWith("--") && (coverIndex 
 const [input, slug] = positional;
 
 if (!input || !slug) {
-  console.error("Usage: npm run images -- <folder with the photos> <recipe-slug> [--cover file.jpg]");
+  console.error("Usage: npm run images -- <folder with the photos, or one photo> <recipe-slug> [--cover file.jpg]");
   process.exit(1);
 }
-if (!fs.existsSync(input) || !fs.statSync(input).isDirectory()) {
-  console.error(`"${input}" is not a folder.`);
+if (!fs.existsSync(input)) {
+  console.error(`"${input}" was not found.`);
   process.exit(1);
 }
 
-const files = fs
-  .readdirSync(input)
-  .filter((name) => /\.(jpe?g|png|webp|avif|heic)$/i.test(name))
-  .sort();
+// the first argument can be a folder of photos or one single photo
+const isFile = fs.statSync(input).isFile();
+const folder = isFile ? path.dirname(input) : input;
+const files = isFile
+  ? [path.basename(input)]
+  : fs
+      .readdirSync(input)
+      .filter((name) => /\.(jpe?g|png|webp|avif|heic)$/i.test(name))
+      .sort();
 if (files.length === 0) {
   console.error("No photos found in that folder.");
   process.exit(1);
@@ -52,7 +60,7 @@ const ordered = coverName ? [coverName, ...files.filter((name) => name !== cover
 let number = 0;
 for (const [index, name] of ordered.entries()) {
   const target = index === 0 ? "cover.jpg" : `${String(++number).padStart(2, "0")}.jpg`;
-  const source = path.join(input, name);
+  const source = path.join(folder, name);
   await sharp(source)
     .rotate() // follow the phone's orientation
     .resize({ width: 1800, height: 1800, fit: "inside", withoutEnlargement: true })

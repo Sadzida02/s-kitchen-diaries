@@ -6,6 +6,7 @@
   color: var(--brown);
   font-weight: 600;
   text-decoration: none;
+  font-family: var(--font-bubble);
 }
 
 .back:hover {
@@ -68,40 +69,10 @@
   max-width: 32em;
 }
 
-/* the photo: a pill with a white edge on a tilted brown backdrop, like on the home page */
 .stage {
   position: relative;
   width: min(100%, 520px);
   margin: 0 auto;
-}
-
-.stage::before,
-.stage::after {
-  content: "";
-  position: absolute;
-  inset: -22px;
-  border-radius: 999px;
-  transform: rotate(-6deg);
-  pointer-events: none;
-}
-
-.stage::before {
-  background: var(--gold);
-}
-
-.stage::after {
-  background: url("/images/doodles/bread-brown.webp") repeat;
-  background-size: 520px;
-  opacity: 0.28;
-}
-
-.photo {
-  position: relative;
-  z-index: 1;
-  aspect-ratio: 4 / 5;
-  overflow: hidden;
-  border-radius: 999px;
-  box-shadow: 0 0 0 10px var(--white), 0 18px 36px rgba(61, 44, 30, 0.25);
 }
 
 .cover {
@@ -112,10 +83,6 @@
   .top {
     grid-template-columns: 1fr 1fr;
     gap: 72px;
-  }
-  .stage::before,
-  .stage::after {
-    inset: -34px -38px -28px -26px;
   }
 }
 
@@ -137,7 +104,6 @@
 
 .ingredients h2,
 .steps h2,
-.gallerySection h2,
 .related h2 {
   margin-bottom: 18px;
   font-size: 1.7rem;
@@ -219,30 +185,9 @@
   }
 }
 
-/* more photos of the dish */
-.gallerySection,
+/* more photos of the dish: stacked under the main photo, scroll to see them all */
 .related {
   margin-top: 80px;
-}
-
-.gallery {
-  display: grid;
-  gap: 16px;
-  grid-template-columns: repeat(2, 1fr);
-}
-
-.galleryItem {
-  position: relative;
-  aspect-ratio: 4 / 5;
-  overflow: hidden;
-  border-radius: 28px;
-  box-shadow: 0 8px 22px rgba(61, 44, 30, 0.16);
-}
-
-@media (min-width: 700px) {
-  .gallery {
-    grid-template-columns: repeat(3, 1fr);
-  }
 }
 
 .relatedGrid {
@@ -261,4 +206,78 @@
   .relatedGrid {
     grid-template-columns: repeat(4, 1fr);
   }
+}
+
+/* a recipe can have several lists, like "Ingredients for the cake" and "...for the cream" */
+.group + .group {
+  margin-top: 26px;
+}
+
+.group h3 {
+  margin-bottom: 12px;
+  font-size: 1.15rem;
+  color: var(--purple);
+}
+
+/* tags, quick facts and suggestions in the left column */
+.tags,
+.facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tags a {
+  display: inline-block;
+  padding: 5px 16px;
+  border-radius: var(--radius-pill);
+  background: var(--lavender);
+  color: var(--purple-deep);
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+
+.tags a:hover {
+  background: var(--gold-light);
+}
+
+.facts li {
+  padding: 6px 16px;
+  border-radius: var(--radius-pill);
+  background: var(--white);
+  color: var(--muted);
+  box-shadow: inset 0 0 0 2px var(--gold-light);
+}
+
+.facts strong {
+  color: var(--brown);
+  font-family: var(--font-bubble);
+  font-size: 1.15em;
+}
+
+.jump {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  gap: 8px;
+  padding: 10px 24px;
+  border-radius: var(--radius-pill);
+  background: var(--purple);
+  color: var(--white);
+  font-weight: 500;
+  text-decoration: none;
+  box-shadow: 0 4px 12px rgba(125, 85, 176, 0.3);
+  transition: background-color 0.2s ease;
+}
+
+.jump:hover {
+  background: var(--purple-deep);
+}
+
+#recipe {
+  scroll-margin-top: 130px;
 }

@@ -34,25 +34,46 @@ function parseFrontMatter(text: string): { data: Record<string, string | string[
   return { data, body: match[2] };
 }
 
-// the text before the first "## " heading, then the "## Ingredients" and "## Steps" lists
+// The text before the first "## " heading is the description. Every "## " heading that
+// starts with "Ingredient" begins a list of ingredients and every one that starts with
+// "Step", "Method", "Instructions" or "Directions" begins a list of steps, so a recipe can
+// have several of each ("## Ingredients for the cake", "## Ingredients for the cream").
 function parseBody(body: string) {
-  const sections: Record<string, string[]> = { intro: [] };
-  let current = "intro";
+  const intro: string[] = [];
+  const groups: { title: string; kind: "ingredients" | "steps" | "other"; lines: string[] }[] = [];
+  let current: (typeof groups)[number] | undefined;
   for (const line of body.replace(/<!--[\s\S]*?-->/g, "").split(/\r?\n/)) {
     const heading = line.match(/^##\s+(.+?)\s*$/);
     if (heading) {
-      current = heading[1].toLowerCase();
-      sections[current] = [];
+      const title = heading[1];
+      const kind = /^ingredient/i.test(title)
+        ? "ingredients"
+        : /^(steps?|method|instructions?|directions?)\b/i.test(title)
+          ? "steps"
+          : "other";
+      current = { title, kind, lines: [] };
+      groups.push(current);
+    } else if (current) {
+      current.lines.push(line);
     } else {
-      sections[current].push(line);
+      intro.push(line);
     }
   }
-  const items = (lines: string[] = []) =>
+  const items = (lines: string[]) =>
     lines.map((line) => line.replace(/^\s*(?:[-*]|\d+[.)])\s+/, "").trim()).filter(Boolean);
+  const sections = (kind: "ingredients" | "steps") =>
+    groups
+      .filter((group) => group.kind === kind)
+      .map((group) => ({ title: group.title, items: items(group.lines) }))
+      .filter((group) => group.items.length > 0);
+  const ingredientGroups = sections("ingredients");
+  const stepGroups = sections("steps");
   return {
-    note: sections.intro.join(" ").replace(/\s+/g, " ").trim(),
-    ingredients: items(sections.ingredients),
-    steps: items(sections.steps),
+    note: intro.join(" ").replace(/\s+/g, " ").trim(),
+    ingredientGroups,
+    stepGroups,
+    ingredients: ingredientGroups.flatMap((group) => group.items),
+    steps: stepGroups.flatMap((group) => group.items),
   };
 }
 
@@ -60,13 +81,15 @@ function asString(value: string | string[] | undefined): string {
   return Array.isArray(value) ? value.join(", ") : (value ?? "");
 }
 
-function loadRecipe(file: string): Recipe {
+function loadRecipe(file: string): Recipe | undefined {
   const slug = file.replace(/\.md$/, "");
   const fail = (message: string): never => {
     throw new Error(`content/recipes/${file}: ${message}`);
   };
 
   const { data, body } = parseFrontMatter(fs.readFileSync(path.join(RECIPES_DIR, file), "utf8"));
+  // a recipe marked "draft: true" is not on the site yet (npm run import creates drafts)
+  if (asString(data.draft).toLowerCase() === "true") return undefined;
   const title = asString(data.title);
   if (!title) fail('missing "title:" in the front matter');
 
@@ -87,23 +110,28 @@ function loadRecipe(file: string): Recipe {
     fail(`difficulty must be one of: ${DIFFICULTIES.join(", ")} (found "${difficulty}")`);
   }
 
-  // an image name lives in public/recipes/<slug>/; a path starting with / is used as it is
+  // The cover is a file name inside public/recipes/<slug>/, or a path starting with /.
+  // If that file is missing the page still works: the first photo in the recipe's
+  // folder is used, or a plain placeholder, and a warning shows in the terminal.
+  const folder = path.join(PHOTOS_DIR, slug);
+  const inFolder = fs.existsSync(folder)
+    ? fs.readdirSync(folder).filter((name) => IMAGE_FILE.test(name)).sort()
+    : [];
+  const web = (name: string) => `/recipes/${slug}/${encodeURIComponent(name)}`;
+
   const imageName = asString(data.image);
-  if (!imageName) fail('missing "image:" in the front matter');
-  const image = imageName.startsWith("/") ? imageName : `/recipes/${slug}/${imageName}`;
-  if (!fs.existsSync(path.join(process.cwd(), "public", image))) {
-    fail(`the photo "${image}" was not found in the public folder`);
+  let image = imageName.startsWith("/") ? imageName : imageName ? web(imageName) : "";
+  if (!image || !fs.existsSync(path.join(process.cwd(), "public", decodeURIComponent(image)))) {
+    const fallback = inFolder[0] ? web(inFolder[0]) : "/recipes/placeholder.svg";
+    console.warn(
+      `[recipes] content/recipes/${file}: the photo "${imageName || "(none)"}" was not found in public/recipes/${slug}/. ` +
+        (inFolder[0] ? `Using "${inFolder[0]}" for now.` : "Showing a placeholder until you add a photo."),
+    );
+    image = fallback;
   }
 
   // every other photo in the recipe's folder is part of its gallery
-  const folder = path.join(PHOTOS_DIR, slug);
-  const gallery = fs.existsSync(folder)
-    ? fs
-        .readdirSync(folder)
-        .filter((name) => IMAGE_FILE.test(name) && `/recipes/${slug}/${name}` !== image)
-        .sort()
-        .map((name) => `/recipes/${slug}/${name}`)
-    : [];
+  const gallery = inFolder.map(web).filter((src) => src !== image);
 
   const podium = data.podium ? Number(data.podium) : undefined;
   if (podium !== undefined && !(podium >= 1 && podium <= 5)) fail("podium must be a number from 1 to 5");
@@ -120,6 +148,8 @@ function loadRecipe(file: string): Recipe {
     note: parsed.note,
     ingredients: parsed.ingredients,
     steps: parsed.steps,
+    ingredientGroups: parsed.ingredientGroups,
+    stepGroups: parsed.stepGroups,
     gallery,
     podium,
     added: asString(data.added) || undefined,
@@ -136,6 +166,7 @@ export function getRecipes(): Recipe[] {
     .readdirSync(RECIPES_DIR)
     .filter((file) => file.endsWith(".md") && !file.startsWith("_"))
     .map(loadRecipe)
+    .filter((recipe): recipe is Recipe => recipe !== undefined)
     .sort((a, b) => (b.added ?? "").localeCompare(a.added ?? "") || a.title.localeCompare(b.title));
   if (process.env.NODE_ENV === "production") cached = list;
   return list;
@@ -153,10 +184,13 @@ export function getFeatured(): Recipe[] {
     .slice(0, 5);
 }
 
+// The newest recipes by their `added` date (getRecipes already sorts that way).
+// If fewer than `count` have a date, the rest are filled in from the other recipes.
 export function getLatest(count = 4): Recipe[] {
-  return getRecipes()
-    .filter((recipe) => recipe.added)
-    .slice(0, count);
+  const all = getRecipes();
+  const dated = all.filter((recipe) => recipe.added);
+  const undated = all.filter((recipe) => !recipe.added);
+  return [...dated, ...undated].slice(0, count);
 }
 
 // recipes that share the most tags (and the same taste), best match first

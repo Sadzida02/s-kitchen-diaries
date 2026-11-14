@@ -207,7 +207,7 @@
 }
 
 /* the big version: a pill-shaped photo with a white edge, on a tilted brown
-   backdrop with brown doodles */
+   backdrop */
 .bubble .stage::before,
 .bubble .stage::after {
   content: "";
@@ -220,12 +220,6 @@
 
 .bubble .stage::before {
   background: var(--gold);
-}
-
-.bubble .stage::after {
-  background: url("/images/doodles/bread-brown.webp") repeat;
-  background-size: 520px;
-  opacity: 0.28;
 }
 
 .bubble .frame {

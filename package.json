@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "images": "node scripts/optimize-images.mjs",
-    "new-recipe": "node scripts/new-recipe.mjs"
+    "new-recipe": "node scripts/new-recipe.mjs",
+    "import": "node scripts/import-recipes.mjs"
   },
   "dependencies": {
     "@fontsource-variable/dm-sans": "^5.3.0",

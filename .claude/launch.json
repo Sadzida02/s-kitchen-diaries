@@ -6,6 +6,12 @@
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run", "dev"],
       "port": 3000
+    },
+    {
+      "name": "bosnia-heritage-map",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["C:/Users/Sadzida/Downloads/bosnia-heritage-map/serve.mjs"],
+      "port": 5173
     }
   ]
 }

@@ -7,8 +7,6 @@ import "@fontsource-variable/dynapuff/index.css";
 import "@fontsource-variable/nunito/index.css";
 import "@fontsource/capriola/400.css";
 import "@fontsource/schoolbell/400.css";
-import "@fontsource/sniglet/400.css";
-import "@fontsource/sniglet/800.css";
 import "@fontsource-variable/playfair-display/index.css";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";

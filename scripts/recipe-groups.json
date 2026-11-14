@@ -1,0 +1,27 @@
+{
+  "merge": {
+    "mufins": "muffins",
+    "ramstek": "steak-plate",
+    "ramsteak": "steak-plate",
+    "baklave-gnjezda": "baklava-gnjezdo",
+    "tuna-salata": "tuna-salad",
+    "fruits-oats": "fruit-oats",
+    "date-cake-whole": "date-cake",
+    "medenjak-slice": "medenjak",
+    "zeljanica-kovrci": "zeljanica",
+    "kiflice-wallpaper": "kiflice",
+    "monte-oats": "oats-monte",
+    "cinammon-rolls": "cinnamon-rolls",
+    "mini-pavlove": "mini-pavlovas",
+    "strawberry-desert-in-glass": "strawberry-glass",
+    "dates": "chocolate-dates",
+    "pizza": "homemade-pizza",
+    "grilled-meat": "grilled-meat-platter",
+    "iftar": "iftar-table",
+    "tikva-pasta": "pumpkin-pasta",
+    "datapancake": "date-pancakes",
+    "datecake": "date-cake"
+  },
+  "name": {},
+  "cover": {}
+}

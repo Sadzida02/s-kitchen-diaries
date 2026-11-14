@@ -39,7 +39,8 @@ async function RecipesContent({ searchParams }: { searchParams: SearchParams }) 
   const selection = selectionFromParams(params);
   const q = typeof params.q === "string" ? params.q.trim().slice(0, 80) : "";
   const filtered = Object.keys(selection).length > 0 || q !== "";
-  const list = filterRecipes(getRecipes(), selection, q);
+  const all = getRecipes();
+  const list = filterRecipes(all, selection, q);
 
   const search = (
     <form className={styles.search} action="/recipes" role="search">
@@ -69,10 +70,16 @@ async function RecipesContent({ searchParams }: { searchParams: SearchParams }) 
         <div className="section-head">
           <p className="kicker">From the kitchen</p>
           <h1>{filtered ? "Recipes" : "All recipes"}</h1>
-          <p>
-            {filtered
-              ? `${list.length} ${list.length === 1 ? "recipe matches" : "recipes match"} your search.`
-              : "Everything I have cooked and baked, ready to browse."}
+          <p className={styles.count} aria-live="polite">
+            {filtered ? (
+              <>
+                Showing <strong>{list.length}</strong> of <strong>{all.length}</strong> recipes
+              </>
+            ) : (
+              <>
+                <strong>{all.length}</strong> recipes, everything I have cooked and baked.
+              </>
+            )}
           </p>
         </div>
 

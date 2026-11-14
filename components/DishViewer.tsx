@@ -138,7 +138,8 @@ export default function DishViewer({
           alt={alt}
           fill
           priority={priority}
-          sizes="(max-width: 900px) 100vw, 640px"
+          sizes="(max-width: 900px) 100vw, 720px"
+          quality={90}
           className={styles.photo}
         />
 
