@@ -7,11 +7,11 @@ import { getDictionary } from "@/lib/dictionaries";
 import type { Locale } from "@/lib/i18n";
 import styles from "./SharedMeals.module.css";
 
-// the numbers and where they come from; the words under them are in the dictionary
+// the numbers; the words under them are in the dictionary
 const STATS = [
-  { to: 16.1, decimals: 1, href: "https://www.preprints.org/manuscript/202603.2194/v1" },
-  { to: 24, decimals: 0, href: "https://sph.umich.edu/pursuit/2019posts/breaking-bread-promoting-wellness.html" },
-  { to: 20, decimals: 0, href: "https://sph.umich.edu/pursuit/2019posts/breaking-bread-promoting-wellness.html" },
+  { to: 16.1, decimals: 1 },
+  { to: 24, decimals: 0 },
+  { to: 20, decimals: 0 },
 ];
 
 // counts from 0 up to the number the first time it is on screen
@@ -60,7 +60,7 @@ function Together({ lang }: { lang: Locale }) {
         </svg>
       </span>
       <p className={styles.statement}>
-        Eating together eases <em>loneliness</em> and sadness.
+        {rich(words.statement)}
       </p>
       <a
         className={styles.statementSource}
@@ -73,14 +73,11 @@ function Together({ lang }: { lang: Locale }) {
 
       <ul className={styles.stats}>
         {STATS.map((stat, index) => (
-          <li key={stat.href + stat.to}>
+          <li key={stat.to}>
             <p className={styles.statNumber}>
               <CountUp to={stat.to} decimals={stat.decimals} comma={lang === "bs"} />
             </p>
             <p className={styles.statCaption}>{words.stats[index].caption}</p>
-            <a href={stat.href} target="_blank" rel="noopener noreferrer">
-              {words.stats[index].note}
-            </a>
           </li>
         ))}
       </ul>

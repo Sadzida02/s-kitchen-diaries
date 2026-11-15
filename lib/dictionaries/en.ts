@@ -17,6 +17,8 @@ export const en = {
     switchCode: "BS",
     switchLabel: "Prebaci na bosanski",
     skip: "Skip to content",
+    openMenu: "Open menu",
+    closeMenu: "Close menu",
   },
   common: {
     sweet: "Sweet",
@@ -105,12 +107,12 @@ export const en = {
   },
   sharedMeals: {
     statement:
-      "Eating together eases *loneliness* and sadness. People feel happier, and closer, when they bond over a shared meal.",
+      "Eating together eases *loneliness* and sadness.",
     source: "As reported by National Geographic",
     stats: [
-      { caption: "of university students felt severely lonely, and the researchers link it to how they eat with others", note: "Preliminary study" },
-      { caption: "more likely to eat healthy foods in families who share at least three meals a week", note: "University of Michigan" },
-      { caption: "less likely to develop unhealthy eating habits for young children who share those meals", note: "University of Michigan" },
+      { caption: "of university students felt severely lonely, and the researchers link it to how they eat with others" },
+      { caption: "more likely to eat healthy foods in families who share at least three meals a week" },
+      { caption: "less likely to develop unhealthy eating habits for young children who share those meals" },
     ],
     word: {
       kicker: "A word with deep roots",

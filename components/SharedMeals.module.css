@@ -134,21 +134,6 @@
   text-align: center;
 }
 
-/* a faint bread doodle pattern behind the word */
-.word::before {
-  content: "";
-  position: absolute;
-  inset: 0 -40px;
-  background: url("/images/doodles/bread-brown-soft.webp") repeat;
-  background-size: 520px;
-  opacity: 0.3;
-  pointer-events: none;
-}
-
-.word > * {
-  position: relative;
-}
-
 .wordBody {
   display: flex;
   flex-direction: column;
@@ -209,12 +194,12 @@
 /* then the finished word fades in over them */
 .whole {
   position: absolute;
-  inset: 0;
-  display: grid;
-  place-items: center;
+  top: 50%;
+  left: 50%;
+  white-space: nowrap;
   color: var(--white);
   opacity: 0;
-  transform: scale(0.92);
+  transform: translate(-50%, -50%) scale(0.92);
   transition: opacity 0.4s ease 0.4s, transform 0.6s cubic-bezier(0.3, 1.5, 0.5, 1) 0.4s;
 }
 
@@ -234,7 +219,7 @@
 
 .joined .whole {
   opacity: 1;
-  transform: none;
+  transform: translate(-50%, -50%);
 }
 
 @media (hover: hover) {
@@ -254,7 +239,7 @@
 
   .mix:hover .whole {
     opacity: 1;
-    transform: none;
+    transform: translate(-50%, -50%);
   }
 }
 

@@ -1,11 +1,11 @@
 ---
-title: Palačinke od datulja
+title: Palačinke od hurmi
 ---
 Zdrava poslastica kad poželiš nešto slatko.
 
 ## Sastojci
 - 1 jaje
-- 40 g datulja
+- 40 g hurmi
 - 60 ml mlijeka
 - 1 kašičica jogurta
 - 40 g brašna od pira
@@ -17,7 +17,7 @@ Zdrava poslastica kad poželiš nešto slatko.
 - pekmez
 
 ## Koraci
-- Datulje potopi u toplo mlijeko i izmiksaj štapnim mikserom.
+- Hurme potopi u toplo mlijeko i izmiksaj štapnim mikserom.
 - Dodaj zobene pahuljice i ponovo izmiksaj.
 - Dodaj ostale sastojke.
 - Zagrij tavu na visokoj temperaturi.

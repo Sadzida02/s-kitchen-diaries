@@ -362,15 +362,21 @@
 
 /* the shared-meals band: gold from the palette, with darker text so it reads well */
 .factsBand {
+  position: relative;
+  isolation: isolate;
   background: var(--gold);
 }
 
-.factsBand :global(.section-head) p {
-  color: var(--ink);
-}
-
-.factsBand :global(.section-head) :global(.kicker) {
-  color: var(--purple-deep);
+/* the bread doodles over the whole band, like the hero and the quote */
+.factsBand::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: url("/images/doodles/bread-brown.webp") repeat;
+  background-size: 728px;
+  opacity: 0.28;
+  pointer-events: none;
 }
 
 /* ---- phones: no wheel, a calm stack instead ---- */

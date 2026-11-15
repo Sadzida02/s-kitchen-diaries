@@ -143,10 +143,6 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
 
       <section id="shared-meals" className={`section ${styles.factsBand}`}>
         <div className="container">
-          <div className="section-head">
-            <p className="kicker">{t.home.shared.kicker}</p>
-            <h2>{t.home.shared.title}</h2>
-          </div>
           <SharedMeals lang={lang} />
         </div>
       </section>

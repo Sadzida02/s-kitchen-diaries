@@ -1,4 +1,4 @@
 ---
-title: Torta od datulja
+title: Torta od hurmi
 ---
-Sočna torta zaslađena datuljama.
+Sočna torta zaslađena hurmama.

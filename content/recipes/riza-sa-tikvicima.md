@@ -1,5 +1,5 @@
 ---
-title: Long platter
+title: Rice with zucchini
 taste: salty
 tags: [healthy, lunch]
 image: cover.jpg

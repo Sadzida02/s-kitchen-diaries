@@ -13,6 +13,6 @@ Kad ti se prohtije okus jeseni, ova zdrava kombinacija jabuka i cimeta može ti 
 - pekmez
 
 ## Koraci
-- Popeci narezane jabuke, po želji s malo maslaca, zatim dodaj med i cimet. Dodaj vodu i zobene pahuljice i kuhaj na tihoj vatri dok se ne zgusne.
+- Proprži narezane jabuke, po želji s malo maslaca, zatim dodaj med i cimet. Dodaj vodu i zobene pahuljice i kuhaj na tihoj vatri dok se ne zgusne.
 - Prelij kašikom grčkog jogurta, sjemenkama i pekmezom.
 - Uživaj!

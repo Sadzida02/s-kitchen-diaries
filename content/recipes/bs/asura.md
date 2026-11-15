@@ -4,7 +4,7 @@ title: Ašura
 Najljepši miris ašure u mjesecu muharremu.
 
 ## Sastojci
-- 7 do 77 sastojaka po tvom izboru (voće, sušeno ili svježe, malo povrća, orašasti plodovi, žitarice, pirinač, šećer, začini, voda)
+- 7 do 77 sastojaka po tvom izboru (voće, sušeno ili svježe, malo povrća, orašasti plodovi, žitarice, riža, šećer, začini, voda)
 
 ## Koraci
 - Skuhaj žitarice posebno

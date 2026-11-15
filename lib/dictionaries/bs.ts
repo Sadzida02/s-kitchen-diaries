@@ -19,6 +19,8 @@ export const bs: Dictionary = {
     switchCode: "EN",
     switchLabel: "Switch to English",
     skip: "Preskoči na sadržaj",
+    openMenu: "Otvori meni",
+    closeMenu: "Zatvori meni",
   },
   common: {
     sweet: "Slatko",
@@ -107,12 +109,12 @@ export const bs: Dictionary = {
   },
   sharedMeals: {
     statement:
-      "Zajednički obroci ublažavaju *usamljenost* i tugu. Ljudi se osjećaju sretnijima i bližima kada se povezuju uz zajednički obrok.",
+      "Zajednički obroci ublažavaju *usamljenost* i tugu.",
     source: "Prema pisanju magazina National Geographic",
     stats: [
-      { caption: "studenata osjećalo je tešku usamljenost, a istraživači to povezuju s načinom na koji jedu s drugima", note: "Preliminarna studija" },
-      { caption: "veća vjerovatnoća zdrave prehrane u porodicama koje dijele najmanje tri obroka sedmično", note: "Univerzitet u Michiganu" },
-      { caption: "manja vjerovatnoća nezdravih navika u ishrani kod male djece koja dijele te obroke", note: "Univerzitet u Michiganu" },
+      { caption: "studenata osjećalo je tešku usamljenost, a istraživači to povezuju s načinom na koji jedu s drugima" },
+      { caption: "veća vjerovatnoća zdrave prehrane u porodicama koje dijele najmanje tri obroka sedmično" },
+      { caption: "manja vjerovatnoća nezdravih navika u ishrani kod male djece koja dijele te obroke" },
     ],
     word: {
       kicker: "Riječ s dubokim korijenima",

@@ -42,7 +42,7 @@ export default async function RootLayout({
   const t = getDictionary(lang);
 
   return (
-    <html lang={lang}>
+    <html lang={lang} data-scroll-behavior="smooth">
       <body>
         <a href="#main" className="skip-link">
           {t.nav.skip}

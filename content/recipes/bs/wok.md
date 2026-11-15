@@ -1,5 +1,5 @@
 ---
-title: Piletina u woku s basmati pirinčem
-alt: Povrće i pirinač pirjani u woku
+title: Piletina u woku s basmati rižom
+alt: Povrće i riža pirjani u woku
 ---
 Vruća tava, brze ruke i veliki okus.

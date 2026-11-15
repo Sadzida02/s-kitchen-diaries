@@ -1,11 +1,11 @@
 ---
-title: Datulje u čokoladi
-alt: Datulje u tamnoj čokoladi posute sjeckanim pistacijama i sušenim laticama
+title: Hurme u čokoladi
+alt: Hurme u tamnoj čokoladi posute sjeckanim pistacijama i sušenim laticama
 ---
 Tamna čokolada, hrskavi pistaci i malo romantike na tanjiru.
 
 ## Sastojci
-- Ukusne datulje
+- Ukusne hurme
 - čokolada
 - kikiriki maslac
 - bademi
@@ -17,6 +17,6 @@ Tamna čokolada, hrskavi pistaci i malo romantike na tanjiru.
 
 ## Koraci
 - Otopi čokoladu.
-- Napuni datulje bademima i kikiriki maslacem.
-- Umoči punjene datulje u čokoladu.
+- Napuni hurme bademima i kikiriki maslacem.
+- Umoči punjene hurme u čokoladu.
 - Ukrasi po želji.

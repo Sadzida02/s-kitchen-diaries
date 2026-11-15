@@ -1,7 +1,7 @@
 ---
 title: Piletina u maslacu (butter chicken)
 ---
-Nježna piletina u kremastom, blago začinjenom umaku od paradajza, najbolja uz pirinač ili topli hljeb.
+Nježna piletina u kremastom, blago začinjenom umaku od paradajza, najbolja uz rižu ili topli hljeb.
 
 ## Sastojci
 - 2 komada pilećih prsa
@@ -19,11 +19,11 @@ Nježna piletina u kremastom, blago začinjenom umaku od paradajza, najbolja uz 
 - 1 kašičica kardamoma
 - 1 kašičica cimeta
 - 3 dl vode
-- 1,5 dl šlaga
+- 1,5 dl slatke pavlake
 
-## Sastojci za pirinač
+## Sastojci za rižu
 - 1 kocka maslaca
-- 1 šolja pirinča
+- 1 šolja riže
 - 1,5 šolje vode
 - so
 - grožđice
@@ -38,12 +38,12 @@ Nježna piletina u kremastom, blago začinjenom umaku od paradajza, najbolja uz 
 - U istoj tavi ispržiti piletinu i izvaditi je.
 - Vratiti umak i dodati još malo vode.
 - Kuhati na srednjoj vatri.
-- Dodati šlag i piletinu.
+- Dodati slatku pavlaku i piletinu.
 - Kuhati još malo da se sve sjedini.
 
-## Koraci za pirinač
+## Koraci za rižu
 - Otopiti maslac u kipućoj vodi.
-- Oprati pirinač i dodati ga u kipuću vodu.
+- Oprati rižu i dodati ga u kipuću vodu.
 - Kuhati na najslabijoj vatri 12 minuta.
 - Ne skidati poklopac cijelo vrijeme.
 - Zatim ugasiti vatru i ostaviti poklopljeno još 10 minuta.
