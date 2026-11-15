@@ -126,7 +126,7 @@
   .sidebar {
     position: sticky;
     top: 130px;
-    max-height: calc(100vh - 150px);
+    max-height: calc(calc(100 * var(--vh)) - 150px);
     overflow-y: auto;
     overscroll-behavior: contain;
     /* no visible scrollbar: it scrolls with the wheel while the pointer is over it */

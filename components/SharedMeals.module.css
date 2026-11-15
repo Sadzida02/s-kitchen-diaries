@@ -7,7 +7,7 @@
   /* as wide as the navbar, even where the page container is narrower */
   position: relative;
   left: 50%;
-  width: max(80vw, min(100vw - 24px, 900px));
+  width: max(calc(80 * var(--vw)), min(calc(100 * var(--vw)) - 24px, 900px));
   transform: translateX(-50%);
   text-align: center;
 }
@@ -40,7 +40,7 @@
 .statement {
   font-family: var(--font-bubble);
   font-weight: 600;
-  font-size: clamp(1.7rem, 4.2vw, 3.3rem);
+  font-size: clamp(1.7rem, calc(4.2 * var(--vw)), 3.3rem);
   line-height: 1.22;
   color: var(--ink);
   text-wrap: balance;
@@ -74,13 +74,13 @@
   flex-direction: column;
   align-items: center;
   gap: 8px;
-  padding: 0 clamp(8px, 2vw, 28px);
+  padding: 0 clamp(8px, calc(2 * var(--vw)), 28px);
 }
 
 .statNumber {
   font-family: var(--font-bubble);
   font-weight: 700;
-  font-size: clamp(3rem, 6vw, 5rem);
+  font-size: clamp(3rem, calc(6 * var(--vw)), 5rem);
   line-height: 1;
   color: var(--white);
 }
@@ -164,13 +164,13 @@
   display: flex;
   align-items: baseline;
   justify-content: center;
-  gap: clamp(10px, 2vw, 28px);
+  gap: clamp(10px, calc(2 * var(--vw)), 28px);
   padding: 0 12px;
   border: 0;
   background: none;
   font-family: var(--font-bubble);
   font-weight: 700;
-  font-size: clamp(3rem, 11vw, 8rem);
+  font-size: clamp(3rem, calc(11 * var(--vw)), 8rem);
   line-height: 1.05;
   color: var(--ink);
   cursor: pointer;

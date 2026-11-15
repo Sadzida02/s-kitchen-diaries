@@ -3,7 +3,7 @@
    by --turn steps so the chosen circle lands on the right. The lower part of
    the wheel reaches out of the hero, over the next section. */
 .stage {
-  --d: var(--ring-d, clamp(220px, 30vw, 480px));
+  --d: var(--ring-d, clamp(220px, calc(30 * var(--vw)), 480px));
   --r: calc(var(--d) * 1.35);
   --cy: calc(var(--d) * 0.8);
   --spin: 0deg;
@@ -16,7 +16,7 @@
   position: absolute;
   /* the open space inside the wheel runs from the edge to 0.85 diameters; the
    button fills it */
-  left: clamp(8px, 1.4vw, 20px);
+  left: clamp(8px, calc(1.4 * var(--vw)), 20px);
   top: var(--cy);
   transform: translateY(-50%);
   width: auto;

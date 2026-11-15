@@ -7,7 +7,7 @@
 
 .book {
   position: relative;
-  width: min(70vw, 352px);
+  width: min(calc(70 * var(--vw)), 352px);
   aspect-ratio: 0.63;
   perspective: 1700px;
   perspective-origin: 50% 0%;

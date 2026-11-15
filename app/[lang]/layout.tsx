@@ -27,6 +27,8 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
   if (!isLocale(lang)) return {};
   const t = getDictionary(lang);
   return {
+    // the live address, so link previews (WhatsApp, Instagram, Google) find the images
+    metadataBase: new URL("https://sweet-and-salty-diaries.vercel.app"),
     title: { default: t.site.name, template: `%s · ${t.site.name}` },
     description: t.site.description,
     alternates: { languages: { en: "/en", bs: "/bs" } },

@@ -1,6 +1,6 @@
 /* The hero starts at the very top of the page, behind the floating navbar. */
 .hero {
-  --ring-d: clamp(220px, 30vw, 480px);
+  --ring-d: clamp(220px, calc(30 * var(--vw)), 480px);
   position: relative;
   z-index: 2;
   margin-top: calc(var(--nav-space) * -1);
@@ -69,7 +69,7 @@
 .heroText h1 {
   font-family: var(--font-bubble);
   font-weight: 700;
-  font-size: clamp(2.6rem, 5.6vw, 4.8rem);
+  font-size: clamp(2.6rem, calc(5.6 * var(--vw)), 4.8rem);
   line-height: 1.05;
   color: var(--white);
   text-wrap: balance;
@@ -137,7 +137,7 @@
     height: calc(var(--ring-d) * 1.6);
     margin: 0;
     /* the wheel reaches a little into this half, so leave room for it */
-    padding: 0 clamp(32px, 4vw, 72px) 0 calc(2vw + 40px);
+    padding: 0 clamp(32px, calc(4 * var(--vw)), 72px) 0 calc(calc(2 * var(--vw)) + 40px);
     background: none;
     align-items: flex-start;
     text-align: left;
@@ -261,7 +261,7 @@
 .mark {
   position: absolute;
   font-family: var(--font-heading);
-  font-size: clamp(9rem, 22vw, 20rem);
+  font-size: clamp(9rem, calc(22 * var(--vw)), 20rem);
   line-height: 1;
   color: #b9812f;
   opacity: 0.55;
@@ -293,7 +293,7 @@
   position: relative;
   font-family: var(--font-accent);
   font-style: italic;
-  font-size: clamp(1.5rem, 5vw, 2rem);
+  font-size: clamp(1.5rem, calc(5 * var(--vw)), 2rem);
   line-height: 1.3;
   color: #fffaf0;
   text-shadow: 0 2px 14px rgba(90, 55, 15, 0.35);
@@ -302,7 +302,7 @@
 
 @media (min-width: 900px) {
   .quote {
-    font-size: clamp(1.5rem, 2.1vw, 2rem);
+    font-size: clamp(1.5rem, calc(2.1 * var(--vw)), 2rem);
     white-space: nowrap;
   }
 }

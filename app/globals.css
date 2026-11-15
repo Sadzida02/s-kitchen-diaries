@@ -68,11 +68,11 @@ h3 {
 }
 
 h1 {
-  font-size: clamp(2.7rem, 6vw, 4.3rem);
+  font-size: clamp(2.7rem, calc(6 * var(--vw)), 4.3rem);
 }
 
 h2 {
-  font-size: clamp(2.1rem, 4.2vw, 3rem);
+  font-size: clamp(2.1rem, calc(4.2 * var(--vw)), 3rem);
 }
 
 h3 {
@@ -204,4 +204,25 @@ img {
 /* Schoolbell has no č ć đ š ž, so the Bosnian pages use a similar handwritten font that has them */
 :root:lang(bs) {
   --font-accent: "Patrick Hand", "Schoolbell", "Comic Sans MS", cursive;
+}
+
+/* ---- screen scale ----
+   The page was designed to be seen at 75% of the browser's normal size, which on a laptop
+   (about 1300 to 1900 px wide) looks right, while 100% looks zoomed in. So from 1280px up the
+   whole page is drawn at 75%. Lengths in vw and vh are written with --vw and --vh so they stay
+   the size of the screen even when the page is scaled. */
+:root {
+  --vw: 1vw;
+  --vh: 1vh;
+}
+
+@media (min-width: 1280px) {
+  html {
+    zoom: 0.75;
+  }
+
+  :root {
+    --vw: calc(1vw / 0.75);
+    --vh: calc(1vh / 0.75);
+  }
 }
