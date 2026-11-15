@@ -15,6 +15,7 @@ import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import { getDictionary } from "@/lib/dictionaries";
 import { LOCALES, isLocale } from "@/lib/i18n";
+import { Analytics } from "@vercel/analytics/next";
 import "../globals.css";
 
 // one copy of the whole site per language
@@ -31,7 +32,6 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
     metadataBase: new URL("https://sweet-and-salty-diaries.vercel.app"),
     title: { default: t.site.name, template: `%s · ${t.site.name}` },
     description: t.site.description,
-    alternates: { languages: { en: "/en", bs: "/bs" } },
   };
 }
 
@@ -52,6 +52,8 @@ export default async function RootLayout({
         <SiteHeader lang={lang} />
         <main id="main">{children}</main>
         <SiteFooter lang={lang} />
+        {/* Vercel Web Analytics: counts visits and visitors without cookies (only on the live site) */}
+        <Analytics />
       </body>
     </html>
   );
