@@ -200,3 +200,8 @@ img {
     --nav-space: 86px;
   }
 }
+
+/* Schoolbell has no č ć đ š ž, so the Bosnian pages use a similar handwritten font that has them */
+:root:lang(bs) {
+  --font-accent: "Patrick Hand", "Schoolbell", "Comic Sans MS", cursive;
+}

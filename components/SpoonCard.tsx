@@ -1,21 +1,28 @@
 import Image from "next/image";
 import Link from "next/link";
+import { getDictionary } from "@/lib/dictionaries";
+import { localePath } from "@/lib/i18n";
+import type { Locale } from "@/lib/i18n";
 import type { Recipe } from "@/lib/recipe-types";
 import styles from "./SpoonCard.module.css";
 
 type SpoonCardProps = {
+  lang: Locale;
   recipe: Recipe;
   // which end the bowl (the photo) is on
   side: "left" | "right";
   // small line above the description, e.g. "Added 4 Nov"
   label?: string;
+  // a small "New" sticker on the bowl
+  fresh?: boolean;
 };
 
 // A recipe drawn as a white spoon lying on its side: the photo in the bowl, the
 // name and an arrow along the handle, and the date curved around the bowl. The whole
 // spoon is a link to the recipe and grows a little when you point at it.
-export default function SpoonCard({ recipe, side, label }: SpoonCardProps) {
-  const href = `/recipes/${recipe.slug}`;
+export default function SpoonCard({ lang, recipe, side, label, fresh }: SpoonCardProps) {
+  const t = getDictionary(lang);
+  const href = localePath(lang, `/recipes/${recipe.slug}`);
   return (
     <article className={`${styles.item} ${side === "right" ? styles.right : ""}`}>
       <Link href={href} className={styles.spoon} aria-label={recipe.title}>
@@ -39,26 +46,38 @@ export default function SpoonCard({ recipe, side, label }: SpoonCardProps) {
             <path d="M5 12h14M13 6l6 6-6 6" />
           </svg>
         </span>
-        {/* the date curves around the bowl, outside its white rim (not mirrored on the right) */}
+        {fresh && <span className={styles.sticker}>{t.home.latest.new}</span>}
+        {/* The date curves around the bowl, outside its white rim. Phones show the spoon
+            unmirrored, so there the date must sit on the left like the bowl does. */}
         {label && (
           <svg className={styles.date} viewBox="0 0 660 220" aria-label={label} role="img">
             <defs>
-              <path
-                id={`date-${recipe.slug}`}
-                d={
-                  side === "right"
-                    ? "M 368 110 A 157 126 0 0 1 682 110"
-                    : "M -22 110 A 157 126 0 0 1 292 110"
-                }
-              />
+              <path id={`date-l-${recipe.slug}`} d="M -22 110 A 157 126 0 0 1 292 110" />
+              <path id={`date-r-${recipe.slug}`} d="M 368 110 A 157 126 0 0 1 682 110" />
             </defs>
-            <text>
-              <textPath href={`#date-${recipe.slug}`} startOffset="50%" textAnchor="middle">
+            <text className={styles.dateLeft}>
+              <textPath href={`#date-l-${recipe.slug}`} startOffset="50%" textAnchor="middle">
+                {label}
+              </textPath>
+            </text>
+            <text className={styles.dateRight}>
+              <textPath href={`#date-r-${recipe.slug}`} startOffset="50%" textAnchor="middle">
                 {label}
               </textPath>
             </text>
           </svg>
         )}
+      </Link>
+
+      {/* what the dish is, beside the handle */}
+      <Link href={href} className={styles.info} tabIndex={-1} aria-hidden="true">
+        <span className={styles.chips}>
+          <span className={`${styles.chip} ${recipe.category === "sweet" ? styles.sweet : styles.salty}`}>
+            {t.common[recipe.category]}
+          </span>
+          {recipe.difficulty && <span className={styles.chip}>{t.difficulty[recipe.difficulty]}</span>}
+        </span>
+        {recipe.note && <span className={styles.note}>{recipe.note}</span>}
       </Link>
     </article>
   );

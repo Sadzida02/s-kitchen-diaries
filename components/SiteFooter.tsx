@@ -1,3 +1,5 @@
+import { getDictionary } from "@/lib/dictionaries";
+import type { Locale } from "@/lib/i18n";
 import Logo from "./Logo";
 import styles from "./SiteFooter.module.css";
 
@@ -24,13 +26,14 @@ function Icon({ children }: { children: React.ReactNode }) {
   );
 }
 
-export default function SiteFooter() {
+export default function SiteFooter({ lang }: { lang: Locale }) {
+  const t = getDictionary(lang).footer;
   return (
     <footer className={styles.footer}>
       <div className={`container ${styles.inner}`}>
-        <Logo light head={false} />
+        <Logo lang={lang} light head={false} />
         <p className={styles.note}>
-          Made with trials, failures, patience, and a lot of love along the way.
+          {t.note}
         </p>
 
         <ul className={styles.contact}>
@@ -59,13 +62,13 @@ export default function SiteFooter() {
                 <path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21Z" />
                 <circle cx="12" cy="9.5" r="2.5" />
               </Icon>
-              Kakanj &amp; Sarajevo -  Bosnia and Herzegovina
+              {t.location}
             </span>
           </li>
         </ul>
       </div>
       <div className={styles.tools} aria-hidden="true" />
-      <p className={styles.copy}>©2026 Sweet & Salty Diaries by Sadžida Valjevac. All rights reserved.</p>
+      <p className={styles.copy}>{t.copy}</p>
     </footer>
   );
 }

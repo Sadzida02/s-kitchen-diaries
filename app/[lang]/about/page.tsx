@@ -1,13 +1,19 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import { notFound } from "next/navigation";
 import BookPreview from "@/components/BookPreview";
 import DishViewer from "@/components/DishViewer";
+import { getDictionary } from "@/lib/dictionaries";
+import { isLocale } from "@/lib/i18n";
+import { rich } from "@/lib/rich";
 import styles from "./about.module.css";
 
-export const metadata: Metadata = {
-  title: "About me",
-  description: "Why this kitchen exists, and an honest note about what I am and am not.",
-};
+export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
+  const { lang } = await params;
+  if (!isLocale(lang)) return {};
+  const t = getDictionary(lang).about;
+  return { title: t.metaTitle, description: t.metaDescription };
+}
 
 type Source = {
   name: string;
@@ -30,11 +36,12 @@ function linkFor(source: Source) {
   return undefined;
 }
 
-const dishes = [
-  { name: "Kimbap", areas: [{ left: 13, top: 30, width: 28, height: 35 }] },
-  { name: "Baked veggies and chicken", areas: [{ left: 37, top: 26, width: 33, height: 25 }] },
-  { name: "Kalcone", areas: [{ left: 30, top: 51, width: 41, height: 27 }] },
-  { name: "Carrot salad", areas: [{ left: 69, top: 40, width: 22, height: 16 }] },
+// where each dish is on the photo (the names come from the dictionary, in the same order)
+const dishAreas = [
+  [{ left: 13, top: 30, width: 28, height: 35 }],
+  [{ left: 37, top: 26, width: 33, height: 25 }],
+  [{ left: 30, top: 51, width: 41, height: 27 }],
+  [{ left: 69, top: 40, width: 22, height: 16 }],
 ];
 
 
@@ -72,21 +79,24 @@ function PlatformIcon({ platform }: { platform: Source["platform"] }) {
   );
 }
 
-export default function AboutPage() {
+export default async function AboutPage({ params }: { params: Promise<{ lang: string }> }) {
+  const { lang } = await params;
+  if (!isLocale(lang)) notFound();
+  const t = getDictionary(lang).about;
+  const dishes = t.intro.dishes.map((name, index) => ({ name, areas: dishAreas[index] }));
   return (
     <>
       <section className={styles.intro}>
         <DishViewer
+          lang={lang}
           src="/images/table-spread.jpg"
-          alt="A table spread with kimbap, baked veggies and chicken, kalcone and carrot salad"
+          alt={t.intro.alt}
           dishes={dishes}
           bubble
         >
-          <p className="kicker">Why do I care?</p>
-          <h1>Gathered around one table</h1>
-          <p className={styles.lead}>
-            In this fast-paced world, taking a moment and sharing a meal with others is a sincere act of care and politeness. It was always like a ritual in my family, and I want to keep it alive... And what better way to treat someone than with a warm home-cooked meal.
-          </p>
+          <p className="kicker">{t.intro.kicker}</p>
+          <h1>{t.intro.title}</h1>
+          <p className={styles.lead}>{t.intro.lead}</p>
         </DishViewer>
       </section>
 
@@ -94,7 +104,7 @@ export default function AboutPage() {
         <div className={`container ${styles.disclaimerRow}`}>
           <Image
             src="/images/chef/chef-whisk.webp"
-            alt="The little chef figurine holding a whisk"
+            alt={t.disclaimer.chefAlt}
             width={530}
             height={720}
             sizes="(max-width: 900px) 240px, 360px"
@@ -108,14 +118,13 @@ export default function AboutPage() {
                 <path d="M12 19h.01" />
               </svg>
             </span>
-            <p className="kicker">An honest disclaimer</p>
-            <h2>I am not a professional cook.</h2>
-            <p>          
-              I have no formal cooking training and no real cooking experience outside my own kitchen.
-              Cooking is my hobby, and my favourite way to play. I am just a girl who loves messing with
-              ingredients, tasting everything along the way, and making people around me happy with what
-              I make. <br /><br />
-              *The purpose of this blog is to have a unique place to store my ideas and countless photos, additionally maybe inspiring others to try something new.
+            <p className="kicker">{t.disclaimer.kicker}</p>
+            <h2>{t.disclaimer.title}</h2>
+            <p>
+              {t.disclaimer.p1}
+              <br />
+              <br />
+              {t.disclaimer.p2}
             </p>
           </div>
         </div>
@@ -124,24 +133,20 @@ export default function AboutPage() {
       <section className={`section ${styles.started}`}>
         <div className={`container ${styles.startedInner}`}>
           <div className={styles.startedText}>
-            <p className="kicker">How it started?</p>
-            <h2>Starting point</h2>
+            <p className="kicker">{t.started.kicker}</p>
+            <h2>{t.started.title}</h2>
             <p>
-              Since I like handmade things, it started with a small spiral notebook, with all the tried and best dishes that I kept on repeat. These og recipes are the ones I always go back to.
+              {t.started.p1}
               <br /> <br />
-              You have a chance to take a glance in that precious treasure of mine. 
+              {t.started.p2}
             </p>              
           </div>
-          <BookPreview />
+          <BookPreview lang={lang} />
           <div>
-          <p className="kicker">Inspired by?</p>
-          <h2>People around me</h2>
+          <p className="kicker">{t.started.inspiredKicker}</p>
+          <h2>{t.started.inspiredTitle}</h2>
           <br /><br />
-            <p>
-              Most of my ideas come from the dear people I share my everday life with: my <strong className={styles.aunt}>mom, family </strong> and 
-               <strong className={styles.aunt}> friends</strong>. I recreate
-              their recipes, experiment with them, and make them my own.
-            </p>
+            <p>{rich(t.started.inspiredText, { strong: styles.aunt })}</p>
           </div>
          
         </div>
@@ -150,11 +155,9 @@ export default function AboutPage() {
       <section className={`section ${styles.inspired}`}>
         <div className="container">
           <div className="section-head">
-            <p className="kicker">More inspiration</p>
-            <h2>Where my ideas come from</h2>
-            <p>
-              The people and pages I learn from, experiment with, and recreate recipes from.
-            </p>
+            <p className="kicker">{t.inspired.kicker}</p>
+            <h2>{t.inspired.title}</h2>
+            <p>{t.inspired.text}</p>
           </div>
 
         </div>

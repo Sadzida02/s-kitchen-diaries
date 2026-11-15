@@ -2,6 +2,9 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import { fill } from "@/lib/rich";
+import { getDictionary } from "@/lib/dictionaries";
+import type { Locale } from "@/lib/i18n";
 import styles from "./BookPreview.module.css";
 
 // Pages of the handwritten recipe book, in the order they turn: the cover
@@ -37,7 +40,8 @@ const clamp = (value: number, min = 0, max = 1) => Math.min(max, Math.max(min, v
 const easeInOut = (x: number) => (x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2);
 const mod = (n: number) => ((n % COUNT) + COUNT) % COUNT;
 
-export default function BookPreview() {
+export default function BookPreview({ lang }: { lang: Locale }) {
+  const dict = getDictionary(lang);
   const book = useRef<HTMLDivElement>(null);
   const drag = useRef<{ startY: number; startPos: number; moved: boolean } | null>(null);
   const posRef = useRef(0);
@@ -127,7 +131,7 @@ export default function BookPreview() {
         className={styles.book}
         tabIndex={0}
         role="group"
-        aria-label={`Recipe notebook, page ${shown + 1} of ${COUNT}. Use the arrow keys to turn pages.`}
+        aria-label={fill(dict.bookPreview.aria, { n: shown + 1, total: COUNT })}
         onPointerDown={onPointerDown}
         onPointerMove={onPointerMove}
         onPointerUp={onPointerUp}
@@ -165,19 +169,19 @@ export default function BookPreview() {
                       <span key={bubble} className={`${styles.bubble} ${styles[bubble]}`} aria-hidden="true" />
                     ))}
                     <div className={styles.coverBody}>
-                      <p className={styles.coverName}>Sadžida&rsquo;s</p>
-                      <p className={styles.coverBadge}>OG Trusted</p>
+                      <p className={styles.coverName}>{dict.bookPreview.name}</p>
+                      <p className={styles.coverBadge}>{dict.bookPreview.badge}</p>
                       <p className={styles.coverTitle}>
-                        Recipe
+                        {dict.bookPreview.cover1}
                         <br />
-                        Collection
+                        {dict.bookPreview.cover2}
                       </p>
                     </div>
                   </div>
                 ) : (
                   <Image
                     src={page.src}
-                    alt={`Handwritten recipe page: ${page.title}`}
+                    alt={fill(dict.bookPreview.alt, { title: page.title })}
                     fill
                     draggable={false}
                     sizes="(max-width: 700px) 70vw, 360px"
@@ -195,13 +199,12 @@ export default function BookPreview() {
 
       <p className={styles.caption}>
         <span className={styles.count}>
-          {shown === 0 ? "Cover" : `${shown} / ${COUNT - 1}`}
+          {shown === 0 ? dict.bookPreview.cover : `${shown} / ${COUNT - 1}`}
         </span>
         {pages[shown].title}
       </p>
       <p className={styles.note}>
-        <span aria-hidden="true">☝</span> Drag or swipe a page upwards to turn it, drag down to go
-        back. A tap turns it too.
+        <span aria-hidden="true">☝</span> {dict.bookPreview.note}
       </p>
     </div>
   );

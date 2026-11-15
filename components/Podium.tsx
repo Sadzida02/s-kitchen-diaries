@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import RecipeCard from "./RecipeCard";
 import { fireConfetti } from "@/lib/confetti";
+import type { Locale } from "@/lib/i18n";
 import type { Recipe } from "@/lib/recipe-types";
 import styles from "./Podium.module.css";
 
@@ -16,7 +17,7 @@ const places = [
 
 // The first recipe wins; the order of `recipes` is the order of the podium.
 // When it scrolls into view the steps rise and confetti goes off.
-export default function Podium({ recipes }: { recipes: Recipe[] }) {
+export default function Podium({ lang, recipes }: { lang: Locale; recipes: Recipe[] }) {
   const ref = useRef<HTMLDivElement>(null);
   const [seen, setSeen] = useState(false);
 
@@ -45,6 +46,7 @@ export default function Podium({ recipes }: { recipes: Recipe[] }) {
           <div key={recipe.slug} className={`${styles.item} ${styles[`place${index + 1}`]}`}>
             <div className={styles.card}>
               <RecipeCard
+                lang={lang}
                 recipe={recipe}
                 size={index === 0 ? "champion" : "regular"}
                 minimal

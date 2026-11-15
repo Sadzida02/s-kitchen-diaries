@@ -1,6 +1,8 @@
 "use client";
 
 import { useSyncExternalStore } from "react";
+import { getDictionary } from "@/lib/dictionaries";
+import type { Locale } from "@/lib/i18n";
 import styles from "./GridSwitch.module.css";
 
 const OPTIONS = [2, 3, 4, 5];
@@ -22,6 +24,7 @@ function readChoice(): number {
 }
 
 type GridSwitchProps = {
+  lang: Locale;
   // the search box: it sits on the same row as the buttons that pick the row size
   toolbar?: React.ReactNode;
   // shown instead of the grid when there are no cards
@@ -31,7 +34,8 @@ type GridSwitchProps = {
 
 // Wraps the recipe cards and lets you choose how many fit in a row (2 to 5).
 // The choice is remembered in this browser. On small screens the page decides.
-export default function GridSwitch({ toolbar, empty, children }: GridSwitchProps) {
+export default function GridSwitch({ lang, toolbar, empty, children }: GridSwitchProps) {
+  const t = getDictionary(lang);
   const cols = useSyncExternalStore(subscribe, readChoice, () => 3);
 
   const choose = (value: number) => {
@@ -45,8 +49,8 @@ export default function GridSwitch({ toolbar, empty, children }: GridSwitchProps
     <div className={styles.wrap} style={{ ["--cols" as string]: cols }}>
       <div className={styles.bar}>
         {toolbar && <div className={styles.toolbar}>{toolbar}</div>}
-        <div className={styles.switch} role="group" aria-label="Recipes per row">
-          <span>Per row</span>
+        <div className={styles.switch} role="group" aria-label={t.recipesPage.perRowAria}>
+          <span>{t.recipesPage.perRow}</span>
           {OPTIONS.map((value) => (
             <button
               key={value}

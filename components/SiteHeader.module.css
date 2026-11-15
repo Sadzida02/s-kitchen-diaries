@@ -66,17 +66,17 @@
   color: var(--ink);
 }
 
-.right a:last-child .icon {
+.right .cta .icon {
   color: var(--gold-light);
 }
 
-.right a:last-child {
+.right .cta {
   background: var(--purple);
   color: var(--white);
   box-shadow: 0 3px 10px rgba(125, 85, 176, 0.35);
 }
 
-.right a:last-child:hover {
+.right .cta:hover {
   background: var(--purple-deep);
 }
 
@@ -120,7 +120,37 @@
   .left {
     display: none;
   }
+  /* with the language toggle added, phones have room for words only */
+  .right .icon {
+    display: none;
+  }
   .bar {
     grid-template-columns: auto 1fr;
+  }
+}
+
+/* the language toggle: a small outlined pill after "About me" */
+.right .switch {
+  gap: 6px;
+  padding: 8px clamp(10px, 1.4vw, 16px);
+  border: 2px solid #b3a0d8;
+  color: var(--purple-deep);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.right .switch .icon {
+  width: 20px;
+  height: 20px;
+  color: var(--purple);
+}
+
+@media (max-width: 700px) {
+  .right .switch {
+    padding: 4px 8px;
+    border-width: 1.5px;
+  }
+  .right .switch .icon {
+    display: none;
   }
 }

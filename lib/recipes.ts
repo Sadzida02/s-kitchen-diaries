@@ -4,6 +4,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { DIFFICULTIES, TAGS, TASTES } from "./recipe-types";
+import type { Locale } from "./i18n";
 import type { Difficulty, Recipe, Tag } from "./recipe-types";
 
 export type { Recipe } from "./recipe-types";
@@ -46,12 +47,16 @@ function parseBody(body: string) {
     const heading = line.match(/^##\s+(.+?)\s*$/);
     if (heading) {
       const title = heading[1];
-      const kind = /^ingredient/i.test(title)
+      // English and Bosnian headings ("Ingredients for the cake", "Sastojci za tijesto", "Koraci", "Priprema")
+      const kind = /^(ingredient|sastoj)/i.test(title)
         ? "ingredients"
-        : /^(steps?|method|instructions?|directions?)\b/i.test(title)
+        : /^(steps?|method|instructions?|directions?|korak|koraci|priprema|upute|način)/i.test(title)
           ? "steps"
           : "other";
-      current = { title, kind, lines: [] };
+      // A heading that is neither, like "## For the rice" or "## Za dekoraciju", continues
+      // the kind of list above it: after the ingredients it is more ingredients.
+      const inherited = kind === "other" ? (current?.kind ?? "other") : kind;
+      current = { title, kind: inherited, lines: [] };
       groups.push(current);
     } else if (current) {
       current.lines.push(line);
@@ -81,7 +86,7 @@ function asString(value: string | string[] | undefined): string {
   return Array.isArray(value) ? value.join(", ") : (value ?? "");
 }
 
-function loadRecipe(file: string): Recipe | undefined {
+function loadRecipe(file: string, lang: Locale = "en"): Recipe | undefined {
   const slug = file.replace(/\.md$/, "");
   const fail = (message: string): never => {
     throw new Error(`content/recipes/${file}: ${message}`);
@@ -137,7 +142,7 @@ function loadRecipe(file: string): Recipe | undefined {
   if (podium !== undefined && !(podium >= 1 && podium <= 5)) fail("podium must be a number from 1 to 5");
 
   const parsed = parseBody(body);
-  return {
+  const recipe: Recipe = {
     slug,
     title,
     category: taste as Recipe["category"],
@@ -154,31 +159,54 @@ function loadRecipe(file: string): Recipe | undefined {
     podium,
     added: asString(data.added) || undefined,
   };
+  return lang === "bs" ? withBosnian(recipe, file) : recipe;
 }
 
-let cached: Recipe[] | undefined;
+// A Bosnian recipe is an extra file content/recipes/bs/<same name>.md with only the words:
+// a title (and alt) in the front matter, then the description and the ingredient and
+// step lists. Whatever it leaves out (or if there is no such file) stays in English.
+function withBosnian(recipe: Recipe, file: string): Recipe {
+  const bsFile = path.join(RECIPES_DIR, "bs", file);
+  if (!fs.existsSync(bsFile)) return recipe;
+  const { data, body } = parseFrontMatter(fs.readFileSync(bsFile, "utf8"));
+  const parsed = parseBody(body);
+  const title = asString(data.title) || recipe.title;
+  const has = (list: unknown[]) => list.length > 0;
+  return {
+    ...recipe,
+    title,
+    alt: asString(data.alt) || title,
+    note: parsed.note || recipe.note,
+    ingredients: has(parsed.ingredients) ? parsed.ingredients : recipe.ingredients,
+    steps: has(parsed.steps) ? parsed.steps : recipe.steps,
+    ingredientGroups: has(parsed.ingredientGroups) ? parsed.ingredientGroups : recipe.ingredientGroups,
+    stepGroups: has(parsed.stepGroups) ? parsed.stepGroups : recipe.stepGroups,
+  };
+}
+
+const cached: Partial<Record<Locale, Recipe[]>> = {};
 
 // Newest first, then the ones without a date by name. While developing the files
 // are read again every time, so a new recipe shows up without restarting.
-export function getRecipes(): Recipe[] {
-  if (cached) return cached;
+export function getRecipes(lang: Locale = "en"): Recipe[] {
+  if (cached[lang]) return cached[lang];
   const list = fs
     .readdirSync(RECIPES_DIR)
     .filter((file) => file.endsWith(".md") && !file.startsWith("_"))
-    .map(loadRecipe)
+    .map((file) => loadRecipe(file, lang))
     .filter((recipe): recipe is Recipe => recipe !== undefined)
-    .sort((a, b) => (b.added ?? "").localeCompare(a.added ?? "") || a.title.localeCompare(b.title));
-  if (process.env.NODE_ENV === "production") cached = list;
+    .sort((a, b) => (b.added ?? "").localeCompare(a.added ?? "") || a.title.localeCompare(b.title, lang));
+  if (process.env.NODE_ENV === "production") cached[lang] = list;
   return list;
 }
 
-export function getRecipe(slug: string): Recipe | undefined {
-  return getRecipes().find((recipe) => recipe.slug === slug);
+export function getRecipe(slug: string, lang: Locale = "en"): Recipe | undefined {
+  return getRecipes(lang).find((recipe) => recipe.slug === slug);
 }
 
 // the five podium places, in order
-export function getFeatured(): Recipe[] {
-  return getRecipes()
+export function getFeatured(lang: Locale = "en"): Recipe[] {
+  return getRecipes(lang)
     .filter((recipe) => recipe.podium)
     .sort((a, b) => (a.podium ?? 0) - (b.podium ?? 0))
     .slice(0, 5);
@@ -186,16 +214,16 @@ export function getFeatured(): Recipe[] {
 
 // The newest recipes by their `added` date (getRecipes already sorts that way).
 // If fewer than `count` have a date, the rest are filled in from the other recipes.
-export function getLatest(count = 4): Recipe[] {
-  const all = getRecipes();
+export function getLatest(count = 4, lang: Locale = "en"): Recipe[] {
+  const all = getRecipes(lang);
   const dated = all.filter((recipe) => recipe.added);
   const undated = all.filter((recipe) => !recipe.added);
   return [...dated, ...undated].slice(0, count);
 }
 
 // recipes that share the most tags (and the same taste), best match first
-export function getRelated(recipe: Recipe, count = 4): Recipe[] {
-  return getRecipes()
+export function getRelated(recipe: Recipe, count = 4, lang: Locale = "en"): Recipe[] {
+  return getRecipes(lang)
     .filter((other) => other.slug !== recipe.slug)
     .map((other) => ({
       other,

@@ -4,6 +4,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { categories } from "@/lib/filters";
+import { fill } from "@/lib/rich";
+import { getDictionary } from "@/lib/dictionaries";
+import { localePath } from "@/lib/i18n";
+import type { Locale } from "@/lib/i18n";
 import styles from "./CategoryRing.module.css";
 
 // A big wheel of category circles that rises out of the bottom-left corner, so
@@ -11,15 +15,22 @@ import styles from "./CategoryRing.module.css";
 // circle is the one in the middle of the quarter; pressing the middle one opens
 // its recipes. Scrolling the page also spins the wheel, one full turn over the
 // height of the wheel. On phones it is a plain grid of links instead.
-export default function CategoryRing() {
-  const count = categories.length;
+export default function CategoryRing({ lang }: { lang: Locale }) {
+  const t = getDictionary(lang);
+  const link = (path: string) => localePath(lang, path);
+  // the circles, with their names, lines and photo descriptions in the current language
+  const items = categories.map((category) => ({
+    ...category,
+    ...t.categories[category.slug as keyof typeof t.categories],
+  }));
+  const count = items.length;
   // counts every step the wheel has turned, so it always takes the short way
   const [turn, setTurn] = useState(0);
   // how many whole steps the scroll has spun it, to know which circle is in the middle
   const [spinSteps, setSpinSteps] = useState(0);
   const stageRef = useRef<HTMLDivElement>(null);
   const active = (((turn + spinSteps) % count) + count) % count;
-  const current = categories[active];
+  const current = items[active];
 
   useEffect(() => {
     const el = stageRef.current;
@@ -61,20 +72,20 @@ export default function CategoryRing() {
     <div ref={stageRef} className={styles.stage} style={{ ["--turn" as string]: turn }}>
       <div className={styles.centre}>
         <h2>
-          <span>Sweet or</span> <span>salty?</span>
+          <span>{t.ring.sweetOr}</span> <span>{t.ring.salty}</span>
         </h2>
-        <p>Pick a circle and see what is cooking.</p>
-        <Link href={`/recipes?category=${current.slug}`} className={`btn btn-outline ${styles.cta}`}>
-          See {current.title} recipes
+        <p>{t.ring.pick}</p>
+        <Link href={link(`/recipes?category=${current.slug}`)} className={`btn btn-outline ${styles.cta}`}>
+          {fill(t.ring.see, { title: current.title })}
         </Link>
       </div>
 
       <div className={styles.wheel}>
         <div className={styles.spin}>
-        {categories.map((category, index) => (
+        {items.map((category, index) => (
           <div key={category.slug} className={styles.slot} style={{ ["--i" as string]: index }}>
             <Link
-              href={`/recipes?category=${category.slug}`}
+              href={link(`/recipes?category=${category.slug}`)}
               aria-label={category.title}
               onClick={(event) => onPress(event, index)}
               className={`${styles.tile} ${index % 2 ? styles.gold : styles.lilac} ${index === active ? styles.active : ""}`}

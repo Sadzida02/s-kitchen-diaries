@@ -2,13 +2,16 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import { getDictionary } from "@/lib/dictionaries";
+import type { Locale } from "@/lib/i18n";
 import styles from "./PhotoStack.module.css";
 
 type Photo = { src: string; alt: string };
 
 // The recipe's photos as a pile: the cover lies on top and the others peek out
 // from underneath. Clicking the top photo sends it to the back and shows the next.
-export default function PhotoStack({ photos }: { photos: Photo[] }) {
+export default function PhotoStack({ lang, photos }: { lang: Locale; photos: Photo[] }) {
+  const t = getDictionary(lang);
   const [top, setTop] = useState(0);
   const count = photos.length;
   const next = () => setTop((value) => (value + 1) % count);
@@ -42,7 +45,7 @@ export default function PhotoStack({ photos }: { photos: Photo[] }) {
             type="button"
             className={styles.hit}
             onClick={next}
-            aria-label={`Show the next photo (${top + 1} of ${count})`}
+            aria-label={`${t.recipe.stackAria} (${top + 1} ${t.recipe.of} ${count})`}
           />
         )}
       </div>
@@ -51,7 +54,7 @@ export default function PhotoStack({ photos }: { photos: Photo[] }) {
           <span>
             {top + 1} / {count}
           </span>{" "}
-          Tap the photo for the next one
+          {t.recipe.stackHint}
         </p>
       )}
     </div>

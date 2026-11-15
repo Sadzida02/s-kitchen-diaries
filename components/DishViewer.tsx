@@ -2,6 +2,8 @@
 
 import { useRef, useState } from "react";
 import Image from "next/image";
+import { getDictionary } from "@/lib/dictionaries";
+import type { Locale } from "@/lib/i18n";
 import styles from "./DishViewer.module.css";
 
 type Area = {
@@ -19,6 +21,7 @@ type Dish = {
 };
 
 type DishViewerProps = {
+  lang: Locale;
   src: string;
   alt: string;
   dishes: Dish[];
@@ -38,6 +41,7 @@ const LENS = 170;
 // under it, and a list of the dishes beside it. Hovering a name in the list
 // highlights that dish on the photo.
 export default function DishViewer({
+  lang,
   src,
   alt,
   dishes,
@@ -46,6 +50,7 @@ export default function DishViewer({
   bubble = false,
   children,
 }: DishViewerProps) {
+  const t = getDictionary(lang);
   const frame = useRef<HTMLDivElement>(null);
   const [lens, setLens] = useState<{ x: number; y: number; w: number; h: number } | null>(null);
   const [listActive, setListActive] = useState<number | null>(null);
@@ -91,7 +96,7 @@ export default function DishViewer({
           aria-controls="dish-menu"
           onClick={() => setOpen((value) => !value)}
         >
-          On the table
+          {t.dishViewer.menu}
           <svg className={styles.chevron} viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
             <path d="m6 9 6 6 6-6" />
           </svg>
@@ -119,7 +124,7 @@ export default function DishViewer({
                 </li>
               ))}
             </ul>
-            <p className={styles.hint}>Move over the photo to look closer.</p>
+            <p className={styles.hint}>{t.dishViewer.hint}</p>
           </div>
         </div>
       </div>
