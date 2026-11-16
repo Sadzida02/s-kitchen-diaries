@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { getDictionary } from "@/lib/dictionaries";
 import { fill } from "@/lib/rich";
 import type { Locale } from "@/lib/i18n";
@@ -213,6 +213,8 @@ export default function SpiceShelf({ lang }: { lang: Locale }) {
   // the jar being tipped right now (mouse over it, or tapped), and the one the note is about
   const [active, setActive] = useState<number | null>(null);
   const [shown, setShown] = useState<number | null>(null);
+  // when a finger last lifted from a jar, so the click that follows it is not counted twice
+  const lastTouch = useRef(0);
 
   const choose = (index: number | null) => {
     setActive(index);
@@ -237,12 +239,28 @@ export default function SpiceShelf({ lang }: { lang: Locale }) {
                 onPointerEnter={(event) => event.pointerType === "mouse" && choose(index)}
                 onFocus={(event) => {
                   // only for keyboard focus: a tap also focuses the button, and the tap itself does the work
-                  if (event.currentTarget.matches(":focus-visible")) choose(index);
+                  let keyboard = false;
+                  try {
+                    keyboard = event.currentTarget.matches(":focus-visible");
+                  } catch {
+                    // very old browsers do not know :focus-visible
+                  }
+                  if (keyboard) choose(index);
                 }}
                 onBlur={() => setActive((current) => (current === index ? null : current))}
+                // A finger: tip the jar when the finger lifts (a swipe to scroll is cancelled and does not count).
+                onPointerUp={(event) => {
+                  if (event.pointerType !== "mouse") {
+                    lastTouch.current = Date.now();
+                    choose(on ? null : index);
+                  }
+                }}
+                // The keyboard (Enter or Space), or a browser that sends only a click. A mouse already did it
+                // by pointing, and a tap was handled just above.
                 onClick={(event) => {
-                  // a mouse already did this by hovering; a finger or the keyboard toggles it
-                  if ((event.nativeEvent as PointerEvent).pointerType !== "mouse") choose(on ? null : index);
+                  if (Date.now() - lastTouch.current < 800) return;
+                  const type = (event.nativeEvent as PointerEvent).pointerType;
+                  if (type !== "mouse") choose(on ? null : index);
                 }}
               >
                 <span className={styles.tilt}>
@@ -257,7 +275,7 @@ export default function SpiceShelf({ lang }: { lang: Locale }) {
       </div>
 
       <div
-        className={`${styles.note} ${shown === null ? styles.idle : ""}`}
+        className={styles.note}
         role="status"
         aria-live="polite"
         style={{ "--i": shown ?? 0, "--n": SPICES.length } as React.CSSProperties}
