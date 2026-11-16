@@ -294,6 +294,16 @@
 /* with several rows of jars the note could be off screen, so on small screens it stays at the
    bottom of the window while the shelves are in view */
 @media (max-width: 999px) {
+  /* the note floats over the bottom of the screen, so it must never catch a tap meant for a jar
+     underneath it, and it only shows once a jar has been chosen */
+  .note {
+    pointer-events: none;
+  }
+
+  .note.idle {
+    display: none;
+  }
+
   .note {
     position: sticky;
     bottom: 14px;

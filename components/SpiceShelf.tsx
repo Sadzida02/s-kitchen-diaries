@@ -257,7 +257,7 @@ export default function SpiceShelf({ lang }: { lang: Locale }) {
       </div>
 
       <div
-        className={styles.note}
+        className={`${styles.note} ${shown === null ? styles.idle : ""}`}
         role="status"
         aria-live="polite"
         style={{ "--i": shown ?? 0, "--n": SPICES.length } as React.CSSProperties}

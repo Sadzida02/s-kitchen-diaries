@@ -151,8 +151,6 @@ export const bs: Dictionary = {
   dishViewer: {
     menu: "Šta je na stolu?",
     hint: "Pređi preko fotografije da pogledaš izbliza.",
-    // kratka napomena ispod fotografije
-    disclaimer: "Pređi mišem preko fotografije (ili je dodirni) da vidiš nazive jela.",
   },
   bookPreview: {
     aria: "Rokovnik s receptima, stranica {n} od {total}.",

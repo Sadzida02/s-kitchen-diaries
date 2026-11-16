@@ -226,3 +226,10 @@ img {
     --vh: calc(1vh / 0.75);
   }
 }
+
+/* tablets: more room at the sides of the page (phones keep 16px) */
+@media (min-width: 700px) and (max-width: 1099px) {
+  :root {
+    --gutter: 36px;
+  }
+}

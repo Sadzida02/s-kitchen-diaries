@@ -114,3 +114,15 @@
     white-space: nowrap;
   }
 }
+
+/* tablets: a slightly smaller logo so the navbar has room for its links */
+@media (min-width: 701px) and (max-width: 1099px) {
+  .name {
+    font-size: 1.2rem;
+  }
+
+  .head {
+    width: 46px;
+    height: 46px;
+  }
+}
