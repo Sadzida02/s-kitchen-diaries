@@ -148,7 +148,12 @@ export const bs: Dictionary = {
       loafAlt: "Hljeb sa sjemenkama u kalupu za pečenje",
     },
   },
-  dishViewer: { menu: "Na stolu", hint: "Pređi preko fotografije da pogledaš izbliza." },
+  dishViewer: {
+    menu: "Šta je na stolu?",
+    hint: "Pređi preko fotografije da pogledaš izbliza.",
+    // kratka napomena ispod fotografije
+    disclaimer: "Pređi mišem preko fotografije (ili je dodirni) da vidiš nazive jela.",
+  },
   bookPreview: {
     aria: "Rokovnik s receptima, stranica {n} od {total}.",
     name: "Sadžidina",
@@ -209,7 +214,7 @@ export const bs: Dictionary = {
       kicker: "Zašto mi je stalo?",
       title: "Okupljeni oko jednog stola",
       lead:
-        "U ovom užurbanom svijetu, odvojiti trenutak i podijeliti obrok s drugima iskren je čin brige i pristojnosti. U mojoj porodici je to oduvijek bio ritual i želim da ostane živ... A šta je bolji način da nekoga počastiš nego toplim domaćim obrokom.",
+        "U ovom užurbanom svijetu, odvojiti trenutak i podijeliti obrok s drugima iskren je čin brige i pristojnosti. U mojoj porodici je to oduvijek bila tradicija i želim da to čuvam... A šta je bolji način da nekoga počastiš nego toplim domaćim obrokom.",
       alt: "Trpeza s kimbapom, pečenim povrćem i piletinom, kalconeom i salatom od mrkve",
       dishes: ["Kimbap", "Pečeno povrće i piletina", "Kalcone", "Salata od mrkve"],
     },

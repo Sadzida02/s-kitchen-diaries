@@ -235,7 +235,10 @@ export default function SpiceShelf({ lang }: { lang: Locale }) {
                 aria-pressed={on}
                 aria-label={fill(t.jarAria, { name })}
                 onPointerEnter={(event) => event.pointerType === "mouse" && choose(index)}
-                onFocus={() => choose(index)}
+                onFocus={(event) => {
+                  // only for keyboard focus: a tap also focuses the button, and the tap itself does the work
+                  if (event.currentTarget.matches(":focus-visible")) choose(index);
+                }}
                 onBlur={() => setActive((current) => (current === index ? null : current))}
                 onClick={(event) => {
                   // a mouse already did this by hovering; a finger or the keyboard toggles it

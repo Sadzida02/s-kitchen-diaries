@@ -185,7 +185,7 @@
 }
 
 .aunt {
-  color: #b9743a;
+  color: var(--purple);
 }
 
 .cousin {

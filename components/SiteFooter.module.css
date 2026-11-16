@@ -51,7 +51,8 @@
 .contact a,
 .contact span {
   display: inline-flex;
-  align-items: center;
+  /* the icon stays level with the first line when the text wraps onto two lines */
+  align-items: flex-start;
   gap: 8px;
   color: var(--white);
   text-decoration: none;
@@ -64,6 +65,8 @@
 
 .icon {
   flex: none;
+  /* (line height - icon size) / 2, so the icon is centred on the first line */
+  margin-top: calc((1.7em - 22px) / 2);
   color: var(--lavender);
 }
 

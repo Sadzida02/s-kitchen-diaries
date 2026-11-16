@@ -128,6 +128,8 @@ export default function DishViewer({
           </div>
         </div>
       </div>
+      {/* a short note: the photo shows the names of the meals when you hover over it */}
+      <p className={styles.disclaimer}>{t.dishViewer.disclaimer}</p>
       </div>
       <div className={styles.stage}>
       <div
@@ -165,6 +167,7 @@ export default function DishViewer({
           </span>
         )}
       </div>
+
       </div>
 
     </div>

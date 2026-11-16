@@ -146,7 +146,12 @@ export const en = {
       loafAlt: "A seeded loaf of bread in its baking tin",
     },
   },
-  dishViewer: { menu: "On the table", hint: "Move over the photo to look closer." },
+  dishViewer: {
+    menu: "What is on the table?",
+    hint: "Move over the photo to look closer.",
+    // a short note under the photo
+    disclaimer: "Hover over (or touch) the photo to see the names of the meals.",
+  },
   bookPreview: {
     aria: "Recipe notebook, page {n} of {total}. Use the arrow keys to turn pages.",
     name: "Sadžida’s",
