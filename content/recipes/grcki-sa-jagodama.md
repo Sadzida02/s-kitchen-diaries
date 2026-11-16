@@ -1,7 +1,7 @@
 ---
 title: Greek yoghurt with strawberries
 taste: sweet
-tags: [healthy, breakfast, desserts]
+tags: [healthy, breakfast, desserts, nosugar]
 image: cover.jpg
 added: 2026-11-05
 

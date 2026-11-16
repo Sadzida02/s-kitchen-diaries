@@ -1,4 +1,6 @@
+import Link from "next/link";
 import { getDictionary } from "@/lib/dictionaries";
+import { localePath } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n";
 import Logo from "./Logo";
 import styles from "./SiteFooter.module.css";
@@ -35,6 +37,12 @@ export default function SiteFooter({ lang }: { lang: Locale }) {
         <p className={styles.note}>
           {t.note}
         </p>
+
+        <nav className={styles.quick} aria-label={t.quickLabel}>
+          <Link href={localePath(lang, "/#favourites")}>{t.quick.favourites}</Link>
+          <Link href={localePath(lang, "/#latest")}>{t.quick.latest}</Link>
+          <Link href={localePath(lang, "/#spices")}>{t.quick.spices}</Link>
+        </nav>
 
         <ul className={styles.contact}>
           <li>

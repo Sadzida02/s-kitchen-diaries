@@ -152,7 +152,7 @@
 .wordKicker {
   font-family: var(--font-accent);
   font-size: 1.3rem;
-  color: var(--white);
+  color: var(--ink);
 }
 
 /* the two halves of the word, with a plus between them */

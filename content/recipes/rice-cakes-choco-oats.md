@@ -1,7 +1,7 @@
 ---
 title: Rice cakes with chocolate oats
 taste: sweet
-tags: [healthy, breakfast]
+tags: [healthy, breakfast, nosugar]
 image: cover.jpg
 added: 2026-11-05
 difficulty: easy

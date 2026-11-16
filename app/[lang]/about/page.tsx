@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import BookPreview from "@/components/BookPreview";
+import AutoRow from "@/components/AutoRow";
+import ChefBubble from "@/components/ChefBubble";
 import DishViewer from "@/components/DishViewer";
 import { getDictionary } from "@/lib/dictionaries";
 import { isLocale } from "@/lib/i18n";
@@ -84,6 +86,63 @@ export default async function AboutPage({ params }: { params: Promise<{ lang: st
   if (!isLocale(lang)) notFound();
   const t = getDictionary(lang).about;
   const dishes = t.intro.dishes.map((name, index) => ({ name, areas: dishAreas[index] }));
+  // rows of accounts that slide across the whole width of the screen, outside the page column
+  const ribbon = (rows: Source[][], extra: string) => (
+    <div className={`${styles.ribbon} ${extra}`}>
+      {rows.map(
+        (row, rowIndex) => (
+          <AutoRow key={rowIndex} className={styles.ribbonRow} speed={[26, 22, 30][rowIndex % 3]}>
+            {[0, 1].map((copy) =>
+              row.map((source, index) => {
+                const hidden = copy === 1;
+                const inner = (
+                  <>
+                    <span className={`${styles.badge} ${index % 2 ? "" : styles.badgeGold}`} aria-hidden="true">
+                      {source.image ? (
+                        <Image src={source.image} alt="" fill sizes="56px" className={styles.badgePhoto} />
+                      ) : (
+                        source.name.charAt(0).toUpperCase()
+                      )}
+                    </span>
+                    <span className={styles.sourceText}>
+                      <span className={styles.sourceName}>{source.name}</span>
+                      <span className={styles.platform}>
+                        <PlatformIcon platform={source.platform} />
+                        {source.platform}
+                      </span>
+                    </span>
+                  </>
+                );
+                const link = linkFor(source);
+                return link ? (
+                  <a
+                    key={`${copy}-${source.name}`}
+                    href={link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`${styles.sourceCard} ${styles.link}`}
+                    aria-hidden={hidden || undefined}
+                    tabIndex={hidden ? -1 : undefined}
+                  >
+                    {inner}
+                  </a>
+                ) : (
+                  <div
+                    key={`${copy}-${source.name}`}
+                    className={styles.sourceCard}
+                    aria-hidden={hidden || undefined}
+                  >
+                    {inner}
+                  </div>
+                );
+              }),
+            )}
+          </AutoRow>
+        ),
+      )}
+    </div>
+  );
+
   return (
     <>
       <section className={styles.intro}>
@@ -102,14 +161,15 @@ export default async function AboutPage({ params }: { params: Promise<{ lang: st
 
       <section className={styles.band}>
         <div className={`container ${styles.disclaimerRow}`}>
-          <Image
+          <ChefBubble
             src="/images/chef/chef-whisk.webp"
             alt={t.disclaimer.chefAlt}
             width={530}
             height={720}
             sizes="(max-width: 900px) 240px, 360px"
-            quality={90}
-            className={styles.chef}
+            imageClassName={styles.chef}
+            buttonLabel={t.disclaimer.chefButton}
+            bubble={t.disclaimer.chefBubble}
           />
           <div className={styles.disclaimer}>
           <span className={styles.alert} aria-hidden="true">
@@ -162,60 +222,9 @@ export default async function AboutPage({ params }: { params: Promise<{ lang: st
 
         </div>
 
-        {/* two rows that slide across the whole width of the screen, outside the page column */}
-        <div className={styles.ribbon}>
-          {[sources.slice(0, Math.ceil(sources.length / 2)), sources.slice(Math.ceil(sources.length / 2))].map(
-            (row, rowIndex) => (
-              <div key={rowIndex} className={styles.ribbonRow}>
-                {[0, 1].map((copy) =>
-                  row.map((source, index) => {
-                    const hidden = copy === 1;
-                    const inner = (
-                      <>
-                        <span className={`${styles.badge} ${index % 2 ? "" : styles.badgeGold}`} aria-hidden="true">
-                          {source.image ? (
-                            <Image src={source.image} alt="" fill sizes="56px" className={styles.badgePhoto} />
-                          ) : (
-                            source.name.charAt(0).toUpperCase()
-                          )}
-                        </span>
-                        <span className={styles.sourceText}>
-                          <span className={styles.sourceName}>{source.name}</span>
-                          <span className={styles.platform}>
-                            <PlatformIcon platform={source.platform} />
-                            {source.platform}
-                          </span>
-                        </span>
-                      </>
-                    );
-                    const link = linkFor(source);
-                    return link ? (
-                      <a
-                        key={`${copy}-${source.name}`}
-                        href={link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={`${styles.sourceCard} ${styles.link}`}
-                        aria-hidden={hidden || undefined}
-                        tabIndex={hidden ? -1 : undefined}
-                      >
-                        {inner}
-                      </a>
-                    ) : (
-                      <div
-                        key={`${copy}-${source.name}`}
-                        className={styles.sourceCard}
-                        aria-hidden={hidden || undefined}
-                      >
-                        {inner}
-                      </div>
-                    );
-                  }),
-                )}
-              </div>
-            ),
-          )}
-        </div>
+        {/* two rows on wide screens, three on phones */}
+        {ribbon([sources.slice(0, Math.ceil(sources.length / 2)), sources.slice(Math.ceil(sources.length / 2))], styles.ribbonWide)}
+        {ribbon([sources.slice(0, 5), sources.slice(5, 10), sources.slice(10)], styles.ribbonNarrow)}
       </section>
     </>
   );

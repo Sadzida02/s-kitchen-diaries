@@ -1,7 +1,7 @@
 ---
 title: Salmon on rice cakes and chocolate oats
 taste: salty
-tags: [healthy, breakfast]
+tags: [healthy, breakfast, nosugar]
 image: cover.jpg
 added: 2026-11-05
 

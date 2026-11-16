@@ -4,7 +4,7 @@
   position: relative;
   z-index: 2;
   margin-top: calc(var(--nav-space) * -1);
-  padding: var(--nav-space) 0 72px;
+  padding: var(--nav-space) 0 100px;
   /* stacked layout: brown behind the navbar too */
   background: linear-gradient(var(--gold), var(--gold)) top / 100% var(--nav-space) no-repeat;
 }
@@ -50,7 +50,7 @@
   z-index: -1;
   background: url("/images/doodles/bread-brown.webp") repeat;
   background-size: 728px;
-  opacity: 0.28;
+  opacity: 0.227;
   pointer-events: none;
 }
 
@@ -110,7 +110,7 @@
   .hero::after {
     background: url("/images/doodles/bread-brown.webp") repeat;
     background-size: 728px;
-    opacity: 0.28;
+    opacity: 0.227;
   }
 
   .heroGrid {
@@ -249,34 +249,13 @@
   inset: 0;
   background: url("/images/doodles/bread-brown.webp") repeat;
   background-size: 728px;
-  opacity: 0.28;
+  opacity: 0.227;
   pointer-events: none;
 }
 
 .quoteInner {
   position: relative;
   text-align: center;
-}
-
-.mark {
-  position: absolute;
-  font-family: var(--font-heading);
-  font-size: clamp(9rem, calc(22 * var(--vw)), 20rem);
-  line-height: 1;
-  color: #b9812f;
-  opacity: 0.55;
-  pointer-events: none;
-  user-select: none;
-}
-
-.markOpen {
-  left: 0;
-  top: -0.12em;
-}
-
-.markClose {
-  right: 0;
-  bottom: -0.62em;
 }
 
 .motto {
@@ -375,7 +354,7 @@
   z-index: -1;
   background: url("/images/doodles/bread-brown.webp") repeat;
   background-size: 728px;
-  opacity: 0.28;
+  opacity: 0.227;
   pointer-events: none;
 }
 
@@ -390,7 +369,7 @@
   }
 
   .hero {
-    padding-bottom: 36px;
+    padding-bottom: 49px;
   }
 
   .heroGrid {
@@ -470,7 +449,7 @@
   }
 
   .mobileCats p {
-    color: var(--muted);
+    color: var(--purple);
     font-family: var(--font-accent);
     font-size: 1.15rem;
   }
@@ -499,4 +478,35 @@
     width: 18px;
     height: 18px;
   }
+}
+
+/* kitchen tiles behind the spice shelf: glossy lilac tiles that start 200px under the top of
+   the section (plain lilac in between) and fade out at the bottom */
+.spiceBand {
+  position: relative;
+  isolation: isolate;
+}
+
+.spiceBand::before {
+  content: "";
+  position: absolute;
+  inset: 200px 0 0;
+  z-index: -1;
+  background: url("/images/tiles-lilac.webp") top center / 640px auto repeat;
+  /* half see-through, so the tiles stay a soft background */
+  opacity: 0.5;
+  -webkit-mask-image: linear-gradient(transparent, #000 8%, #000 88%, transparent);
+  mask-image: linear-gradient(transparent, #000 8%, #000 88%, transparent);
+  pointer-events: none;
+}
+
+/* the space around the Motivation band: Favourites gets 10% more above it, and the gap on
+   both sides of the band is 15% larger (the usual section padding is 89px) */
+section.favourites {
+  padding-top: 140px;
+  padding-bottom: 102px;
+}
+
+section.latest {
+  padding-top: 102px;
 }

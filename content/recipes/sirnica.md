@@ -1,7 +1,7 @@
 ---
 title: Sirnica
 taste: salty
-tags: [breakfast, traditional, bosnian]
+tags: [lunch, traditional, bosnian]
 image: cover.jpg
 added: 2026-11-05
 difficulty: medium

@@ -1,7 +1,7 @@
 ---
 title: Homemade Granola
 taste: sweet
-tags: [breakfast, healthy]
+tags: [breakfast, healthy, nosugar]
 image: cover.jpg
 alt: Homemade granola
 podium: 5

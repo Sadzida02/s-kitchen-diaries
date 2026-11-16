@@ -1,5 +1,5 @@
 .intro {
-  padding: 40px 0 90px;
+  padding: 55px 0 125px;
 }
 
 .lead {
@@ -13,7 +13,7 @@
   position: relative;
   isolation: isolate;
   background: var(--gold);
-  padding: 96px 0;
+  padding: 132px 0;
 }
 
 .band::before {
@@ -23,7 +23,7 @@
   z-index: -1;
   background: url("/images/doodles/bread-brown.webp") repeat;
   background-size: 728px;
-  opacity: 0.28;
+  opacity: 0.227;
   pointer-events: none;
 }
 
@@ -39,9 +39,12 @@
 }
 
 .band h2,
-.band :global(.kicker),
 .band .disclaimer p {
   color: var(--white);
+}
+
+.band :global(.kicker) {
+  color: var(--ink);
 }
 
 .disclaimerRow {
@@ -94,7 +97,24 @@
 }
 
 .started {
-  padding: 96px 0;
+  position: relative;
+  isolation: isolate;
+  /* the tiles start 200px down; the text and the notebook start 100px lower, so tiles show above them too */
+  padding: 300px 0 132px;
+}
+
+/* the same lilac kitchen tiles as behind the spices, half see-through, over the section,
+   starting 200px below its top (plain lilac above, like on the home page), fading out at the bottom */
+.started::before {
+  content: "";
+  position: absolute;
+  inset: 200px 0 0;
+  z-index: -1;
+  background: url("/images/tiles-lilac.webp") top center / 640px auto repeat;
+  opacity: 0.5;
+  -webkit-mask-image: linear-gradient(transparent, #000 10%, #000 90%, transparent);
+  mask-image: linear-gradient(transparent, #000 10%, #000 90%, transparent);
+  pointer-events: none;
 }
 
 .startedInner {
@@ -116,7 +136,8 @@
 }
 
 .inspired {
-  padding-bottom: 112px;
+  width: 100%;
+  padding-bottom: 155px;
 }
 
 /* the small handwritten headings are purple everywhere */
@@ -266,7 +287,7 @@
     text-align: center;
   }
   .intro {
-    padding: 72px 0 130px;
+    padding: 100px 0 180px;
   }
 }
 
@@ -292,6 +313,7 @@
 .ribbon {
   /* the cards keep their usual size; the ribbon runs the whole width of the screen */
   --card-w: 316px;
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -301,19 +323,18 @@
   -webkit-mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
 }
 
+/* each row slides by itself and can also be scrolled with a finger, drag or wheel */
 .ribbonRow {
   display: flex;
-  width: max-content;
-  animation: ribbon 80s linear infinite;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  cursor: grab;
 }
 
-.ribbonRow:nth-child(2) {
-  animation-duration: 95s;
-}
-
-.ribbon:hover .ribbonRow,
-.ribbon:focus-within .ribbonRow {
-  animation-play-state: paused;
+.ribbonRow::-webkit-scrollbar {
+  display: none;
 }
 
 .ribbonRow > * {
@@ -321,12 +342,17 @@
   margin-right: 16px;
 }
 
-/* the row holds its cards twice, so sliding half of it right is seamless */
-@keyframes ribbon {
-  from {
-    transform: translateX(-50%);
+/* two rows on wide screens, three on phones */
+.ribbonNarrow {
+  display: none;
+}
+
+@media (max-width: 599px) {
+  .ribbonWide {
+    display: none;
   }
-  to {
-    transform: translateX(0);
+
+  .ribbonNarrow {
+    display: flex;
   }
 }

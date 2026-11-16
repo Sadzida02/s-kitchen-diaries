@@ -1,7 +1,7 @@
 ---
 title: Banana oats
 taste: sweet
-tags: [healthy, breakfast]
+tags: [healthy, breakfast, nosugar]
 image: cover.jpg
 difficulty: easy
 added: 2026-11-05

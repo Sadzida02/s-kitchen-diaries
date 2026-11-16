@@ -26,6 +26,7 @@ export const en = {
     tryIt: "Try it",
     stars: "5 out of 5 stars",
     allRecipes: "All recipes",
+    loading: "Wait, something is cooking...",
   },
   difficulty: { easy: "easy", medium: "medium", hard: "hard" },
   tags: {
@@ -100,7 +101,7 @@ export const en = {
       kicker: "Whether it is gathering or just me",
       title: "I enjoy in preparation.",
       copy:
-        "This is my hobby, a creative outlet, and my favourite way to make people around me happy. I am far from a professional, but someone who has an eye for tastes and pretty plates. Hope you like my ideas...",
+        "This is my hobby, a creative outlet, and my way to make people around me happy. I am far from a professional, but someone who has an eye for tastes and pretty plates. Hope you like my ideas...",
       alt: "An iftar table with sultan kebab, a pink salad, falafel with potatoes and chicken veggie soup",
       dishes: ["Sultan kebab", "Barbie salad", "Falafel and potatoes", "Chicken veggie soup"],
     },
@@ -116,12 +117,12 @@ export const en = {
     jarAria: "{name}, show more",
     items: [
       { name: "Garam masala", fact: "A warming Indian blend whose name means “hot spice mix”. It usually holds cumin, coriander, cardamom, cinnamon, cloves and black pepper, and goes in near the end of cooking so the aroma stays.", uses: "Butter chicken, fatteh, baked veggies and chicken" },
-      { name: "Cumin", fact: "One of the oldest spices in the world, found even in ancient Egyptian tombs. Toast the seeds in a dry pan for a minute to wake up the flavour.", uses: "Fatteh, pumpkin soup" },
+      { name: "Cumin", fact: "One of the oldest spices in the world, found in ancient Egyptian tombs. Toast the seeds in a dry pan for a minute to wake up the flavour.", uses: "Fatteh, pumpkin soup" },
       { name: "Oregano", fact: "Its Greek name means “joy of the mountain”. It is one of the few herbs that tastes stronger dried than fresh.", uses: "Pizza, baked veggies and chicken" },
       { name: "Curry", fact: "Curry powder is a blend, not a single spice. Turmeric gives it the golden colour, and the mix changes from kitchen to kitchen.", uses: "Butter chicken, curry salmon" },
       { name: "Sumac", fact: "Dark red berries ground into a tangy, lemony powder, used in the Middle East long before lemons were common. Sprinkle it over salads, onions and grilled meat.", uses: "Salads and grilled meat" },
-      { name: "Bay leaves", fact: "A single leaf can flavour a whole pot. Add it at the start and take it out before serving, because it stays tough.", uses: "Goulash and soups" },
-      { name: "Mint", fact: "Mint spreads so fast that many people grow it in a pot. It cools the mouth in spicy dishes and yoghurt sauces.", uses: "Yoghurt sauces, salads and tea" },
+      { name: "Bay leaves", fact: "A single leaf can flavour a whole pot. Add it at the start and take it out before serving, because it stays tough.", uses: "Goulash, Pumpkin soup" },
+      { name: "Mint", fact: "Mint spreads so fast that many people grow it in a pot. It cools the mouth in spicy dishes and yoghurt sauces.", uses: "Yoghurt sauces, Mercimek soup" },
       { name: "Dill", fact: "The feathery leaves are best added at the end of cooking, because heat dulls their flavour. The seeds taste stronger and are used for pickling.", uses: "Yoghurt sauces, potato dishes and salads" },
       { name: "Cinnamon", fact: "Cinnamon is the dried inner bark of a tree, and the sticks curl up as they dry. True Ceylon cinnamon is lighter and milder than the common cassia.", uses: "Apple oats, cinnamon rolls, ashure" },
       { name: "Cardamom", fact: "Called the queen of spices, it is one of the most expensive spices in the world. Crush the pods lightly to let the seeds out.", uses: "Butter chicken, Arabic desserts and coffee" },
@@ -159,13 +160,15 @@ export const en = {
   footer: {
     note: "Made with trials, failures, patience, and a lot of love along the way.",
     location: "Kakanj & Sarajevo - Bosnia and Herzegovina",
+    quickLabel: "Quick links",
+    quick: { favourites: "Favourites", latest: "Latest additions", spices: "Favourite spices" },
     copy: "©2026 Sweet & Salty Diaries by Sadžida Valjevac. All rights reserved.",
   },
   recipesPage: {
     metaTitle: "Recipes",
     kicker: "From the kitchen",
-    titleAll: "All recipes",
-    titleFiltered: "Recipes",
+    titleAll: "**{n}** {word}",
+    titleFiltered: "**{x}** of **{n}** {word}",
     forms: ["recipe", "recipes"],
     totalRest: "everything I have cooked and baked.",
     showing: "Showing",
@@ -210,6 +213,8 @@ export const en = {
     },
     disclaimer: {
       chefAlt: "The little chef figurine holding a whisk",
+      chefButton: "The chef figurine. Press to read a note.",
+      chefBubble: "That's me as a LEGO! My sister got it for me.",
       kicker: "An honest disclaimer",
       title: "I am not a professional cook.",
       p1:

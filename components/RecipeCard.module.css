@@ -4,7 +4,7 @@
   height: 100%;
   gap: 14px;
   background: var(--white);
-  border-radius: 12px;
+  border-radius: 40px;
   padding: 12px 12px 20px;
   box-shadow: 0 1px 0 var(--gold-soft);
   transition: transform 0.25s ease;
@@ -19,6 +19,11 @@
   aspect-ratio: 4 / 5;
 }
 
+/* the photo has the same corner radius as the card */
+.card .media {
+  border-radius: 40px;
+}
+
 .titleLink {
   color: inherit;
   text-decoration: none;
@@ -26,6 +31,7 @@
 
 /* the button after the description */
 .tryIt {
+  position: relative;
   display: inline-flex;
   align-items: center;
   /* always in the lower-right corner of the card, however long the description is */
@@ -41,27 +47,82 @@
   transition: background-color 0.2s ease;
 }
 
-.tryIt svg {
-  transition: transform 0.2s ease;
-}
-
-.tryIt:hover {
+.tryIt:hover,
+.tryIt:focus-visible {
   background: var(--purple-deep);
 }
 
-.tryIt:hover svg {
-  transform: translateX(4px);
+/* the words and the arrow */
+.tryLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: opacity 0.2s ease, transform 0.25s ease;
+}
+
+.tryLabel svg {
+  transition: transform 0.2s ease;
+}
+
+/* the whisk-in-a-bowl drawing, in the button's text colour; hidden until the button is pointed at */
+.doodle {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 36px;
+  height: 36px;
+  margin: -18px 0 0 -18px;
+  background: currentColor;
+  -webkit-mask: url("/images/doodles/whisk-bowl.png") center / contain no-repeat;
+  mask: url("/images/doodles/whisk-bowl.png") center / contain no-repeat;
+  opacity: 0;
+  transform: scale(0.5);
+  transition: opacity 0.2s ease, transform 0.25s ease;
+  pointer-events: none;
+}
+
+/* pointing at it, focusing it or pressing it: the words fade away and the drawing swirls a little */
+.tryIt:hover .tryLabel,
+.tryIt:focus-visible .tryLabel,
+.tryIt:active .tryLabel {
+  opacity: 0;
+  transform: scale(0.85);
+}
+
+.tryIt:hover .doodle,
+.tryIt:focus-visible .doodle,
+.tryIt:active .doodle {
+  opacity: 1;
+  animation: swirl 1s ease-in-out infinite;
+}
+
+@keyframes swirl {
+  0% {
+    transform: scale(1) rotate(-7deg) translate(-1.5px, 0);
+  }
+  25% {
+    transform: scale(1) rotate(0deg) translate(0, 1.5px);
+  }
+  50% {
+    transform: scale(1) rotate(7deg) translate(1.5px, 0);
+  }
+  75% {
+    transform: scale(1) rotate(0deg) translate(0, -1.5px);
+  }
+  100% {
+    transform: scale(1) rotate(-7deg) translate(-1.5px, 0);
+  }
 }
 
 .champion {
   background: linear-gradient(160deg, #8c6f97 0%, #6f5479 100%);
-  border-radius: 20px;
+  border-radius: 23px;
   padding: 16px 16px 24px;
   box-shadow: 0 18px 38px rgba(90, 64, 100, 0.3);
 }
 
 .champion .media {
-  border-radius: 12px;
+  border-radius: 13.8px;
 }
 
 .champion h3 {

@@ -94,7 +94,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
         </div>
       </section>
 
-      <section id="favourites" className="section">
+      <section id="favourites" className={`section ${styles.favourites}`}>
         <div className="container">
           <div className="section-head">
             <p className="kicker">{t.home.fav.kicker}</p>
@@ -107,23 +107,16 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
 
       <section className={styles.quoteBand}>
         <div className={`container ${styles.quoteInner}`}>
-          <span className={`${styles.mark} ${styles.markOpen}`} aria-hidden="true">
-            &ldquo;
-          </span>
-          <span className={`${styles.mark} ${styles.markClose}`} aria-hidden="true">
-            &rdquo;
-          </span>
           <p className={styles.motto}>{t.home.quote.motto}</p>
           <TypedQuote className={styles.quote} text={t.home.quote.text} />
         </div>
       </section>
 
-      <section id="latest" className="section">
+      <section id="latest" className={`section ${styles.latest}`}>
         <div className="container">
           <div className="section-head">
             <p className="kicker">{t.home.latest.kicker}</p>
             <h2>{t.home.latest.title}</h2>
-            <p>{t.home.latest.text}</p>
           </div>
           {/* a single line of kitchen tools, drawn in one stroke */}
           <div className={styles.toolLine} aria-hidden="true" />
@@ -148,7 +141,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
         </div>
       </section>
 
-      <section id="spices" className="section">
+      <section id="spices" className={`section ${styles.spiceBand}`}>
         <div className="container">
           <div className="section-head">
             <p className="kicker">{t.spices.kicker}</p>

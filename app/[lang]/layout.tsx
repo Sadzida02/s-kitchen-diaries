@@ -45,7 +45,8 @@ export default async function RootLayout({
 
   return (
     <html lang={lang} data-scroll-behavior="smooth">
-      <body>
+      {/* browser add-ons (like Grammarly) add attributes to <body> before React loads; that is harmless */}
+      <body suppressHydrationWarning>
         <a href="#main" className="skip-link">
           {t.nav.skip}
         </a>

@@ -219,9 +219,12 @@
   justify-content: center;
 }
 
-/* total number of recipes, or how many match the chosen filters */
+/* the heading: how many recipes there are, or how many match (smaller than a normal page title) */
+.count {
+  font-size: clamp(1.5rem, calc(2.6 * var(--vw)), 2.1rem);
+  line-height: 1.2;
+}
+
 .count strong {
   color: var(--purple-deep);
-  font-family: var(--font-bubble);
-  font-size: 1.25em;
 }

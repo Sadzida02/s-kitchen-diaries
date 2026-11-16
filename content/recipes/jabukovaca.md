@@ -1,7 +1,7 @@
 ---
 title: Healthy jabukovača
 taste: sweet
-tags: [desserts, traditional]
+tags: [desserts, traditional, nosugar]
 image: cover.jpg
 added: 2026-11-05
 ---

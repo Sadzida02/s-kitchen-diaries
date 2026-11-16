@@ -2,12 +2,14 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
+import Cooking from "@/components/Cooking";
 import FilterIcon from "@/components/FilterIcon";
 import GridSwitch from "@/components/GridSwitch";
 import RecipeCard from "@/components/RecipeCard";
 import { getDictionary } from "@/lib/dictionaries";
 import { filterGroups, filterRecipes, selectionFromParams } from "@/lib/filters";
 import { isLocale, localePath, plural } from "@/lib/i18n";
+import { fill, rich } from "@/lib/rich";
 import type { Locale } from "@/lib/i18n";
 import type { FilterKey, FilterSelection } from "@/lib/filters";
 import { getRecipes } from "@/lib/recipes";
@@ -76,20 +78,16 @@ async function RecipesContent({ lang, searchParams }: { lang: Locale; searchPara
     <section className="section">
       <div className={`container ${styles.wide}`}>
         <div className="section-head">
-          <p className="kicker">{text.kicker}</p>
-          <h1>{filtered ? text.titleFiltered : text.titleAll}</h1>
-          <p className={styles.count} aria-live="polite">
-            {filtered ? (
-              <>
-                {text.showing} <strong>{list.length}</strong> {text.of} <strong>{all.length}</strong>{" "}
-                {plural(lang, all.length, text.forms)}
-              </>
-            ) : (
-              <>
-                <strong>{all.length}</strong> {plural(lang, all.length, text.forms)}, {text.totalRest}
-              </>
+          {/* how many recipes there are (or how many match the filters) */}
+          <h1 className={styles.count} aria-live="polite">
+            {rich(
+              fill(filtered ? text.titleFiltered : text.titleAll, {
+                x: list.length,
+                n: all.length,
+                word: plural(lang, all.length, text.forms),
+              }),
             )}
-          </p>
+          </h1>
         </div>
 
         <div className={styles.layout}>
@@ -153,7 +151,7 @@ export default async function RecipesPage({
   const { lang } = await params;
   if (!isLocale(lang)) notFound();
   return (
-    <Suspense fallback={<section className="section" aria-busy="true" />}>
+    <Suspense fallback={<Cooking lang={lang} />}>
       <RecipesContent lang={lang} searchParams={searchParams} />
     </Suspense>
   );

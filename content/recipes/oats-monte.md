@@ -1,7 +1,7 @@
 ---
 title: Monte oats
 taste: sweet
-tags: [breakfast, healthy]
+tags: [breakfast, healthy, nosugar]
 image: cover.jpg
 alt: Oats layered with monte cream in a glass
 podium: 4
