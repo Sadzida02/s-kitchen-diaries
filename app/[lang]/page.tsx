@@ -5,6 +5,7 @@ import FilterIcon from "@/components/FilterIcon";
 import DishViewer from "@/components/DishViewer";
 import SpoonCard from "@/components/SpoonCard";
 import SharedMeals from "@/components/SharedMeals";
+import SpiceShelf from "@/components/SpiceShelf";
 import Podium from "@/components/Podium";
 import TypedQuote from "@/components/TypedQuote";
 import { getDictionary } from "@/lib/dictionaries";
@@ -144,6 +145,16 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
       <section id="shared-meals" className={`section ${styles.factsBand}`}>
         <div className="container">
           <SharedMeals lang={lang} />
+        </div>
+      </section>
+
+      <section id="spices" className="section">
+        <div className="container">
+          <div className="section-head">
+            <p className="kicker">{t.spices.kicker}</p>
+            <h2>{t.spices.title}</h2>
+          </div>
+          <SpiceShelf lang={lang} />
         </div>
       </section>
 

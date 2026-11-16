@@ -1,0 +1,329 @@
+/* A wooden shelf of spice jars. Pointing at a jar tips it upside down, the spice spills
+   onto the shelf and a note about that spice appears under the shelf. */
+.wrap {
+  --lift: 96px;
+  /* as wide as the navbar, even where the page column is narrower */
+  position: relative;
+  left: 50%;
+  width: max(calc(80 * var(--vw)), min(calc(100 * var(--vw) - 24px), 900px));
+  transform: translateX(-50%);
+}
+
+.shelf {
+  --cols: 10;
+  display: grid;
+  grid-template-columns: repeat(var(--cols), 1fr);
+  /* room above each row for the jar to lift while it pours */
+  padding-top: calc(var(--lift) + 20px);
+  row-gap: calc(var(--lift) + 30px);
+}
+
+@media (max-width: 999px) {
+  .shelf {
+    --cols: 5;
+  }
+}
+
+@media (max-width: 599px) {
+  .shelf {
+    --cols: 3;
+  }
+
+  /* ten jars make three full rows and one left over: centre it */
+  .slot:last-child {
+    grid-column: 2;
+  }
+}
+
+.slot {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  padding: 0 4px 22px;
+}
+
+.slot.on {
+  z-index: 6;
+}
+
+/* the plank under each jar; the pieces of one row join into one shelf */
+.slot::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 22px;
+  background: repeating-linear-gradient(90deg, rgba(61, 44, 30, 0.05) 0 2px, transparent 2px 11px),
+    linear-gradient(#e2b57d 0 28%, #b97d45 28% 100%);
+  box-shadow: 0 10px 14px -6px rgba(61, 44, 30, 0.38);
+}
+
+.jar {
+  position: relative;
+  z-index: 2;
+  width: min(100%, 150px);
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  transform-origin: 50% 50%;
+  transition: transform 0.75s cubic-bezier(0.3, 1.25, 0.5, 1);
+}
+
+.jar:focus-visible {
+  outline: 3px solid var(--purple);
+  outline-offset: 4px;
+  border-radius: 18px;
+}
+
+.on .jar {
+  transform: translateY(calc(var(--lift) * -1)) rotate(180deg);
+}
+
+.tilt {
+  display: block;
+  transform-origin: 50% 50%;
+}
+
+/* a little shake while it pours */
+.on .tilt {
+  animation: shake 0.32s ease-in-out 0.8s infinite alternate;
+}
+
+@keyframes shake {
+  from {
+    transform: rotate(-3deg);
+  }
+  to {
+    transform: rotate(3deg);
+  }
+}
+
+.picture {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  filter: drop-shadow(0 6px 5px rgba(61, 44, 30, 0.22));
+}
+
+.labelText {
+  font-family: "Playfair Display Variable", Georgia, serif;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  fill: #3d2c1e;
+}
+
+/* the spice slides toward the lid when the jar is tipped */
+.contents {
+  transition: transform 0.9s ease 0.2s;
+}
+
+.on .contents {
+  transform: translateY(-34px);
+}
+
+/* pieces of spice falling from the lid to the shelf */
+.spill {
+  position: absolute;
+  left: 50%;
+  bottom: 22px;
+  z-index: 3;
+  width: 0;
+  height: var(--lift);
+  pointer-events: none;
+}
+
+.spill i {
+  position: absolute;
+  top: 0;
+  left: -2px;
+  width: 3.5px;
+  height: 3.5px;
+  border-radius: 50%;
+  opacity: 0;
+}
+
+.spill[data-kind="seeds"] i {
+  width: 5px;
+  height: 2px;
+}
+
+.spill[data-kind="flakes"] i {
+  width: 4px;
+  height: 2.4px;
+  border-radius: 40%;
+}
+
+.spill[data-kind="leaves"] i {
+  width: 9px;
+  height: 4.5px;
+  border-radius: 0 100% 0 100%;
+}
+
+.spill[data-kind="sticks"] i {
+  width: 8px;
+  height: 3px;
+  border-radius: 2px;
+}
+
+.spill[data-kind="fronds"] i {
+  width: 8px;
+  height: 1.8px;
+  border-radius: 1px;
+}
+
+.spill[data-kind="pods"] i {
+  width: 5px;
+  height: 7px;
+  border-radius: 50%;
+}
+
+.on .spill i {
+  animation: fall var(--dur) ease-in calc(0.7s + var(--delay)) infinite;
+}
+
+@keyframes fall {
+  0% {
+    transform: translate(0, 0) rotate(0);
+    opacity: 0;
+  }
+  12% {
+    opacity: 1;
+  }
+  85% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--dx), calc(var(--lift) - 6px)) rotate(var(--rot));
+    opacity: 0;
+  }
+}
+
+/* the little heap that builds up on the shelf */
+.pile {
+  position: absolute;
+  left: 50%;
+  bottom: 22px;
+  z-index: 1;
+  width: 62px;
+  height: 20px;
+  margin-left: -31px;
+  border-radius: 50% 50% 4px 4px / 100% 100% 0 0;
+  box-shadow: inset 0 -4px 6px rgba(0, 0, 0, 0.18);
+  opacity: 0;
+  transform: scale(0.15, 0.1);
+  transform-origin: 50% 100%;
+  transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+.on .pile {
+  opacity: 1;
+  transform: none;
+  transition-delay: 0.9s;
+}
+
+/* the note under the shelf */
+.note {
+  display: grid;
+  place-items: center;
+  width: min(100%, 700px);
+  min-height: 190px;
+  margin: 34px auto 0;
+  padding: 22px 30px;
+  border: 3px dashed var(--gold);
+  border-radius: 28px;
+  background: #fffaf0;
+  box-shadow: 0 10px 24px rgba(61, 44, 30, 0.12);
+  text-align: center;
+}
+
+.noteBody {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  animation: noteIn 0.45s ease both;
+}
+
+.note h3 {
+  font-size: 1.7rem;
+  color: var(--brown);
+}
+
+.note p {
+  color: var(--ink);
+}
+
+.uses {
+  font-size: 0.98rem;
+  color: var(--purple-deep);
+}
+
+.hint {
+  color: var(--muted);
+  font-family: var(--font-accent);
+  font-size: 1.3rem;
+}
+
+@keyframes noteIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .jar,
+  .contents,
+  .pile {
+    transition: none;
+  }
+  .on .tilt,
+  .on .spill i,
+  .noteBody {
+    animation: none;
+  }
+}
+
+/* with several rows of jars the note could be off screen, so on small screens it stays at the
+   bottom of the window while the shelves are in view */
+@media (max-width: 999px) {
+  .note {
+    position: sticky;
+    bottom: 14px;
+    z-index: 8;
+    min-height: 150px;
+    box-shadow: 0 12px 30px rgba(61, 44, 30, 0.28);
+  }
+}
+
+@media (max-width: 599px) {
+  .note {
+    min-height: 0;
+    padding: 14px 18px;
+    border-radius: 22px;
+  }
+
+  .noteBody {
+    gap: 6px;
+  }
+
+  .note h3 {
+    font-size: 1.25rem;
+  }
+
+  .note p {
+    font-size: 0.86rem;
+    line-height: 1.4;
+  }
+
+  .uses {
+    font-size: 0.82rem;
+  }
+}

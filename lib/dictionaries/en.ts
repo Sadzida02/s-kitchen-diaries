@@ -105,6 +105,28 @@ export const en = {
       dishes: ["Sultan kebab", "Barbie salad", "Falafel and potatoes", "Chicken veggie soup"],
     },
   },
+  // The spice jars on the home page. To change the text in a jar's note, edit its "fact" (the
+  // sentence about the spice) or "uses" (the line after "Try it in"). The list is in the same
+  // order as the jars on the shelf, and bs.ts must keep the same order.
+  spices: {
+    kicker: "What is on my shelf",
+    title: "Favourite spices",
+    hint: "Pick a jar and I will tell you why I love it.",
+    tryIn: "Try it in",
+    jarAria: "{name}, show more",
+    items: [
+      { name: "Garam masala", fact: "A warming Indian blend whose name means “hot spice mix”. It usually holds cumin, coriander, cardamom, cinnamon, cloves and black pepper, and goes in near the end of cooking so the aroma stays.", uses: "Butter chicken, fatteh, baked veggies and chicken" },
+      { name: "Cumin", fact: "One of the oldest spices in the world, found even in ancient Egyptian tombs. Toast the seeds in a dry pan for a minute to wake up the flavour.", uses: "Fatteh, pumpkin soup" },
+      { name: "Oregano", fact: "Its Greek name means “joy of the mountain”. It is one of the few herbs that tastes stronger dried than fresh.", uses: "Pizza, baked veggies and chicken" },
+      { name: "Curry", fact: "Curry powder is a blend, not a single spice. Turmeric gives it the golden colour, and the mix changes from kitchen to kitchen.", uses: "Butter chicken, curry salmon" },
+      { name: "Sumac", fact: "Dark red berries ground into a tangy, lemony powder, used in the Middle East long before lemons were common. Sprinkle it over salads, onions and grilled meat.", uses: "Salads and grilled meat" },
+      { name: "Bay leaves", fact: "A single leaf can flavour a whole pot. Add it at the start and take it out before serving, because it stays tough.", uses: "Goulash and soups" },
+      { name: "Mint", fact: "Mint spreads so fast that many people grow it in a pot. It cools the mouth in spicy dishes and yoghurt sauces.", uses: "Yoghurt sauces, salads and tea" },
+      { name: "Dill", fact: "The feathery leaves are best added at the end of cooking, because heat dulls their flavour. The seeds taste stronger and are used for pickling.", uses: "Yoghurt sauces, potato dishes and salads" },
+      { name: "Cinnamon", fact: "Cinnamon is the dried inner bark of a tree, and the sticks curl up as they dry. True Ceylon cinnamon is lighter and milder than the common cassia.", uses: "Apple oats, cinnamon rolls, ashure" },
+      { name: "Cardamom", fact: "Called the queen of spices, it is one of the most expensive spices in the world. Crush the pods lightly to let the seeds out.", uses: "Butter chicken, Arabic desserts and coffee" },
+    ],
+  },
   sharedMeals: {
     statement:
       "Eating together eases *loneliness* and sadness.",

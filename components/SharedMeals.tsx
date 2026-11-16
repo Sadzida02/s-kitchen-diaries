@@ -107,8 +107,11 @@ function Companion({ lang }: { lang: Locale }) {
           type="button"
           className={`${styles.mix} ${joined ? styles.joined : ""}`}
           aria-label={word.aria}
-          onClick={() => {
-            if (!window.matchMedia("(hover: hover)").matches) setJoined((value) => !value);
+          onClick={(event) => {
+            // A mouse already joins the word by hovering. A finger (or the keyboard) has no
+            // hover, so there a tap switches it on and off.
+            const pointer = (event.nativeEvent as PointerEvent).pointerType;
+            if (pointer !== "mouse") setJoined((value) => !value);
           }}
         >
           <span className={styles.half}>com</span>

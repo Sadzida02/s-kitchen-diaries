@@ -107,6 +107,28 @@ export const bs: Dictionary = {
       dishes: ["Sultan kebab", "Barbie salata", "Falafel i krompir", "Pileća supa s povrćem"],
     },
   },
+  // Teglice začina na početnoj stranici. Da promijeniš tekst u kartici, uredi "fact" (rečenica o
+  // začinu) ili "uses" (red poslije "Isprobaj u"). Redoslijed je isti kao na polici i mora ostati
+  // isti kao u en.ts.
+  spices: {
+    kicker: "Šta je na mojoj polici",
+    title: "Omiljeni začini",
+    hint: "Odaberi teglu i reći ću ti zašto je volim.",
+    tryIn: "Isprobaj u",
+    jarAria: "{name}, prikaži više",
+    items: [
+      { name: "Garam masala", fact: "Topla indijska mješavina čije ime znači „topla mješavina začina“. Obično sadrži kumin, korijander, kardamom, cimet, karanfilić i crni biber, a dodaje se pred kraj kuhanja da miris ostane.", uses: "Butter chicken, fatteh, pečeno povrće i piletina" },
+      { name: "Kumin", fact: "Jedan od najstarijih začina na svijetu, pronađen čak i u drevnim egipatskim grobnicama. Sjemenke minutu prži na suhoj tavi da probude okus.", uses: "Fatteh, supa od bundeve" },
+      { name: "Origano", fact: "Njegovo grčko ime znači „radost planine“. Jedna je od rijetkih trava koja je jačeg okusa sušena nego svježa.", uses: "Pizza, pečeno povrće i piletina" },
+      { name: "Curry", fact: "Curry nije jedan začin nego mješavina. Kurkuma mu daje zlatnu boju, a smjesa se razlikuje od kuhinje do kuhinje.", uses: "Butter chicken, losos s curryjem" },
+      { name: "Sumak", fact: "Tamnocrvene bobice samljevene u kiselkast prah s okusom limuna, koji se na Bliskom istoku koristio mnogo prije nego što je limun postao uobičajen. Pospi ga po salatama, luku i mesu s roštilja.", uses: "Salate i meso s roštilja" },
+      { name: "Lovorov list", fact: "Jedan list može dati okus cijelom loncu. Dodaje se na početku, a vadi prije služenja jer ostaje žilav.", uses: "Gulaš i supe" },
+      { name: "Nana", fact: "Nana se širi tako brzo da je mnogi uzgajaju u saksiji. Hladi nepce u ljutim jelima i umacima od jogurta.", uses: "Umaci od jogurta, salate i čaj" },
+      { name: "Kopar", fact: "Perasti listovi najbolje se dodaju na kraju kuhanja jer toplota slabi njihov okus. Sjemenke su jačeg okusa i koriste se za kiseljenje.", uses: "Umaci od jogurta, jela s krompirom i salate" },
+      { name: "Cimet", fact: "Cimet je osušena unutrašnja kora drveta, a štapići se uvijaju dok se suše. Pravi cejlonski cimet je svjetliji i blaži od uobičajene kasije.", uses: "Zobene s jabukom, rolnice s cimetom, ašura" },
+      { name: "Kardamom", fact: "Zovu ga kraljicom začina i jedan je od najskupljih začina na svijetu. Mahune lagano zgnječi da puste sjemenke.", uses: "Butter chicken, arapski deserti i kafa" },
+    ],
+  },
   sharedMeals: {
     statement:
       "Zajednički obroci ublažavaju *usamljenost* i tugu.",
