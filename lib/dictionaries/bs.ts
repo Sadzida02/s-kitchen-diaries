@@ -30,7 +30,7 @@ export const bs: Dictionary = {
     allRecipes: "Svi recepti",
     loading: "Pričekaj, nešto se kuha...",
   },
-  difficulty: { easy: "lako", medium: "srednje", hard: "teško" },
+  difficulty: { easy: "lahko", medium: "srednje", hard: "teško" },
   tags: {
     healthy: "Zdravo",
     nosugar: "Bez šećera",
@@ -90,7 +90,7 @@ export const bs: Dictionary = {
     savory: "Slano",
     orLook: "ili pogledaj okolo",
     fav: { kicker: "Iz moje kuhinje", title: "Favoriti", text: "Recepti i jela koja iznova pravim." },
-    quote: { motto: "Motivacija", text: "Širinje pozitivne energije kroz uksne zalogaje." },
+    quote: { motto: "Motivacija", text: "Širiti pozitivnu energiju kroz ukusne zalogaje." },
     latest: {
       kicker: "Svježe iz kuhinje",
       title: "Najnovije dodano",
@@ -168,6 +168,8 @@ export const bs: Dictionary = {
     quickLabel: "Brze veze",
     quick: { favourites: "Favoriti", latest: "Najnovije dodano", spices: "Omiljeni začini" },
     copy: "©2026 Sweet & Salty Diaries, Sadžida Valjevac. Sva prava zadržana.",
+    soundOn: "Zvuk uključen",
+    soundOff: "Zvuk isključen",
   },
   recipesPage: {
     metaTitle: "Recepti",
@@ -220,18 +222,18 @@ export const bs: Dictionary = {
       chefAlt: "Mala figurica kuhara koji drži metlicu za šlag",
       chefButton: "Figurica kuhara. Pritisni da pročitaš poruku.",
       chefBubble: "Ovo sam ja kao LEGO! Sestra mi ga je poklonila.",
-      kicker: "Iskrena napomena",
+      kicker: "Napomena",
       title: "Nisam profesionalac.",
       p1:
         "Nemam formalnu kuharsku obuku niti pravo iskustvo u kuhanju van svoje kuhinje. Kuhanje je moj hobi i moj omiljeni način igre. Ja sam samo djevojka koja voli kuhati, probavati i obradovati ljude oko sebe onim što napravim.",
       p2:
-        "*Svrha ovog bloga je da imam jedinstveno mjesto za čuvanje svojih ideja i bezbroj fotografija, a možda i da nekoga inspirišem da proba nešto novo.",
+        "*Svrha ovog bloga je da imam posebno mjesto za čuvanje svojih ideja i bezbroj fotografija, a možda i da nekoga inspirišem da proba nešto novo.",
     },
     started: {
       kicker: "Kako je počelo?",
       title: "Početna tačka",
       p1:
-        "Pošto volim ručni rad, sve je počelo malom spiralnom bilježnicom u koju sam upisivala sva isprobana i najbolja jela koja stalno ponavljam. To su originalni recepti kojima se uvijek vraćam.",
+        "Obzirom da volim domaću hranu, sve je počelo malom spiralnim blokićem u koji sam upisivala sva isprobana i najbolja jela koja stalno ponavljam. To su originalni recepti kojima se uvijek vraćam.",
       p2: "Imaš priliku zaviriti u to moje dragocjeno blago.",
       inspiredKicker: "Ko me inspiriše?",
       inspiredTitle: "Ljudi oko mene",

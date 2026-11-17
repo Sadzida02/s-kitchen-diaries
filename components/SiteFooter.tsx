@@ -3,6 +3,7 @@ import { getDictionary } from "@/lib/dictionaries";
 import { localePath } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n";
 import Logo from "./Logo";
+import SoundToggle from "./SoundToggle";
 import styles from "./SiteFooter.module.css";
 
 const EMAIL = "valjevac.sadzida002@gmail.com";
@@ -33,16 +34,17 @@ export default function SiteFooter({ lang }: { lang: Locale }) {
   return (
     <footer className={styles.footer}>
       <div className={`container ${styles.inner}`}>
-        <Logo lang={lang} light head={false} />
-        <p className={styles.note}>
-          {t.note}
-        </p>
 
-        <nav className={styles.quick} aria-label={t.quickLabel}>
-          <Link href={localePath(lang, "/#favourites")}>{t.quick.favourites}</Link>
-          <Link href={localePath(lang, "/#latest")}>{t.quick.latest}</Link>
-          <Link href={localePath(lang, "/#spices")}>{t.quick.spices}</Link>
-        </nav>
+        <div className={styles.linksRow}>
+          <Logo lang={lang} light large head={false} />
+          <nav className={styles.quick} aria-label={t.quickLabel}>
+            <Link href={localePath(lang, "/#favourites")}>
+              {t.quick.favourites}
+            </Link>
+            <Link href={localePath(lang, "/#latest")}>{t.quick.latest}</Link>
+            <Link href={localePath(lang, "/#spices")}>{t.quick.spices}</Link>
+          </nav>
+        </div>
 
         <ul className={styles.contact}>
           <li>
@@ -55,7 +57,11 @@ export default function SiteFooter({ lang }: { lang: Locale }) {
             </a>
           </li>
           <li>
-            <a href={`https://www.instagram.com/${INSTAGRAM}/`} target="_blank" rel="noopener noreferrer">
+            <a
+              href={`https://www.instagram.com/${INSTAGRAM}/`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <Icon>
                 <rect x="3" y="3" width="18" height="18" rx="5" />
                 <circle cx="12" cy="12" r="4" />
@@ -74,9 +80,14 @@ export default function SiteFooter({ lang }: { lang: Locale }) {
             </span>
           </li>
         </ul>
+
+        <p className={styles.note}>{t.note}</p>
       </div>
       <div className={styles.tools} aria-hidden="true" />
-      <p className={styles.copy}>{t.copy}</p>
+      <div className={styles.copy}>
+        <p>{t.copy}</p>
+        <SoundToggle onLabel={t.soundOn} offLabel={t.soundOff} />
+      </div>
     </footer>
   );
 }

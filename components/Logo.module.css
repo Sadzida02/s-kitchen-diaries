@@ -34,6 +34,7 @@
   font-family: var(--font-heading);
   font-size: 1.5625rem;
   white-space: nowrap;
+  text-align: left;
   font-weight: 700;
   line-height: 1.1;
 }
@@ -115,14 +116,11 @@
   }
 }
 
-/* tablets: a slightly smaller logo so the navbar has room for its links */
-@media (min-width: 701px) and (max-width: 1099px) {
-  .name {
-    font-size: 1.2rem;
-  }
+.large .head {
+  width: 67px;
+  height: 67px;
+}
 
-  .head {
-    width: 46px;
-    height: 46px;
-  }
+.large .name {
+  font-size: 1.875rem;
 }

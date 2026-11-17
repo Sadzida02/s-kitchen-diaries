@@ -1,5 +1,6 @@
 "use client";
 
+import { playClink, playShake } from "@/lib/sounds";
 import { useRef, useState } from "react";
 import { getDictionary } from "@/lib/dictionaries";
 import { fill } from "@/lib/rich";
@@ -217,6 +218,8 @@ export default function SpiceShelf({ lang }: { lang: Locale }) {
   const lastTouch = useRef(0);
 
   const choose = (index: number | null) => {
+    if (index !== null && active !== index) playShake();
+    else if (index === null && active !== null) playClink();
     setActive(index);
     if (index !== null) setShown(index);
   };
@@ -233,6 +236,7 @@ export default function SpiceShelf({ lang }: { lang: Locale }) {
             <div key={spice.id} className={`${styles.slot} ${on ? styles.on : ""}`}>
               <button
                 type="button"
+                data-sound="none"
                 className={styles.jar}
                 aria-pressed={on}
                 aria-label={fill(t.jarAria, { name })}

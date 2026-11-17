@@ -17,7 +17,7 @@ export const categories: CategoryInfo[] = [
   { slug: "traditional", title: "Traditional", line: "Dishes from home and from the old recipe notebook.", image: "/images/kiflice.jpg", alt: "A tray of baked kiflice" },
   { slug: "healthy", title: "Healthy", line: "Fresh, light, and colourful.", image: "/images/salty-avo-toast.JPG", alt: "Strawberry dessert in glasses with tulips" },
   { slug: "desserts", title: "Desserts", line: "Cakes, creams, and every little sweet bite.", image: "/images/sweet-mini-pavlova.jpg", alt: "Mini pavlovas topped with cream and berries" },
-  { slug: "turkish", title: "Turkish", line: "A Turkish spoon in my kitchen.", image: "/images/salty-pide.jpg", alt: "Halva in a small dish" },
+  { slug: "turkish", title: "Turkish", line: "A Turkish spoon in my kitchen.", image: "/images/salty-pide.JPG", alt: "Halva in a small dish" },
   { slug: "asian", title: "Asian", line: "Fresh bowls and bold flavours.", image: "/images/salty-poke-bowl.jpg", alt: "Poke bowls with fresh vegetables" },
   { slug: "guilty", title: "Guilty pleasures", line: "Worth every single bite.", image: "/images/sweet-cookies.jpg", alt: "Round cookies with sesame and seeds" },
 ];

@@ -13,6 +13,7 @@ import "@fontsource/patrick-hand/latin-400.css";
 import "@fontsource-variable/playfair-display/index.css";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
+import ClickSound from "@/components/ClickSound";
 import { getDictionary } from "@/lib/dictionaries";
 import { LOCALES, isLocale } from "@/lib/i18n";
 import { Analytics } from "@vercel/analytics/next";
@@ -53,6 +54,7 @@ export default async function RootLayout({
         <SiteHeader lang={lang} />
         <main id="main">{children}</main>
         <SiteFooter lang={lang} />
+        <ClickSound />
         {/* Vercel Web Analytics: counts visits and visitors without cookies (only on the live site) */}
         <Analytics />
       </body>

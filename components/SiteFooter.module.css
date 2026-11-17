@@ -81,6 +81,11 @@
 
 /* the copyright line sits in a bar of its own at the very bottom */
 .copy {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 8px 22px;
   padding: 14px var(--gutter);
   background: var(--purple-deep);
   color: rgba(255, 255, 255, 0.85);
@@ -113,4 +118,36 @@
 .quick a:focus-visible {
   background: var(--white);
   color: var(--purple-deep);
+}
+
+.copy p {
+  margin: 0;
+}
+
+.sound {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  border-radius: 999px;
+  background: transparent;
+  color: #fff;
+  font: inherit;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.sound:hover {
+  background: rgba(255, 255, 255, 0.14);
+}
+
+/* quick links with the logo to their right */
+.linksRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 18px 56px;
 }

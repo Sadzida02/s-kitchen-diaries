@@ -114,7 +114,8 @@
   display: none;
 }
 
-@media (max-width: 700px) {
+/* phones and tablets: a menu button instead of the row of links */
+@media (max-width: 1099px) {
   .bar {
     grid-template-columns: 1fr auto;
     min-height: 72px;
@@ -275,49 +276,5 @@
   to {
     opacity: 1;
     transform: none;
-  }
-}
-
-/* tablets (a bit wider than a phone, narrower than a laptop): smaller menu text and tighter spacing,
-   so the logo and all the links fit in the bar without running into each other */
-@media (min-width: 701px) and (max-width: 1099px) {
-  .bar {
-    min-height: 80px;
-    gap: 6px;
-    padding: 0 10px;
-    font-size: 0.86rem;
-  }
-
-  .left,
-  .right {
-    gap: 2px;
-  }
-
-  .left a,
-  .right a {
-    gap: 6px;
-    padding: 6px clamp(6px, calc(1.2 * var(--vw)), 12px);
-  }
-
-  .icon {
-    width: 16px;
-    height: 16px;
-  }
-
-  .right .switch {
-    gap: 6px;
-    padding: 6px 10px;
-  }
-
-  .flag {
-    width: 24px;
-    height: 15px;
-  }
-}
-
-/* the narrowest tablets: a touch smaller still */
-@media (min-width: 701px) and (max-width: 780px) {
-  .bar {
-    font-size: 0.8rem;
   }
 }

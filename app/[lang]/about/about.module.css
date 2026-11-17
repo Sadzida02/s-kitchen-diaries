@@ -6,6 +6,8 @@
   font-size: 1.21rem;
   color: var(--muted);
   max-width: 34em;
+  text-align: justify;
+  hyphens: auto;
 }
 
 /* the same brown as the home page, with brown doodles over it */
@@ -94,6 +96,8 @@
 
 .disclaimer p:not(:global(.kicker)) {
   line-height: 1.8;
+  text-align: justify;
+  hyphens: auto;
 }
 
 .started {
@@ -120,7 +124,8 @@
 .startedInner {
   display: grid;
   gap: 40px;
-  align-items: center;
+  /* both text columns start at the same height, so the small headings and the headings line up */
+  align-items: start;
 }
 
 .startedText {
@@ -133,6 +138,8 @@
 .startedText p:not(:global(.kicker)) {
   color: var(--muted);
   line-height: 1.8;
+  text-align: justify;
+  hyphens: auto;
 }
 
 .inspired {
@@ -156,10 +163,6 @@
 .peopleSide {
   max-width: 30em;
   text-align: left;
-  font-family: var(--font-heading);
-  font-size: clamp(1.05rem, calc(1.6 * var(--vw)), 1.25rem);
-  line-height: 1.8;
-  color: var(--ink);
 }
 
 .peopleSide em {

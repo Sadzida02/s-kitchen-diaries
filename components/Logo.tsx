@@ -12,9 +12,11 @@ type LogoProps = {
   light?: boolean;
   // the chef head next to the name
   head?: boolean;
+  // 20% bigger (the footer)
+  large?: boolean;
 };
 
-export default function Logo({ lang, variant = "compact", light = false, head = true }: LogoProps) {
+export default function Logo({ lang, variant = "compact", light = false, head = true, large = false }: LogoProps) {
   const home = localePath(lang, "/");
   const label = getDictionary(lang).site.homeAria;
   if (variant === "stacked") {
@@ -30,7 +32,7 @@ export default function Logo({ lang, variant = "compact", light = false, head = 
   return (
     <Link
       href={home}
-      className={`${styles.compact} ${light ? styles.light : ""}`}
+      className={`${styles.compact} ${light ? styles.light : ""} ${large ? styles.large : ""}`}
       aria-label={label}
     >
       {head && (

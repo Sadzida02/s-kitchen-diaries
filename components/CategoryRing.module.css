@@ -48,6 +48,11 @@
   display: block;
 }
 
+/* "Slatko ili slano?" is longer than "Sweet or salty?", so the letters are smaller in Bosnian */
+:global(:root:lang(bs)) .centre h2 {
+  font-size: calc(var(--d) * 0.19);
+}
+
 /* the button is only for phones; on the wheel the middle circle opens its recipes */
 .cta {
   display: none;

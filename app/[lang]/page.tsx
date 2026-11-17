@@ -53,8 +53,9 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
           </div>
 
           <div className={styles.heroText}>
-            <p className="kicker">{t.home.heroKicker}</p>
-            <h1>{t.home.heroTitle}</h1>
+            {/* the two headings type themselves, the small one first and then the big one */}
+            <TypedQuote as="p" className="kicker" text={t.home.heroKicker} />
+            <TypedQuote as="h1" delay={1500} text={t.home.heroTitle} />
             <p className={styles.lead}>{t.home.heroLead}</p>
             <div className={styles.actions}>
               <Link href={to("/recipes")} className="btn btn-outline">
@@ -118,8 +119,6 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
             <p className="kicker">{t.home.latest.kicker}</p>
             <h2>{t.home.latest.title}</h2>
           </div>
-          {/* a single line of kitchen tools, drawn in one stroke */}
-          <div className={styles.toolLine} aria-hidden="true" />
           <div className={styles.latestGrid}>
             {getLatest(3, lang).map((recipe, index) => (
               <SpoonCard
@@ -132,6 +131,8 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
               />
             ))}
           </div>
+          {/* a single line of kitchen tools, drawn in one stroke, 50px under the spoons */}
+          <div className={styles.toolLine} aria-hidden="true" />
         </div>
       </section>
 

@@ -196,19 +196,15 @@ export default async function AboutPage({ params }: { params: Promise<{ lang: st
             <p className="kicker">{t.started.kicker}</p>
             <h2>{t.started.title}</h2>
             <p>
-              {t.started.p1}
-              <br /> <br />
-              {t.started.p2}
-            </p>              
+              {t.started.p1} {t.started.p2}
+            </p>
           </div>
           <BookPreview lang={lang} />
-          <div>
-          <p className="kicker">{t.started.inspiredKicker}</p>
-          <h2>{t.started.inspiredTitle}</h2>
-          <br /><br />
+          <div className={`${styles.startedText} ${styles.peopleSide}`}>
+            <p className="kicker">{t.started.inspiredKicker}</p>
+            <h2>{t.started.inspiredTitle}</h2>
             <p>{rich(t.started.inspiredText, { strong: styles.aunt })}</p>
           </div>
-         
         </div>
       </section>
 

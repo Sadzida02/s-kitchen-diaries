@@ -91,8 +91,42 @@ function Companion({ lang }: { lang: Locale }) {
   const t = getDictionary(lang);
   const word = t.sharedMeals.word;
   const [joined, setJoined] = useState(false);
+  const box = useRef<HTMLDivElement>(null);
+
+  // On phones and tablets nobody can hover, so while the word is on screen it joins and splits again by itself.
+  useEffect(() => {
+    const el = box.current;
+    if (!el) return;
+    const touchy = window.matchMedia("(hover: none), (max-width: 1099px)").matches;
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (!touchy || reduced) return;
+    let start: ReturnType<typeof setTimeout> | undefined;
+    let loop: ReturnType<typeof setInterval> | undefined;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        clearTimeout(start);
+        clearInterval(loop);
+        if (entry.isIntersecting) {
+          start = setTimeout(() => {
+            setJoined(true);
+            loop = setInterval(() => setJoined((value) => !value), 2800);
+          }, 1200);
+        } else {
+          setJoined(false);
+        }
+      },
+      { threshold: 0.6 },
+    );
+    observer.observe(el);
+    return () => {
+      observer.disconnect();
+      clearTimeout(start);
+      clearInterval(loop);
+    };
+  }, []);
+
   return (
-    <div className={styles.word}>
+    <div ref={box} className={styles.word}>
       <Image
         src="/images/seeded-loaf.webp"
         alt={word.loafAlt}

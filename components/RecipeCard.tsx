@@ -60,7 +60,7 @@ export default function RecipeCard({ lang, recipe, size = "regular", minimal = f
         )}
         {!minimal && <p className={styles.note}>{recipe.note}</p>}
         {!minimal && (
-          <Link href={href} className={styles.tryIt}>
+          <Link href={href} className={styles.tryIt} data-sound="cook">
             {/* the words and the arrow; pointing at the button hides them and shows a whisk in a bowl */}
             <span className={styles.tryLabel}>
               {t.common.tryIt}

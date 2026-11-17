@@ -80,7 +80,7 @@
   font-size: 1.7rem;
 }
 
-@media (min-width: 721px) {
+@media (min-width: 1100px) {
   .hero {
     padding-bottom: 0;
   }
@@ -156,6 +156,8 @@
   font-size: 1.21rem;
   color: var(--white);
   max-width: 28em;
+  text-align: justify;
+  hyphens: auto;
 }
 
 .actions {
@@ -314,11 +316,37 @@
 }
 
 .toolLine {
-  width: min(100%, 760px);
-  aspect-ratio: 1200 / 206;
-  margin: -8px auto 20px;
-  background: url("/images/doodles/tools-purple.webp") center / contain no-repeat;
+  /* one drawing is 5.8252 times as wide as it is tall; it repeats, and slides one whole drawing
+     to the right again and again, so the utensils are always there and always moving */
+  --h: 104px;
+  --tile: calc(var(--h) * 5.8252);
+  position: relative;
+  left: 50%;
+  width: calc(100 * var(--vw));
+  height: var(--h);
+  margin: 50px 0 0;
+  transform: translateX(-50%);
+  background: url("/images/doodles/tools-purple.webp") repeat-x left center;
+  background-size: auto var(--h);
   opacity: 0.85;
+  animation: slideTools 40s linear infinite;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+}
+
+@keyframes slideTools {
+  from {
+    background-position-x: 0;
+  }
+  to {
+    background-position-x: var(--tile);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .toolLine {
+    animation: none;
+  }
 }
 
 .latestGrid {
@@ -337,6 +365,8 @@
 .aboutCopy {
   color: var(--muted);
   line-height: 1.8;
+  text-align: justify;
+  hyphens: auto;
 }
 
 /* the shared-meals band: gold from the palette, with darker text so it reads well */
@@ -363,7 +393,8 @@
   display: none;
 }
 
-@media (max-width: 720px) {
+/* phones and tablets: no wheel, a calm stack instead */
+@media (max-width: 1099px) {
   .heroRing {
     display: none;
   }
@@ -509,4 +540,8 @@ section.favourites {
 
 section.latest {
   padding-top: 102px;
+}
+
+section.latest {
+  padding-bottom: 50px;
 }
