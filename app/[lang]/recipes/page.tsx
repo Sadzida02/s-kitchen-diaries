@@ -49,7 +49,7 @@ async function RecipesContent({ lang, searchParams }: { lang: Locale; searchPara
   const selection = selectionFromParams(params);
   const q = typeof params.q === "string" ? params.q.trim().slice(0, 80) : "";
   const filtered = Object.keys(selection).length > 0 || q !== "";
-  const all = getRecipes(lang);
+  const all = await getRecipes(lang);
   const list = filterRecipes(all, selection, q);
 
   const search = (

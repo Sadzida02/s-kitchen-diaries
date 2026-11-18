@@ -9,14 +9,15 @@ import { getRecipe, getRecipes, getRelated } from "@/lib/recipes";
 import styles from "./recipe.module.css";
 
 // every recipe file becomes its own page when the site is built
-export function generateStaticParams() {
-  return LOCALES.flatMap((lang) => getRecipes().map((recipe) => ({ lang, slug: recipe.slug })));
+export async function generateStaticParams() {
+  const recipes = await getRecipes();
+  return LOCALES.flatMap((lang) => recipes.map((recipe) => ({ lang, slug: recipe.slug })));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ lang: string; slug: string }> }): Promise<Metadata> {
   const { lang, slug } = await params;
   if (!isLocale(lang)) return {};
-  const recipe = getRecipe(slug, lang);
+  const recipe = await getRecipe(slug, lang);
   if (!recipe) return {};
   return {
     title: recipe.title,
@@ -52,13 +53,13 @@ const levels = { easy: 1, medium: 2, hard: 3 } as const;
 export default async function RecipePage({ params }: { params: Promise<{ lang: string; slug: string }> }) {
   const { lang, slug } = await params;
   if (!isLocale(lang)) notFound();
-  const recipe = getRecipe(slug, lang);
+  const recipe = await getRecipe(slug, lang);
   if (!recipe) notFound();
   const t = getDictionary(lang);
   const text = t.recipe;
   const to = (path: string) => localePath(lang, path);
 
-  const related = getRelated(recipe, 4, lang);
+  const related = await getRelated(recipe, 4, lang);
   const hasRecipe = recipe.ingredients.length > 0 || recipe.steps.length > 0;
 
   return (

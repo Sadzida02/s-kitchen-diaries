@@ -50,9 +50,11 @@ create table public.recipe_translations (
   recipe_id uuid not null references public.recipes (id) on delete cascade,
   lang text not null check (lang in ('en', 'bs')),
   title text not null,
+  alt text,
   intro text not null default '',
-  ingredients text not null default '',
-  steps text not null default '',
+  -- lists of { "title": "...", "items": ["..."] }, one per heading of the recipe
+  ingredient_groups jsonb not null default '[]',
+  step_groups jsonb not null default '[]',
   primary key (recipe_id, lang)
 );
 

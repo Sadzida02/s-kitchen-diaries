@@ -102,7 +102,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
             <h2>{t.home.fav.title}</h2>
             <p>{t.home.fav.text}</p>
           </div>
-          <Podium lang={lang} recipes={getFeatured(lang)} />
+          <Podium lang={lang} recipes={await getFeatured(lang)} />
         </div>
       </section>
 
@@ -120,7 +120,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
             <h2>{t.home.latest.title}</h2>
           </div>
           <div className={styles.latestGrid}>
-            {getLatest(3, lang).map((recipe, index) => (
+            {(await getLatest(3, lang)).map((recipe, index) => (
               <SpoonCard
                 key={recipe.slug}
                 lang={lang}

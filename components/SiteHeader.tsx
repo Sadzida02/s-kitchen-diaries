@@ -113,11 +113,11 @@ export default function SiteHeader({ lang }: { lang: Locale }) {
       <nav className={styles.bar} aria-label={t.nav.label}>
         <div className={styles.left}>
           {links.home}
-          {links.about}
+          {links.recipes}
         </div>
         <Logo lang={lang} />
         <div className={styles.right}>
-          {links.recipes}
+          {links.about}
           {links.login}
           {links.switch}
         </div>
