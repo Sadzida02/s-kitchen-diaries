@@ -86,6 +86,10 @@ export default function SiteFooter({ lang }: { lang: Locale }) {
       <div className={styles.tools} aria-hidden="true" />
       <div className={styles.copy}>
         <p>{t.copy}</p>
+        <nav className={styles.legal} aria-label={t.privacy}>
+          <Link href={localePath(lang, "/privacy")}>{t.privacy}</Link>
+          <Link href={localePath(lang, "/terms")}>{t.terms}</Link>
+        </nav>
         <SoundToggle onLabel={t.soundOn} offLabel={t.soundOff} />
       </div>
     </footer>

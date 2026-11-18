@@ -7,7 +7,7 @@ const SITE = "https://sweet-and-salty-diaries.vercel.app";
 // The list of every page, in both languages, that you hand to Google (sitemap.xml).
 // Each page also says where its other-language version is.
 export default function sitemap(): MetadataRoute.Sitemap {
-  const paths = ["", "/recipes", "/about", ...getRecipes().map((recipe) => `/recipes/${recipe.slug}`)];
+  const paths = ["", "/recipes", "/about", "/privacy", "/terms", ...getRecipes().map((recipe) => `/recipes/${recipe.slug}`)];
 
   return paths.flatMap((path) =>
     LOCALES.map((lang) => ({

@@ -168,6 +168,8 @@ export const bs: Dictionary = {
     quickLabel: "Brze veze",
     quick: { favourites: "Favoriti", latest: "Najnovije dodano", spices: "Omiljeni začini" },
     copy: "©2026 Sweet & Salty Diaries, Sadžida Valjevac. Sva prava zadržana.",
+    privacy: "Politika privatnosti",
+    terms: "Uslovi korištenja",
     soundOn: "Zvuk uključen",
     soundOff: "Zvuk isključen",
   },

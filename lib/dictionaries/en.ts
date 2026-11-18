@@ -166,6 +166,8 @@ export const en = {
     quickLabel: "Quick links",
     quick: { favourites: "Favourites", latest: "Latest additions", spices: "Favourite spices" },
     copy: "©2026 Sweet & Salty Diaries by Sadžida Valjevac. All rights reserved.",
+    privacy: "Privacy Policy",
+    terms: "Terms of Use",
     soundOn: "Sounds on",
     soundOff: "Sounds off",
   },

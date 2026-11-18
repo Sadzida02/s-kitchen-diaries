@@ -151,3 +151,20 @@
   justify-content: center;
   gap: 18px 56px;
 }
+
+.legal {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 4px 18px;
+}
+
+.legal a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.legal a:hover {
+  color: var(--lavender);
+}

@@ -1,0 +1,19 @@
+.page {
+  max-width: 760px;
+}
+
+.block {
+  margin-top: 30px;
+}
+
+.block h2 {
+  margin-bottom: 10px;
+  font-size: 1.5rem;
+  color: var(--purple-deep);
+}
+
+.block p {
+  margin-top: 10px;
+  color: var(--ink);
+  line-height: 1.7;
+}
