@@ -27,6 +27,8 @@ export type FilterSlug = Category | Tag;
 export type RecipeSection = { title: string; items: string[] };
 
 export type Recipe = {
+  // the id in the database (likes, comments and photos are attached to it)
+  id: string;
   slug: string;
   title: string;
   // sweet or salty (the "taste" line in the recipe file)

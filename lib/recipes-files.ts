@@ -143,6 +143,7 @@ function loadRecipe(file: string, lang: Locale = "en"): Recipe | undefined {
 
   const parsed = parseBody(body);
   const recipe: Recipe = {
+    id: slug,
     slug,
     title,
     category: taste as Recipe["category"],

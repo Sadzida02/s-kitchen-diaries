@@ -6,6 +6,7 @@ import type { Recipe } from "@/lib/recipe-types";
 import { getDictionary } from "@/lib/dictionaries";
 import { localePath } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n";
+import { LikeHeart } from "./LikeHeart";
 import styles from "./RecipeCard.module.css";
 
 type RecipeCardProps = {
@@ -26,6 +27,7 @@ export default function RecipeCard({ lang, recipe, size = "regular", minimal = f
   const href = localePath(lang, `/recipes/${recipe.slug}`);
   return (
     <article className={`${styles.card} ${size === "champion" ? styles.champion : ""} ${minimal ? styles.minimal : ""} ${capsule ? styles.capsule : ""}`}>
+      {!minimal && <LikeHeart recipeId={recipe.id} lang={lang} />}
       <Link href={href} className={`arch ${styles.media}`} aria-label={recipe.title}>
         <Image
           src={recipe.image}

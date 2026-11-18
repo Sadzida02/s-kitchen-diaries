@@ -18,6 +18,7 @@ type Translation = {
 };
 
 type Row = {
+  id: string;
   slug: string;
   taste: Recipe["category"];
   tags: string[];
@@ -41,6 +42,7 @@ function toRecipe(row: Row, lang: Locale): Recipe | undefined {
   const image = row.cover_image || "/recipes/placeholder.svg";
 
   return {
+    id: row.id,
     slug: row.slug,
     title: wanted.title || english.title,
     category: row.taste,

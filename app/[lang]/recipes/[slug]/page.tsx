@@ -6,6 +6,8 @@ import RecipeCard from "@/components/RecipeCard";
 import { getDictionary } from "@/lib/dictionaries";
 import { LOCALES, isLocale, localePath, plural } from "@/lib/i18n";
 import { getRecipe, getRecipes, getRelated } from "@/lib/recipes";
+import { RecipeLike } from "@/components/LikeHeart";
+import RecipeSocial from "@/components/RecipeSocial";
 import styles from "./recipe.module.css";
 
 // every recipe file becomes its own page when the site is built
@@ -102,6 +104,7 @@ export default async function RecipePage({ params }: { params: Promise<{ lang: s
                   {t.difficulty[recipe.difficulty]}
                 </span>
               )}
+              <RecipeLike recipeId={recipe.id} lang={lang} />
             </div>
             <h1>{recipe.title}</h1>
             {recipe.note && <p className={styles.lead}>{recipe.note}</p>}
@@ -116,6 +119,7 @@ export default async function RecipePage({ params }: { params: Promise<{ lang: s
               </ul>
             )}
 
+            <div className={styles.actionsGrid}>
             {hasRecipe && (
               <ul className={styles.facts}>
                 {recipe.ingredients.length > 0 && (
@@ -135,7 +139,6 @@ export default async function RecipePage({ params }: { params: Promise<{ lang: s
                 )}
               </ul>
             )}
-
             {hasRecipe && (
               <a href="#recipe" className={styles.jump}>
                 {text.jump}
@@ -144,6 +147,7 @@ export default async function RecipePage({ params }: { params: Promise<{ lang: s
                 </svg>
               </a>
             )}
+            </div>
           </div>
 
           <div className={styles.stage}>
@@ -204,6 +208,8 @@ export default async function RecipePage({ params }: { params: Promise<{ lang: s
             </div>
           </section>
         )}
+
+        <RecipeSocial recipeId={recipe.id} slug={recipe.slug} lang={lang} />
       </div>
     </article>
   );

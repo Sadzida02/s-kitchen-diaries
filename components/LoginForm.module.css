@@ -91,3 +91,24 @@
 .error {
   color: #b3261e;
 }
+
+.likedTitle {
+  margin-top: 10px;
+  font-size: 1.15rem;
+  color: var(--purple-deep);
+}
+
+.likedList {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  list-style: none;
+  padding: 0;
+}
+
+.likedList a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-color: var(--lavender);
+  text-underline-offset: 3px;
+}

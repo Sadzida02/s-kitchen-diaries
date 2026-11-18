@@ -1,9 +1,11 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import type { User } from "@supabase/supabase-js";
 import { createClient } from "@/lib/supabase/client";
 import { getDictionary } from "@/lib/dictionaries";
+import { localePath } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n";
 import styles from "./LoginForm.module.css";
 
@@ -16,6 +18,8 @@ export default function LoginForm({ lang }: { lang: Locale }) {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [failed, setFailed] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [liked, setLiked] = useState<{ slug: string; title: string }[] | null>(null);
 
   useEffect(() => {
     supabase.auth.getUser().then(({ data }) => {
@@ -27,7 +31,35 @@ export default function LoginForm({ lang }: { lang: Locale }) {
     return () => data.subscription.unsubscribe();
   }, [supabase]);
 
-  const back = () => `${window.location.origin}/auth/callback?next=/${lang}/login`;
+  // the recipes this person has liked
+  const userId = user?.id;
+  useEffect(() => {
+    if (!userId) return;
+    supabase.from("profiles").select("role").eq("id", userId).maybeSingle().then(({ data }) => setIsAdmin(data?.role === "admin"));
+    supabase
+      .from("likes")
+      .select("created_at, recipes(slug, recipe_translations(lang, title))")
+      .eq("user_id", userId)
+      .order("created_at", { ascending: false })
+      .then(({ data }) => {
+        type Row = { recipes: { slug: string; recipe_translations: { lang: string; title: string }[] } | null };
+        setLiked(
+          ((data ?? []) as unknown as Row[]).flatMap((row) => {
+            if (!row.recipes) return [];
+            const names = row.recipes.recipe_translations;
+            const title = (names.find((n) => n.lang === lang) ?? names[0])?.title ?? row.recipes.slug;
+            return [{ slug: row.recipes.slug, title }];
+          }),
+        );
+      });
+  }, [userId, supabase, lang]);
+
+  // after logging in, go back to the page that sent you here (only pages of this site)
+  const back = () => {
+    const asked = new URLSearchParams(window.location.search).get("next") ?? "";
+    const next = asked.startsWith("/") && !asked.startsWith("//") ? asked : `/${lang}/login`;
+    return `${window.location.origin}/auth/callback?next=${encodeURIComponent(next)}`;
+  };
 
   const google = async () => {
     setMessage("");
@@ -52,6 +84,22 @@ export default function LoginForm({ lang }: { lang: Locale }) {
         <p className={styles.hello}>{t.signedInAs}</p>
         <p className={styles.name}>{name}</p>
         {user.email && name !== user.email && <p className={styles.note}>{user.email}</p>}
+        {isAdmin && (
+          <Link href={localePath(lang, "/admin")} className={styles.button}>
+            Open the dashboard
+          </Link>
+        )}
+        <h2 className={styles.likedTitle}>{getDictionary(lang).social.likedTitle}</h2>
+        {liked && liked.length === 0 && <p className={styles.note}>{getDictionary(lang).social.noLikes}</p>}
+        {liked && liked.length > 0 && (
+          <ul className={styles.likedList}>
+            {liked.map((item) => (
+              <li key={item.slug}>
+                <Link href={localePath(lang, `/recipes/${item.slug}`)}>{item.title}</Link>
+              </li>
+            ))}
+          </ul>
+        )}
         <button type="button" className={styles.button} onClick={() => supabase.auth.signOut()}>
           {t.logOut}
         </button>
