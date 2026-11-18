@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
+import { notifyNewPost } from "@/app/actions/notify";
 import { shrinkImage } from "@/lib/shrink-image";
 import { getDictionary } from "@/lib/dictionaries";
 import { localePath } from "@/lib/i18n";
@@ -59,15 +60,28 @@ export default function RecipeSocial({ recipeId, slug, lang }: { recipeId: strin
   const when = (iso: string) => new Date(iso).toLocaleDateString(lang === "bs" ? "bs-BA" : "en-GB", { dateStyle: "medium" });
   const who = (person: Person) => person?.display_name || t.someone;
 
+  // tell the administrator by email (does nothing until the email service is set up)
+  const announce = async (kind: "comment" | "recreation", id: string) => {
+    try {
+      const { data } = await supabase.auth.getSession();
+      if (data.session) await notifyNewPost(kind, id, data.session.access_token);
+    } catch {
+      // the post is saved either way
+    }
+  };
+
   const addComment = async (event: React.FormEvent) => {
     event.preventDefault();
     const body = text.trim();
     if (!userId || !body) return;
     setBusy(true);
     setProblem("");
-    const { error } = await supabase.from("comments").insert({ recipe_id: recipeId, user_id: userId, body });
+    const { data, error } = await supabase.from("comments").insert({ recipe_id: recipeId, user_id: userId, body }).select("id").single();
     if (error) setProblem(t.error);
-    else setText("");
+    else {
+      setText("");
+      void announce("comment", data.id);
+    }
     await load();
     setBusy(false);
   };
@@ -92,8 +106,11 @@ export default function RecipeSocial({ recipeId, slug, lang }: { recipeId: strin
       const url = supabase.storage.from(BUCKET).getPublicUrl(path).data.publicUrl;
       const saved = await supabase
         .from("recreations")
-        .insert({ recipe_id: recipeId, user_id: userId, image_path: url, caption: null });
+        .insert({ recipe_id: recipeId, user_id: userId, image_path: url, caption: null })
+        .select("id")
+        .single();
       if (saved.error) throw saved.error;
+      void announce("recreation", saved.data.id);
     } catch {
       setProblem(t.error);
     }

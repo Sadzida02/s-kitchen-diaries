@@ -97,7 +97,7 @@ export default function SiteHeader({ lang }: { lang: Locale }) {
       </Link>
     ),
     login: (
-      <AuthLink href={to("/login")} loginLabel={t.auth.nav} accountLabel={t.auth.navAccount}>
+      <AuthLink href={to("/login")} profileHref={to("/profile")} loginLabel={t.auth.nav} accountLabel={t.auth.navAccount}>
         {icons.login}
       </AuthLink>
     ),

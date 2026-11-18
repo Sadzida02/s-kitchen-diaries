@@ -7,12 +7,14 @@ import { createClient } from "@/lib/supabase/client";
 // The navbar link to the login page. It says "Log in", or your first name once you are signed in.
 export default function AuthLink({
   href,
+  profileHref,
   loginLabel,
   accountLabel,
   className,
   children,
 }: {
   href: string;
+  profileHref: string;
   loginLabel: string;
   accountLabel: string;
   className?: string;
@@ -30,7 +32,7 @@ export default function AuthLink({
   }, [accountLabel]);
 
   return (
-    <Link href={href} className={className}>
+    <Link href={name ? profileHref : href} className={className}>
       {children}
       {name ?? loginLabel}
     </Link>
