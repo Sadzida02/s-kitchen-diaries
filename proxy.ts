@@ -23,7 +23,7 @@ export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   // leave Next's own files, API routes and anything with a file extension (images, icons) alone
-  if (pathname.startsWith("/_next") || pathname.startsWith("/api") || /\.[a-z0-9]+$/i.test(pathname)) return;
+  if (pathname.startsWith("/_next") || pathname.startsWith("/api") || pathname.startsWith("/auth") || /\.[a-z0-9]+$/i.test(pathname)) return;
 
   const hasLocale = LOCALES.some((locale) => pathname === `/${locale}` || pathname.startsWith(`/${locale}/`));
   if (hasLocale) return;

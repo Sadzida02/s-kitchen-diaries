@@ -4,6 +4,7 @@ import { localePath } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n";
 import Flag from "./Flag";
 import LangSwitch from "./LangSwitch";
+import AuthLink from "./AuthLink";
 import Logo from "./Logo";
 import MobileMenu from "./MobileMenu";
 import styles from "./SiteHeader.module.css";
@@ -49,6 +50,12 @@ const icons = {
       <path d="M7 17.5h10" />
     </Icon>
   ),
+  login: (
+    <Icon>
+      <circle cx="12" cy="8" r="4" />
+      <path d="M4.5 20.5a7.5 7.5 0 0 1 15 0" />
+    </Icon>
+  ),
   about: (
     <Icon>
       <circle cx="12" cy="12" r="9" />
@@ -89,6 +96,11 @@ export default function SiteHeader({ lang }: { lang: Locale }) {
         {t.nav.about}
       </Link>
     ),
+    login: (
+      <AuthLink href={to("/login")} loginLabel={t.auth.nav} accountLabel={t.auth.navAccount}>
+        {icons.login}
+      </AuthLink>
+    ),
     switch: (
       <LangSwitch lang={lang} code={t.nav.switchCode} label={t.nav.switchLabel} className={styles.switch}>
         <Flag lang={other} className={styles.flag} />
@@ -101,21 +113,21 @@ export default function SiteHeader({ lang }: { lang: Locale }) {
       <nav className={styles.bar} aria-label={t.nav.label}>
         <div className={styles.left}>
           {links.home}
-          {links.favourites}
+          {links.about}
         </div>
         <Logo lang={lang} />
         <div className={styles.right}>
           {links.recipes}
-          {links.about}
+          {links.login}
           {links.switch}
         </div>
 
         {/* phones: a three-line button that opens the whole menu */}
         <MobileMenu openLabel={t.nav.openMenu} closeLabel={t.nav.closeMenu}>
           {links.home}
-          {links.favourites}
           {links.recipes}
           {links.about}
+          {links.login}
           {links.switch}
         </MobileMenu>
       </nav>

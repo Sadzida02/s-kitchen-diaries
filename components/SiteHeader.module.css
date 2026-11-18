@@ -66,17 +66,17 @@
   color: var(--ink);
 }
 
-.right .cta .icon {
+.bar .cta .icon {
   color: var(--gold-light);
 }
 
-.right .cta {
+.bar .cta {
   background: var(--purple);
   color: var(--white);
   box-shadow: 0 3px 10px rgba(125, 85, 176, 0.35);
 }
 
-.right .cta:hover {
+.bar .cta:hover {
   background: var(--purple-deep);
 }
 
