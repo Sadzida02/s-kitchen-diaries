@@ -75,6 +75,8 @@ export default function TypedQuote({
                 </span>
               );
             })}
+            {/* inside the last word, so the cursor can never drop to the next line on its own */}
+            {w === words.length - 1 && count >= total && <span className={styles.endCaret} aria-hidden="true" />}
           </span>
           {w < words.length - 1 && (
             <span className={index++ < count ? styles.shown : styles.hidden} aria-hidden="true">
@@ -83,7 +85,6 @@ export default function TypedQuote({
           )}
         </Fragment>
       ))}
-      {count >= total && <span className={styles.endCaret} aria-hidden="true" />}
     </Tag>
   );
 }

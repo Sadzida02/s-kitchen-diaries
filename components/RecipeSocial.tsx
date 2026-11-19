@@ -131,6 +131,11 @@ export default function RecipeSocial({ recipeId, slug, lang }: { recipeId: strin
       <div className={styles.columns}>
         <div className={styles.block}>
           <h2>
+            <span className={styles.icon} aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M4 5h16v11H9l-5 4z" />
+              </svg>
+            </span>
             <span className={styles.count}>{comments.length}</span> {t.commentsTitle}
           </h2>
           {userId ? (
@@ -157,22 +162,35 @@ export default function RecipeSocial({ recipeId, slug, lang }: { recipeId: strin
           <ul className={styles.comments}>
             {comments.map((comment) => (
               <li key={comment.id}>
-                <p className={styles.by}>
-                  <strong>{who(comment.profiles)}</strong> · {when(comment.created_at)}
-                </p>
-                <p>{comment.body}</p>
-                {(comment.user_id === userId || isAdmin) && (
-                  <button type="button" className={styles.remove} onClick={() => removeComment(comment.id)}>
-                    {t.remove}
-                  </button>
-                )}
+                <span className={styles.avatar} aria-hidden="true">
+                  {who(comment.profiles).slice(0, 1).toUpperCase()}
+                </span>
+                <div className={styles.bubble}>
+                  <p className={styles.by}>
+                    <strong>{who(comment.profiles)}</strong> · {when(comment.created_at)}
+                  </p>
+                  <p>{comment.body}</p>
+                  {(comment.user_id === userId || isAdmin) && (
+                    <button type="button" className={styles.remove} onClick={() => removeComment(comment.id)}>
+                      {t.remove}
+                    </button>
+                  )}
+                </div>
               </li>
             ))}
           </ul>
         </div>
 
         <div className={styles.block}>
-          <h2>{t.madeTitle}</h2>
+          <h2>
+            <span className={styles.icon} aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M4 8h3l2-3h6l2 3h3v11H4z" />
+                <circle cx="12" cy="13" r="3.5" />
+              </svg>
+            </span>
+            {t.madeTitle}
+          </h2>
           <ul className={styles.photos}>
             <li>
               {/* the big square with a plus: pick a photo (or go and log in first) */}
