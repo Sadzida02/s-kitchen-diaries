@@ -70,13 +70,10 @@ export default function TypedQuote({
               const i = index++;
               return (
                 <span key={i} className={i < count ? styles.shown : styles.hidden}>
-                  {i === count && <span className={styles.caret} />}
                   {char}
                 </span>
               );
             })}
-            {/* inside the last word, so the cursor can never drop to the next line on its own */}
-            {w === words.length - 1 && count >= total && <span className={styles.endCaret} aria-hidden="true" />}
           </span>
           {w < words.length - 1 && (
             <span className={index++ < count ? styles.shown : styles.hidden} aria-hidden="true">
