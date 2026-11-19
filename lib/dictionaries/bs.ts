@@ -231,7 +231,7 @@ export const bs: Dictionary = {
     note: "Povuci ili prevuci stranicu prema gore da je okreneš, a prema dolje da se vratiš. I dodir okreće stranicu.",
   },
   footer: {
-    note: "Napravljeno uz puno isprobavanja, inovacija i ljubavi za drage osobe .",
+    note: "Napravljeno uz puno eksperimentisanja, inovacija i ljubavi za drage osobe .",
     location: "Sarajevo - Bosna i Hercegovina",
     quickLabel: "Brze veze",
     quick: { favourites: "Favoriti", latest: "Najnovije dodano", spices: "Omiljeni začini" },
