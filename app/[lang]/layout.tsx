@@ -34,6 +34,8 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
     metadataBase: new URL(SITE_URL),
     title: { default: t.site.name, template: `%s · ${t.site.name}` },
     description: t.site.description,
+    // tells Google which address is the real one for each page (the www address, never the old vercel.app one)
+    alternates: { canonical: "./" },
   };
 }
 
