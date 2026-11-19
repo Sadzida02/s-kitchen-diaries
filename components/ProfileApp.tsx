@@ -93,11 +93,13 @@ export default function ProfileApp({ lang }: { lang: Locale }) {
   };
 
   const removeComment = async (id: string) => {
+    if (!window.confirm(s.confirmComment)) return;
     await supabase.from("comments").delete().eq("id", id);
     await load(user.id);
   };
 
   const removePhoto = async (item: Photo) => {
+    if (!window.confirm(s.confirmPhoto)) return;
     await supabase.from("recreations").delete().eq("id", item.id);
     const marker = "/recreations/";
     const at = item.image_path.indexOf(marker);

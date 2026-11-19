@@ -27,6 +27,8 @@ export default function RecipeSocial({ recipeId, slug, lang }: { recipeId: strin
   const [text, setText] = useState("");
   const [busy, setBusy] = useState(false);
   const [problem, setProblem] = useState("");
+  // the photo shown large, in front of the page
+  const [openPhoto, setOpenPhoto] = useState<Recreation | null>(null);
 
   const load = useCallback(async () => {
     const { data: auth } = await supabase.auth.getUser();
@@ -49,6 +51,14 @@ export default function RecipeSocial({ recipeId, slug, lang }: { recipeId: strin
     setComments((commentRows.data ?? []) as unknown as Comment[]);
     setRecreations((photoRows.data ?? []) as unknown as Recreation[]);
   }, [supabase, recipeId]);
+
+  // Escape closes the large photo
+  useEffect(() => {
+    if (!openPhoto) return;
+    const onKey = (event: KeyboardEvent) => event.key === "Escape" && setOpenPhoto(null);
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [openPhoto]);
 
   useEffect(() => {
     Promise.resolve().then(load);
@@ -87,6 +97,7 @@ export default function RecipeSocial({ recipeId, slug, lang }: { recipeId: strin
   };
 
   const removeComment = async (id: string) => {
+    if (!window.confirm(t.confirmComment)) return;
     await supabase.from("comments").delete().eq("id", id);
     await load();
   };
@@ -119,6 +130,8 @@ export default function RecipeSocial({ recipeId, slug, lang }: { recipeId: strin
   };
 
   const removePhoto = async (item: Recreation) => {
+    if (!window.confirm(t.confirmPhoto)) return;
+    setOpenPhoto(null);
     await supabase.from("recreations").delete().eq("id", item.id);
     const marker = `/${BUCKET}/`;
     const at = item.image_path.indexOf(marker);
@@ -213,8 +226,10 @@ export default function RecipeSocial({ recipeId, slug, lang }: { recipeId: strin
             </li>
             {recreations.map((item) => (
               <li key={item.id}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={item.image_path} alt={item.caption || t.madeAlt} loading="lazy" />
+                <button type="button" className={styles.photoButton} onClick={() => setOpenPhoto(item)} aria-label={t.openPhoto}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={item.image_path} alt={item.caption || t.madeAlt} loading="lazy" />
+                </button>
                 <p className={styles.by}>
                   <strong>{who(item.profiles)}</strong> · {when(item.created_at)}
                 </p>
@@ -231,6 +246,22 @@ export default function RecipeSocial({ recipeId, slug, lang }: { recipeId: strin
       </div>
 
       {problem && <p className={styles.problem}>{problem}</p>}
+
+      {openPhoto && (
+        <div className={styles.lightbox} role="dialog" aria-modal="true" aria-label={t.madeTitle} onClick={() => setOpenPhoto(null)}>
+          <figure onClick={(event) => event.stopPropagation()}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={openPhoto.image_path} alt={openPhoto.caption || t.madeAlt} />
+            <figcaption>
+              <strong>{who(openPhoto.profiles)}</strong> · {when(openPhoto.created_at)}
+              {openPhoto.caption && <span> · {openPhoto.caption}</span>}
+            </figcaption>
+          </figure>
+          <button type="button" className={styles.closeButton} onClick={() => setOpenPhoto(null)} aria-label={t.close} autoFocus>
+            ×
+          </button>
+        </div>
+      )}
     </section>
   );
 }
