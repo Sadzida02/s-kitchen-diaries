@@ -231,10 +231,10 @@ export const bs: Dictionary = {
   },
   footer: {
     note: "Napravljeno uz puno isprobavanja, inovacija i ljubavi za drage osobe .",
-    location: "Kakanj i Sarajevo - Bosna i Hercegovina",
+    location: "Sarajevo - Bosna i Hercegovina",
     quickLabel: "Brze veze",
     quick: { favourites: "Favoriti", latest: "Najnovije dodano", spices: "Omiljeni začini" },
-    copy: "©2026 Sweet & Salty Diaries, Sadžida Valjevac. Sva prava zadržana.",
+    copy: "©2026 Sweet & Salty Diaries, Sadžida V. Sva prava zadržana.",
     privacy: "Politika privatnosti",
     terms: "Uslovi korištenja",
     soundOn: "Zvuk uključen",

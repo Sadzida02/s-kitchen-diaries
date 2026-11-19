@@ -6,9 +6,6 @@ import Logo from "./Logo";
 import SoundToggle from "./SoundToggle";
 import styles from "./SiteFooter.module.css";
 
-const EMAIL = "valjevac.sadzida002@gmail.com";
-// put your Instagram username here (without the @)
-const INSTAGRAM = "_sadzida_";
 
 function Icon({ children }: { children: React.ReactNode }) {
   return (
@@ -47,29 +44,6 @@ export default function SiteFooter({ lang }: { lang: Locale }) {
         </div>
 
         <ul className={styles.contact}>
-          <li>
-            <a href={`mailto:${EMAIL}`}>
-              <Icon>
-                <rect x="3" y="5" width="18" height="14" rx="3" />
-                <path d="m4 8 8 6 8-6" />
-              </Icon>
-              {EMAIL}
-            </a>
-          </li>
-          <li>
-            <a
-              href={`https://www.instagram.com/${INSTAGRAM}/`}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Icon>
-                <rect x="3" y="3" width="18" height="18" rx="5" />
-                <circle cx="12" cy="12" r="4" />
-                <path d="M17.5 6.5h.01" />
-              </Icon>
-              @{INSTAGRAM}
-            </a>
-          </li>
           <li>
             <span>
               <Icon>

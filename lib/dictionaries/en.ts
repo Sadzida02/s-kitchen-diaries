@@ -229,10 +229,10 @@ export const en = {
   },
   footer: {
     note: "Made with trials, failures, patience, and a lot of love along the way.",
-    location: "Kakanj & Sarajevo - Bosnia and Herzegovina",
+    location: "Sarajevo - Bosnia and Herzegovina",
     quickLabel: "Quick links",
     quick: { favourites: "Favourites", latest: "Latest additions", spices: "Favourite spices" },
-    copy: "©2026 Sweet & Salty Diaries by Sadžida Valjevac. All rights reserved.",
+    copy: "©2026 Sweet & Salty Diaries by Sadžida V. All rights reserved.",
     privacy: "Privacy Policy",
     terms: "Terms of Use",
     soundOn: "Sounds on",
