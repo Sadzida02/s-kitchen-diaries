@@ -270,6 +270,8 @@ export const bs: Dictionary = {
     photoAlt: "fotografija",
     stackHint: "Dodirni fotografiju za sljedeću",
     stackAria: "Prikaži sljedeću fotografiju",
+    awake: "Drži ekran upaljenim dok kuham",
+    awakeHint: "Telefon ili tablet se neće ugasiti dok pratiš recept",
     of: "od",
   },
   about: {

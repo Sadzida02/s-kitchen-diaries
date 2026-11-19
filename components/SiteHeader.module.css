@@ -115,7 +115,7 @@
 }
 
 /* phones and tablets: a menu button instead of the row of links */
-@media (max-width: 1099px) {
+@media (max-width: 1279px) {
   .bar {
     grid-template-columns: 1fr auto;
     min-height: 72px;

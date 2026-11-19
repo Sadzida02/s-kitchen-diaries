@@ -55,6 +55,26 @@ export default function RecipeList({ supabase, onEdit }: { supabase: SupabaseCli
     await load();
   };
 
+  // downloads every recipe (all text in both languages, photo links, tags, dates) as one JSON file
+  const backup = async () => {
+    setMessage("");
+    const { data, error } = await supabase
+      .from("recipes")
+      .select("*, recipe_translations(*), recipe_photos(*)")
+      .order("added", { ascending: false })
+      .limit(1000);
+    if (error) return setMessage(error.message);
+    const file = new Blob([JSON.stringify({ savedAt: new Date().toISOString(), count: data.length, recipes: data }, null, 2)], {
+      type: "application/json",
+    });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(file);
+    link.download = `recipes-backup-${new Date().toISOString().slice(0, 10)}.json`;
+    link.click();
+    URL.revokeObjectURL(link.href);
+    setMessage(`Backup saved: ${data.length} recipes.`);
+  };
+
   const term = search.trim().toLowerCase();
   const shown = (rows ?? []).filter((row) =>
     !term || row.slug.includes(term) || row.recipe_translations.some((t) => t.title.toLowerCase().includes(term)),
@@ -64,11 +84,16 @@ export default function RecipeList({ supabase, onEdit }: { supabase: SupabaseCli
     <div>
       <div className={styles.bar}>
         <input type="search" value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search recipes…" aria-label="Search recipes" />
-        <button type="button" className={styles.primary} onClick={() => onEdit(null)}>
-          + New recipe
-        </button>
+        <div className={styles.actions}>
+          <button type="button" onClick={backup}>
+            Download backup
+          </button>
+          <button type="button" className={styles.primary} onClick={() => onEdit(null)}>
+            + New recipe
+          </button>
+        </div>
       </div>
-      {message && <p className={styles.error}>{message}</p>}
+      {message && <p className={message.startsWith("Backup") ? styles.ok : styles.error}>{message}</p>}
       {rows === null ? (
         <p className={styles.center}>Loading…</p>
       ) : (

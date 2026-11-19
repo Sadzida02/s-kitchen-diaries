@@ -97,7 +97,7 @@ function Companion({ lang }: { lang: Locale }) {
   useEffect(() => {
     const el = box.current;
     if (!el) return;
-    const touchy = window.matchMedia("(hover: none), (max-width: 1099px)").matches;
+    const touchy = window.matchMedia("(hover: none), (max-width: 1279px)").matches;
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (!touchy || reduced) return;
     let start: ReturnType<typeof setTimeout> | undefined;

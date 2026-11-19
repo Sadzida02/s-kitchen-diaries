@@ -228,7 +228,7 @@ img {
 }
 
 /* tablets: more room at the sides of the page (phones keep 16px) */
-@media (min-width: 700px) and (max-width: 1099px) {
+@media (min-width: 700px) and (max-width: 1279px) {
   :root {
     --gutter: 36px;
   }

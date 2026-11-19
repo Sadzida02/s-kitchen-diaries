@@ -39,7 +39,7 @@ export default function CategoryRing({ lang }: { lang: Locale }) {
     const update = () => {
       frame = 0;
       const still =
-        !window.matchMedia("(min-width: 1100px)").matches ||
+        !window.matchMedia("(min-width: 1280px)").matches ||
         window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       const progress = still ? 0 : Math.min(Math.max(window.scrollY / (el.offsetHeight || 600), 0), 1);
       const degrees = progress * 360;
@@ -60,7 +60,7 @@ export default function CategoryRing({ lang }: { lang: Locale }) {
   }, []);
 
   function onPress(event: React.MouseEvent, index: number) {
-    if (!window.matchMedia("(min-width: 1100px)").matches) return;
+    if (!window.matchMedia("(min-width: 1280px)").matches) return;
     let step = (index - active + count) % count;
     if (step > count / 2) step -= count;
     if (step === 0) return;

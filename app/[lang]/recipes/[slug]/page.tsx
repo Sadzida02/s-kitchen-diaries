@@ -6,6 +6,7 @@ import RecipeCard from "@/components/RecipeCard";
 import { getDictionary } from "@/lib/dictionaries";
 import { LOCALES, isLocale, localePath, plural } from "@/lib/i18n";
 import { getRecipe, getRecipes, getRelated } from "@/lib/recipes";
+import KeepAwake from "@/components/KeepAwake";
 import { RecipeLike } from "@/components/LikeHeart";
 import RecipeSocial from "@/components/RecipeSocial";
 import styles from "./recipe.module.css";
@@ -147,6 +148,7 @@ export default async function RecipePage({ params }: { params: Promise<{ lang: s
                 </svg>
               </a>
             )}
+            {hasRecipe && <KeepAwake label={text.awake} hint={text.awakeHint} />}
             </div>
           </div>
 

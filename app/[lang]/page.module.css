@@ -80,13 +80,13 @@
   font-size: 1.7rem;
 }
 
-@media (min-width: 1100px) {
+@media (min-width: 1280px) {
   .hero {
     padding-bottom: 0;
   }
 }
 
-@media (min-width: 1100px) {
+@media (min-width: 1280px) {
   /* the right half of the hero is brown, from the top of the page down, with
      brown doodles over it */
   .hero {
@@ -394,7 +394,7 @@
 }
 
 /* phones and tablets: no wheel, a calm stack instead */
-@media (max-width: 1099px) {
+@media (max-width: 1279px) {
   .heroRing {
     display: none;
   }

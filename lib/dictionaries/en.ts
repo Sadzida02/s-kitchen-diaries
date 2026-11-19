@@ -268,6 +268,8 @@ export const en = {
     photoAlt: "photo",
     stackHint: "Tap the photo for the next one",
     stackAria: "Show the next photo",
+    awake: "Keep the screen awake while I cook",
+    awakeHint: "Stops your phone or tablet from going dark while you follow the recipe",
     of: "of",
   },
   about: {
