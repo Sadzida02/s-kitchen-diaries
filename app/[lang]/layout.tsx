@@ -14,6 +14,7 @@ import "@fontsource-variable/playfair-display/index.css";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import ClickSound from "@/components/ClickSound";
+import { SITE_URL } from "@/lib/site";
 import { getDictionary } from "@/lib/dictionaries";
 import { LOCALES, isLocale } from "@/lib/i18n";
 import { Analytics } from "@vercel/analytics/next";
@@ -30,7 +31,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
   const t = getDictionary(lang);
   return {
     // the live address, so link previews (WhatsApp, Instagram, Google) find the images
-    metadataBase: new URL("https://sweet-and-salty-diaries.vercel.app"),
+    metadataBase: new URL(SITE_URL),
     title: { default: t.site.name, template: `%s · ${t.site.name}` },
     description: t.site.description,
   };

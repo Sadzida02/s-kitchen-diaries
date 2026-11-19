@@ -2,7 +2,7 @@
 
 import { createClient } from "@supabase/supabase-js";
 
-const SITE = "https://sweet-and-salty-diaries.vercel.app";
+import { SITE_URL as SITE } from "@/lib/site";
 
 // Sends the administrator an email when a visitor posts a comment or a photo.
 // Called by the browser right after the post was saved. It checks that the post really exists, belongs to the
