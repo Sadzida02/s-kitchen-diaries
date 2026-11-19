@@ -68,6 +68,9 @@ export function RecipeLike({ recipeId, lang }: { recipeId: string; lang: Locale 
       <svg viewBox="0 0 24 24" aria-hidden="true">
         <path d="M12 20.5s-8-4.7-8-10.6A4.4 4.4 0 0 1 12 7a4.4 4.4 0 0 1 8 2.9c0 5.9-8 10.6-8 10.6Z" />
       </svg>
+      <span className={styles.bigCount} aria-hidden="true">
+        {likes.count(recipeId)}
+      </span>
     </button>
   );
 }

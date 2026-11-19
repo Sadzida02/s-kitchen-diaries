@@ -68,6 +68,7 @@ export const en = {
     sendLink: "Email me a login link",
     checkEmail: "Check your inbox: the login link is on its way.",
     error: "Something went wrong. Please try again.",
+    tooMany: "Too many login emails were requested. Please wait a few minutes, or use Continue with Google.",
     loading: "Loading…",
     signedInAs: "You are signed in as",
     logOut: "Log out",

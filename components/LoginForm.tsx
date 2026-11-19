@@ -18,6 +18,7 @@ export default function LoginForm({ lang }: { lang: Locale }) {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [failed, setFailed] = useState(false);
+  const [tooMany, setTooMany] = useState(false);
 
   useEffect(() => {
     supabase.auth.getUser().then(({ data }) => {
@@ -45,8 +46,10 @@ export default function LoginForm({ lang }: { lang: Locale }) {
   const emailLink = async (event: React.FormEvent) => {
     event.preventDefault();
     setFailed(false);
+    setTooMany(false);
     const { error } = await supabase.auth.signInWithOtp({ email, options: { emailRedirectTo: back() } });
-    if (error) setFailed(true);
+    if (error?.status === 429) setTooMany(true);
+    else if (error) setFailed(true);
     else setMessage(t.checkEmail);
   };
 
@@ -100,6 +103,7 @@ export default function LoginForm({ lang }: { lang: Locale }) {
       </form>
 
       {message && <p className={styles.ok}>{message}</p>}
+      {tooMany && <p className={styles.error}>{t.tooMany}</p>}
       {failed && <p className={styles.error}>{t.error}</p>}
     </div>
   );

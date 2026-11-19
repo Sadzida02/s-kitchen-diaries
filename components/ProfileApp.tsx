@@ -88,7 +88,13 @@ export default function ProfileApp({ lang }: { lang: Locale }) {
   const saveName = async (event: React.FormEvent) => {
     event.preventDefault();
     setSaved("");
-    const { error } = await supabase.from("profiles").update({ display_name: name.trim() || t.defaultName }).eq("id", user.id);
+    const newName = name.trim() || t.defaultName;
+    const { error } = await supabase.from("profiles").update({ display_name: newName }).eq("id", user.id);
+    if (!error) {
+      setName(newName);
+      // tell the navbar, so the new name shows there at once
+      window.dispatchEvent(new CustomEvent("profile-name", { detail: newName }));
+    }
     setSaved(error ? s.error : t.saved);
   };
 

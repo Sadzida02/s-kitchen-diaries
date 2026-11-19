@@ -509,3 +509,52 @@
   line-height: 1;
   cursor: pointer;
 }
+
+/* ---- the purple box keeps its first size, however many comments are added ---- */
+.columns {
+  --tile: 190px;
+  align-items: start;
+}
+
+.columns > .block:last-child {
+  display: flex;
+  flex-direction: column;
+}
+
+.columns > .block:last-child .photos {
+  height: auto;
+  grid-template-rows: auto;
+  align-content: start;
+}
+
+.photos > li:first-child {
+  height: auto;
+}
+
+.add {
+  height: var(--tile);
+  min-height: 0;
+}
+
+/* many comments: the list scrolls inside the box instead of making it taller */
+.comments {
+  max-height: 340px;
+  overflow-y: auto;
+  padding-right: 8px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--lavender) var(--white);
+}
+
+.comments::-webkit-scrollbar {
+  width: 6px;
+}
+
+.comments::-webkit-scrollbar-track {
+  border-radius: 999px;
+  background: var(--white);
+}
+
+.comments::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: var(--lavender);
+}

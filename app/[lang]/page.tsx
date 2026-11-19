@@ -42,7 +42,9 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
   if (!isLocale(lang)) notFound();
   const t = getDictionary(lang);
   const to = (path: string) => localePath(lang, path);
-  const iftarDishes = t.home.dish.dishes.map((name, index) => ({ name, areas: iftarAreas[index] }));
+  // only the dishes that have a recipe on the site are links (same order as the names)
+  const iftarSlugs = ["sultan-kebab", undefined, undefined, undefined];
+  const iftarDishes = t.home.dish.dishes.map((name, index) => ({ name, slug: iftarSlugs[index], areas: iftarAreas[index] }));
 
   return (
     <>

@@ -70,6 +70,7 @@ export const bs: Dictionary = {
     sendLink: "Pošalji mi link za prijavu",
     checkEmail: "Provjeri inbox: link za prijavu je poslan.",
     error: "Nešto nije u redu. Pokušaj ponovo.",
+    tooMany: "Zatraženo je previše emailova za prijavu. Pričekaj nekoliko minuta ili koristi Nastavi s Googleom.",
     loading: "Učitavam…",
     signedInAs: "Prijavljena si kao",
     logOut: "Odjava",

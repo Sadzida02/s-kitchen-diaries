@@ -2,7 +2,9 @@
 
 import { useRef, useState } from "react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { getDictionary } from "@/lib/dictionaries";
+import { localePath } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n";
 import styles from "./DishViewer.module.css";
 
@@ -16,6 +18,8 @@ type Area = {
 
 type Dish = {
   name: string;
+  // the address of its recipe (the part after /recipes/), if the dish has a recipe on the site
+  slug?: string;
   // a dish can show up in more than one place on the photo
   areas: Area[];
 };
@@ -51,6 +55,7 @@ export default function DishViewer({
   children,
 }: DishViewerProps) {
   const t = getDictionary(lang);
+  const router = useRouter();
   const frame = useRef<HTMLDivElement>(null);
   const [lens, setLens] = useState<{ x: number; y: number; w: number; h: number } | null>(null);
   const [listActive, setListActive] = useState<number | null>(null);
@@ -114,6 +119,8 @@ export default function DishViewer({
                     onMouseLeave={() => setListActive(null)}
                     onFocus={() => setListActive(index)}
                     onBlur={() => setListActive(null)}
+                    onClick={() => dish.slug && router.push(localePath(lang, `/recipes/${dish.slug}`))}
+                    data-link={dish.slug ? "" : undefined}
                   >
                     <span className={styles.dish}>{dish.name}</span>
                     <span className={styles.leader} aria-hidden="true" />

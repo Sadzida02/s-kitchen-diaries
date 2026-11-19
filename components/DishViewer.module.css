@@ -185,6 +185,8 @@
   color: var(--brown);
   font-weight: 700;
   transform: scale(1.07);
+  /* the line grows by the same amount it is scaled, so its number never slides out of the box */
+  width: calc(100% / 1.07);
 }
 
 .list ul button:hover .leader,
@@ -239,4 +241,11 @@
   .bubble:not(.reverse) {
     grid-template-columns: 1fr 1.2fr;
   }
+}
+
+/* a dish with a recipe is a link */
+.list ul button[data-link] .dish {
+  text-decoration: underline;
+  text-decoration-color: var(--gold);
+  text-underline-offset: 3px;
 }

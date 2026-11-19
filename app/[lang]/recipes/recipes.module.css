@@ -240,3 +240,11 @@
 .count strong {
   color: var(--purple-deep);
 }
+
+/* filter names stay on one line (like "Guilty pleasures"): a little smaller and snugger */
+.options .chip {
+  gap: 6px;
+  padding: 6px 12px;
+  font-size: 0.86rem;
+  white-space: nowrap;
+}

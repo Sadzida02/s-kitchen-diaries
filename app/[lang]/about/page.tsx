@@ -85,7 +85,9 @@ export default async function AboutPage({ params }: { params: Promise<{ lang: st
   const { lang } = await params;
   if (!isLocale(lang)) notFound();
   const t = getDictionary(lang).about;
-  const dishes = t.intro.dishes.map((name, index) => ({ name, areas: dishAreas[index] }));
+  // the recipe of each dish in the list (same order as the names)
+  const dishSlugs = ["kimbap", "carsko", "kalcone", "mrkva-salata"];
+  const dishes = t.intro.dishes.map((name, index) => ({ name, slug: dishSlugs[index], areas: dishAreas[index] }));
   // rows of accounts that slide across the whole width of the screen, outside the page column
   const ribbon = (rows: Source[][], extra: string) => (
     <div className={`${styles.ribbon} ${extra}`}>

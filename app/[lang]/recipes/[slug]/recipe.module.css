@@ -278,8 +278,9 @@
   background: var(--purple-deep);
 }
 
-#recipe {
-  scroll-margin-top: 130px;
+/* the jump link stops below the sticky navbar (an id selector would not work here: CSS modules rename ids) */
+.details {
+  scroll-margin-top: 150px;
 }
 
 /* the like button and "Jump to the recipe" side by side */
