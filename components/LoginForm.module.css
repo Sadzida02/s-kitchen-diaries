@@ -112,3 +112,21 @@
   text-decoration-color: var(--lavender);
   text-underline-offset: 3px;
 }
+
+.code {
+  letter-spacing: 0.4em;
+  text-align: center;
+  font-size: 1.3rem;
+}
+
+.linkButton {
+  align-self: center;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--purple);
+  font: inherit;
+  font-size: 0.9rem;
+  text-decoration: underline;
+  cursor: pointer;
+}
