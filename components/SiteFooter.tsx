@@ -33,7 +33,7 @@ export default function SiteFooter({ lang }: { lang: Locale }) {
       <div className={`container ${styles.inner}`}>
 
         <div className={styles.linksRow}>
-          <Logo lang={lang} light large head={false} />
+          <Logo lang={lang} light large />
           <nav className={styles.quick} aria-label={t.quickLabel}>
             <Link href={localePath(lang, "/#favourites")}>
               {t.quick.favourites}

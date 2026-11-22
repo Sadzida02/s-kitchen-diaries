@@ -22,7 +22,7 @@ export default function Logo({ lang, variant = "compact", light = false, head = 
   if (variant === "stacked") {
     return (
       <Link href={home} className={styles.stacked} aria-label={label}>
-        <Image src="/images/chef/chef-head.png" alt="" width={84} height={84} className={styles.headLarge} />
+        <Image src="/images/chef/chef-head.png" alt="" width={168} height={168} className={styles.headLarge} />
         <span className={styles.stackedName}>Sweet &amp; Salty</span>
         <span className={styles.stackedSub}>DIARIES</span>
       </Link>
@@ -36,7 +36,7 @@ export default function Logo({ lang, variant = "compact", light = false, head = 
       aria-label={label}
     >
       {head && (
-        <Image src="/images/chef/chef-head.png" alt="" width={60} height={60} className={styles.head} />
+        <Image src="/images/chef/chef-head.png" alt="" width={120} height={120} className={styles.head} />
       )}
       <span className={styles.name}>
         Sweet &amp; Salty
