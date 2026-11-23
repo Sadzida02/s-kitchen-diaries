@@ -244,3 +244,17 @@
   font: inherit;
   cursor: pointer;
 }
+
+.switchRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.switchRow input {
+  width: 20px;
+  height: 20px;
+  accent-color: var(--purple);
+}

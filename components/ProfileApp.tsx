@@ -29,6 +29,7 @@ export default function ProfileApp({ lang }: { lang: Locale }) {
   const [name, setName] = useState("");
   const [avatar, setAvatar] = useState<string | null>(null);
   const [saved, setSaved] = useState("");
+  const [notify, setNotify] = useState(true);
   const [liked, setLiked] = useState<Liked[] | null>(null);
   const [comments, setComments] = useState<Comment[] | null>(null);
   const [photos, setPhotos] = useState<Photo[] | null>(null);
@@ -43,7 +44,7 @@ export default function ProfileApp({ lang }: { lang: Locale }) {
     async (id: string) => {
       const names = "slug, recipe_translations(lang, title)";
       const [profile, likes, mine, pics] = await Promise.all([
-        supabase.from("profiles").select("display_name, avatar_url, role").eq("id", id).maybeSingle(),
+        supabase.from("profiles").select("display_name, avatar_url, role, email_notifications").eq("id", id).maybeSingle(),
         supabase.from("likes").select(`created_at, recipes(slug, cover_image, recipe_translations(lang, title))`).eq("user_id", id).order("created_at", { ascending: false }),
         supabase.from("comments").select(`id, body, created_at, recipes(${names})`).eq("user_id", id).order("created_at", { ascending: false }),
         supabase.from("recreations").select(`id, image_path, created_at, recipes(${names})`).eq("user_id", id).order("created_at", { ascending: false }),
@@ -51,6 +52,7 @@ export default function ProfileApp({ lang }: { lang: Locale }) {
       setName(profile.data?.display_name ?? "");
       setAvatar(profile.data?.avatar_url ?? null);
       setIsAdmin(profile.data?.role === "admin");
+      setNotify(profile.data?.email_notifications !== false);
       setLiked((likes.data ?? []) as unknown as Liked[]);
       setComments((mine.data ?? []) as unknown as Comment[]);
       setPhotos((pics.data ?? []) as unknown as Photo[]);
@@ -96,6 +98,12 @@ export default function ProfileApp({ lang }: { lang: Locale }) {
       window.dispatchEvent(new CustomEvent("profile-name", { detail: newName }));
     }
     setSaved(error ? s.error : t.saved);
+  };
+
+  const changeNotify = async (value: boolean) => {
+    setNotify(value);
+    const { error } = await supabase.from("profiles").update({ email_notifications: value }).eq("id", user.id);
+    if (error) setNotify(!value);
   };
 
   const removeComment = async (id: string) => {
@@ -172,6 +180,14 @@ export default function ProfileApp({ lang }: { lang: Locale }) {
           <p className={styles.muted}>{t.nameHint}</p>
           {saved && <p className={styles.ok}>{saved}</p>}
         </form>
+
+        <section className={styles.card}>
+          <label className={styles.switchRow}>
+            <input type="checkbox" checked={notify} onChange={(e) => changeNotify(e.target.checked)} />
+            <span>{t.notifyLabel}</span>
+          </label>
+          <p className={styles.muted}>{t.notifyHint}</p>
+        </section>
 
         <section className={styles.card}>
           <h2>

@@ -29,7 +29,14 @@ const privacy: Record<Locale, LegalDoc> = {
         paragraphs: [
           "You can read the whole site without an account, and then I collect nothing about you except anonymous visit counts (see “Cookies and visit statistics” below).",
           "If you create an account, I store: your email address, the name and profile picture that Google (or your email sign-up) gives me, and what you do on the site: the recipes you like, the comments you write and the photos of your own recreations that you upload, together with the date.",
+          "Your likes on recipes and photos are visible too: a recipe's “liked by” list shows the display names and profile pictures of the people who liked it.",
           "I never see your Google password. I do not collect payment details, and I do not sell or share your data for advertising.",
+        ],
+      },
+      {
+        heading: "Emails",
+        paragraphs: [
+          "I send an email to your address only about your own comments: when someone replies to your comment, or mentions you with @ in theirs. Login codes are sent too, when you log in. You can turn the reply and mention emails off at any time on your profile page.",
         ],
       },
       {
@@ -87,7 +94,14 @@ const privacy: Record<Locale, LegalDoc> = {
         paragraphs: [
           "Cijeli sajt možete čitati bez računa i tada ne prikupljam ništa o vama osim anonimnog brojanja posjeta (pogledajte „Kolačići i statistika posjeta” ispod).",
           "Ako napravite račun, pohranjujem: vašu email adresu, ime i profilnu sliku koje mi daje Google (ili vaša registracija putem emaila) te ono što radite na sajtu: recepte koje lajkujete, komentare koje napišete i fotografije vlastitih verzija recepata koje otpremite, zajedno s datumom.",
+          "Vaši lajkovi na recepte i fotografije su također vidljivi: lista „Svidjelo se” ispod recepta prikazuje prikazana imena i profilne slike osoba kojima se recept svidio.",
           "Nikada ne vidim vašu Google lozinku. Ne prikupljam podatke o plaćanju i ne prodajem niti dijelim vaše podatke u reklamne svrhe.",
+        ],
+      },
+      {
+        heading: "Emailovi",
+        paragraphs: [
+          "Email na vašu adresu šaljem samo u vezi s vašim komentarima: kada neko odgovori na vaš komentar ili vas spomene sa @ u svom. Šalju se i kodovi za prijavu kada se prijavljujete. Emailove o odgovorima i spominjanjima možete isključiti u bilo kojem trenutku na svojoj stranici profila.",
         ],
       },
       {
